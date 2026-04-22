@@ -3,12 +3,19 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { FileCheck2, Headset } from "lucide-react";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db } from "../lib/firebase";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
   const [showReq, setShowReq] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState("basic");
-  const [req, setReq] = useState({ features: [] });
+  const [req, setReq] = useState({ features: [], notes: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
+  const [isReqSubmitting, setIsReqSubmitting] = useState(false);
+  const [reqSubmitMessage, setReqSubmitMessage] = useState("");
+  const [savedRequirements, setSavedRequirements] = useState(null);
 
   const packages = {
     basic: {
@@ -24,6 +31,79 @@ export default function Contact() {
       items: ["9+ Pages", "E‑Commerce", "Admin Dashboard", "Integrations (Payments/CRM)", "Performance & Security"],
     },
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitMessage("");
+
+    if (!form.name.trim() || !form.email.trim() || !form.phone.trim() || !form.message.trim()) {
+      setSubmitMessage("Please fill all fields before submitting.");
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      await addDoc(collection(db, "contactSubmissions"), {
+        name: form.name.trim(),
+        email: form.email.trim(),
+        phone: form.phone.trim(),
+        message: form.message.trim(),
+        requirements: savedRequirements
+          ? {
+              selectedPackage: savedRequirements.selectedPackage,
+              selectedPackageLabel: savedRequirements.selectedPackageLabel,
+              features: savedRequirements.features,
+              notes: savedRequirements.notes,
+            }
+          : null,
+        createdAt: serverTimestamp(),
+        source: "contact-page",
+      });
+
+      setForm({ name: "", email: "", phone: "", message: "" });
+      setSubmitMessage("Your message was submitted successfully.");
+    } catch (error) {
+      console.error("Error storing contact form:", error);
+      setSubmitMessage("Failed to submit your message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleSaveRequirements = async () => {
+    setReqSubmitMessage("");
+    try {
+      setIsReqSubmitting(true);
+      const requirementsPayload = {
+        selectedPackage,
+        selectedPackageLabel: packages[selectedPackage].label,
+        features: req.features,
+        notes: req.notes.trim(),
+        contactName: form.name.trim() || null,
+        contactEmail: form.email.trim() || null,
+        contactPhone: form.phone.trim() || null,
+      };
+
+      await addDoc(collection(db, "requirementsSubmissions"), {
+        ...requirementsPayload,
+        createdAt: serverTimestamp(),
+        source: "contact-page-requirements",
+      });
+
+      setSavedRequirements(requirementsPayload);
+      setReqSubmitMessage("Requirements saved successfully.");
+      setTimeout(() => {
+        setShowReq(false);
+        setReqSubmitMessage("");
+      }, 700);
+    } catch (error) {
+      console.error("Error storing requirements form:", error);
+      setReqSubmitMessage("Failed to save requirements. Please try again.");
+    } finally {
+      setIsReqSubmitting(false);
+    }
+  };
+
   return (
     <div className="pt-24 sm:pt-28 w-full min-h-screen bg-white dark:bg-white">
       <section className="w-full px-4 sm:px-6 lg:px-8 bg-white dark:bg-white">
@@ -35,7 +115,7 @@ export default function Contact() {
 
           <div className="mt-6 md:mt-10 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             <div className="md:col-span-2 gradient-border rounded-2xl overflow-hidden bg-white dark:bg-white">
-              <form className="bg-white dark:bg-white p-4 md:p-6 space-y-3 md:space-y-4">
+              <form onSubmit={handleSubmit} className="bg-white dark:bg-white p-4 md:p-6 space-y-3 md:space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
                   <div>
                     <label className="block text-xs md:text-sm text-neutral-900 mb-1">Name</label>
@@ -56,14 +136,76 @@ export default function Contact() {
                     <textarea value={form.message} onChange={(e)=>setForm({...form,message:e.target.value})} placeholder="Tell us a bit about your project" rows={4} className="w-full rounded-xl bg-white border border-black/10 focus:border-black/20 outline-none px-3 md:px-4 py-2 md:py-3 text-sm md:text-base text-neutral-900 shadow-inner transition resize-none" />
                   </div>
                 </div>
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 md:gap-3">
-                  <button type="button" className="bg-accent-magenta px-4 md:px-6 py-2 md:py-3 rounded-full text-sm md:text-base font-semibold btn-ring hover:brightness-110 transition">Send Message</button>
-                  <a className="bg-white border border-neutral-300 px-3 md:px-4 py-2 md:py-3 rounded-full text-xs md:text-sm text-center text-neutral-900" href="#terms">Terms & Conditions</a>
-                  <button type="button" onClick={()=>setShowReq(true)} className="bg-white border border-neutral-300 px-3 md:px-4 py-2 md:py-3 rounded-full text-xs md:text-sm text-neutral-900">Requirements Form</button>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <motion.button
+                    type="button"
+                    onClick={() => setShowReq(true)}
+                    className="rounded-2xl border border-neutral-300 bg-white p-4 text-left transition hover:shadow-md"
+                    animate={{
+                      boxShadow: [
+                        "0 0 0 0 rgba(245,108,83,0.0)",
+                        "0 0 0 5px rgba(245,108,83,0.16)",
+                        "0 0 0 0 rgba(245,108,83,0.0)",
+                      ],
+                      borderColor: ["#d4d4d8", "#f56c53", "#d4d4d8"],
+                    }}
+                    transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <p className="text-sm md:text-base font-semibold text-neutral-900">Requirements Form</p>
+                    <p className="mt-1 text-xs md:text-sm text-neutral-600">Select package, features, and project notes</p>
+                  </motion.button>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="rounded-2xl border border-[#b83c9f] bg-accent-magenta p-4 text-left transition hover:brightness-110 disabled:opacity-60 disabled:cursor-not-allowed"
+                  >
+                    <p className="text-sm md:text-base font-semibold text-white">{isSubmitting ? "Sending..." : "Send Message"}</p>
+                    <p className="mt-1 text-xs md:text-sm text-white/90">Submit your details and we will contact you soon</p>
+                  </button>
                 </div>
-                <div className="mt-2">
-                  <a href="#" className="bg-accent-cyan inline-flex px-3 md:px-4 py-2 rounded-full text-xs md:text-sm btn-ring hover:brightness-110 transition">Chat with Us</a>
+
+                <div>
+                  <a className="block rounded-2xl border border-neutral-300 bg-white px-4 py-3 text-xs md:text-sm text-neutral-900" href="#terms">
+                    Terms & Conditions
+                  </a>
                 </div>
+                {savedRequirements && (
+                  <div className="rounded-xl border border-green-200 bg-green-50 p-3 md:p-4">
+                    <div className="flex items-center justify-between gap-3">
+                      <p className="text-xs md:text-sm font-semibold text-green-700">Saved Requirement</p>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedPackage(savedRequirements.selectedPackage);
+                          setReq({ features: savedRequirements.features, notes: savedRequirements.notes });
+                          setShowReq(true);
+                        }}
+                        className="text-xs font-semibold text-[var(--vawe-navy)] underline"
+                      >
+                        Edit
+                      </button>
+                    </div>
+                    <p className="mt-1 text-xs md:text-sm text-neutral-800">
+                      Package: <span className="font-semibold">{savedRequirements.selectedPackageLabel}</span>
+                    </p>
+                    {savedRequirements.features.length > 0 && (
+                      <p className="mt-1 text-xs md:text-sm text-neutral-700">
+                        Features: {savedRequirements.features.join(", ")}
+                      </p>
+                    )}
+                    {savedRequirements.notes && (
+                      <p className="mt-1 text-xs md:text-sm text-neutral-700">
+                        Notes: {savedRequirements.notes}
+                      </p>
+                    )}
+                  </div>
+                )}
+                {submitMessage && (
+                  <p className={`text-xs md:text-sm font-medium ${submitMessage.includes("successfully") ? "text-green-600" : "text-red-600"}`}>
+                    {submitMessage}
+                  </p>
+                )}
               </form>
             </div>
             <div className="gradient-border rounded-2xl overflow-hidden bg-white dark:bg-white">
@@ -101,7 +243,7 @@ export default function Contact() {
 
               <div className="mt-4 flex flex-wrap gap-2">
                 {Object.keys(packages).map((k)=> (
-                  <button key={k} onClick={()=>{ setSelectedPackage(k); setReq({ features: [] }); }} className={`px-3 py-1.5 rounded-full text-xs md:text-sm ring-1 ${selectedPackage===k? 'bg-neutral-900 text-white ring-neutral-900' : 'bg-white ring-neutral-300 text-neutral-900'}`}>{packages[k].label}</button>
+                  <button key={k} onClick={()=>{ setSelectedPackage(k); setReq((prev) => ({ ...prev, features: [] })); }} className={`px-3 py-1.5 rounded-full text-xs md:text-sm ring-1 ${selectedPackage===k? 'bg-neutral-900 text-white ring-neutral-900' : 'bg-white ring-neutral-300 text-neutral-900'}`}>{packages[k].label}</button>
                 ))}
               </div>
 
@@ -124,13 +266,20 @@ export default function Contact() {
 
               <div className="mt-4 md:mt-5">
                 <label className="block text-xs md:text-sm text-neutral-900 mb-1">Additional notes</label>
-                <textarea rows={3} className="w-full rounded-xl bg-white border border-black/10 focus:border-black/20 outline-none px-3 md:px-4 py-2 md:py-3 text-sm md:text-base text-neutral-900 shadow-inner transition resize-none" placeholder="Anything else we should know?" />
+                <textarea value={req.notes} onChange={(e)=>setReq((prev)=>({ ...prev, notes: e.target.value }))} rows={3} className="w-full rounded-xl bg-white border border-black/10 focus:border-black/20 outline-none px-3 md:px-4 py-2 md:py-3 text-sm md:text-base text-neutral-900 shadow-inner transition resize-none" placeholder="Anything else we should know?" />
               </div>
 
               <div className="mt-4 md:mt-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                 <span className="text-xs text-neutral-600">Selected: {req.features.length} feature{req.features.length===1?"":"s"}</span>
-                <button type="button" className="bg-accent-cyan px-4 md:px-5 py-2 rounded-full text-xs md:text-sm font-semibold btn-ring hover:brightness-110 transition w-full sm:w-auto" onClick={()=>setShowReq(false)}>Save & Close</button>
+                <button type="button" disabled={isReqSubmitting} className="bg-accent-cyan px-4 md:px-5 py-2 rounded-full text-xs md:text-sm font-semibold btn-ring hover:brightness-110 transition w-full sm:w-auto disabled:opacity-60 disabled:cursor-not-allowed" onClick={handleSaveRequirements}>
+                  {isReqSubmitting ? "Saving..." : "Save & Close"}
+                </button>
               </div>
+              {reqSubmitMessage && (
+                <p className={`mt-2 text-xs md:text-sm font-medium ${reqSubmitMessage.includes("successfully") ? "text-green-600" : "text-red-600"}`}>
+                  {reqSubmitMessage}
+                </p>
+              )}
             </div>
           </div>
         </div>

@@ -195,6 +195,7 @@
                     src={card.hoverSrc}
                     alt={card.alt}
                     fill
+                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     className={`object-cover transition-all duration-700 ${
                       hoveredIndex === index ? 'opacity-0 scale-110' : 'opacity-100 scale-100'
                     }`}
@@ -204,6 +205,7 @@
                     src={card.src}
                     alt={card.alt}
                     fill
+                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     className={`object-cover transition-all duration-700 absolute inset-0 ${
                       hoveredIndex === index ? 'opacity-100 scale-110' : 'opacity-0 scale-100'
                     }`}

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@studio-freight/lenis": "^1.0.42",
+    "firebase": "^12.12.1",
     "framer-motion": "^12.23.24",
     "googleapis": "^169.0.0",
     "lucide-react": "^0.546.0",

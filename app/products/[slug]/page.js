@@ -71,7 +71,15 @@ export default async function ProductDetail({ params }) {
         <div className="container mx-auto">
           <div className="rounded-2xl md:rounded-3xl overflow-hidden border-2 bg-white" style={{ borderColor: product.color }}>
             <div className="relative w-full h-48 md:h-96 bg-gray-50">
-              <Image src={product.img} alt={`${product.title} image`} fill className="object-contain" priority unoptimized />
+              <Image
+                src={product.img}
+                alt={`${product.title} image`}
+                fill
+                sizes="(max-width: 768px) 100vw, 80vw"
+                className="object-contain"
+                priority
+                unoptimized
+              />
             </div>
             <div className="p-4 md:p-8 bg-white/90">
               <h1 className="text-2xl lg:text-3xl xl:text-4xl font-bold" style={{ color: 'var(--vawe-navy)' }}>{product.title}</h1>
