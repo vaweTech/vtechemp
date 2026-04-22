@@ -60,9 +60,9 @@ const products = [
 
 export default function Products() {
   return (
-    <div className="pt-28">
-      <section className="w-full px-6 mt-2 md:mt-4">
-        <div className="container mx-auto">
+    <div className="pt-28 bg-white dark:bg-white">
+      <section className="w-full px-6 mt-2 md:mt-4 bg-white dark:bg-white">
+        <div className="container mx-auto bg-white dark:bg-white">
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-4xl md:text-5xl font-bold font-(--font-orbitron)" style={{ background: 'var(--vawe-bg-gradient)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>
             Products
           </motion.h1>
@@ -78,7 +78,7 @@ export default function Products() {
                 className="rounded-2xl overflow-hidden border-2"
                 style={{ borderColor: p.color }}
               >
-                <div className="h-full flex flex-col overflow-hidden rounded-2xl bg-white/90 shadow-lg">
+                <div className="h-full flex flex-col overflow-hidden rounded-2xl bg-white dark:bg-white shadow-lg">
                   <div className="relative w-full h-48 md:h-56 overflow-hidden">
                     <Image
                       src={p.img}
@@ -86,9 +86,9 @@ export default function Products() {
                       title={`${p.title} image`}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      quality={95}
                       className="object-cover"
                       priority={false}
-                      unoptimized
                     />
                     <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
                   </div>

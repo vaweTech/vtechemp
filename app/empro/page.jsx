@@ -122,7 +122,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen mt-16 bg-gray-100 p-6 flex flex-col items-center">
+    <main className="min-h-screen mt-26 bg-gray-100 p-6 flex flex-col items-center">
       <div className="w-full max-w-2xl bg-white rounded-lg shadow-xl p-6">
 
         {/* TAB BUTTONS */}

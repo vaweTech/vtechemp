@@ -170,7 +170,7 @@ export default function Navbar() {
               <div className="mb-4 flex items-center justify-between border-b border-slate-200 pb-3">
                 <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
                   <div className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white">
-                    <Image src="/logo2.jpg" alt="VAWE logo" className="h-8 w-8 rounded-full object-cover" />
+                    <Image src="/logo2.jpg" alt="VAWE logo" width={32} height={32} className="h-8 w-8 rounded-full object-cover" />
                   </div>
                   <div className="text-slate-900">
                     <p className="text-base font-bold">VAWE</p>

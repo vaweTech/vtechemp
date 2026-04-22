@@ -9,12 +9,6 @@ const raleway = Raleway({ subsets: ["latin"], weight: ["300","400","500","600","
 
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://vaweglobaltech.com"),
-  themeColor: "#00448a",
-  // viewport: {
-  //   width: "device-width",
-  //   initialScale: 1,
-  //   maximumScale: 5,
-  // },
   title: {
     default: "Software Company in Vijayawada | VAWE Global Tech",
     template: "%s | VAWE Global Tech Vijayawada",
@@ -101,6 +95,13 @@ export const metadata = {
   },
   category: "Technology",
   icons: { icon: "/favicon.ico" },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#00448a",
 };
 
 export default function RootLayout({ children }) {

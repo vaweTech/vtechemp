@@ -985,14 +985,15 @@ const HERO_IMAGES = [
   },
 ];
 
+const TYPING_WORDS = [
+  "Web Apps ",
+  "Mobile Apps ",
+  "Cloud Platforms ",
+  "AI Solutions ",
+  "E-Commerce ",
+];
+
 export default function Home() {
-  const words = [
-    "Web Apps ",
-    "Mobile Apps ",
-    "Cloud Platforms ",
-    "AI Solutions ",
-    "E-Commerce ",
-  ];
   const [typed, setTyped] = useState("");
   const [wordIndex, setWordIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
@@ -1053,13 +1054,12 @@ export default function Home() {
 
   const [provideIdx, setProvideIdx] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+  const [isMounted] = useState(true);
   const containerRef = useRef(null);
+  const extendedProvidesLength = extendedProvides.length;
 
-  // Ensure component is mounted and visible
+  // Small delay to ensure transforms are applied correctly
   useEffect(() => {
-    setIsMounted(true);
-    // Small delay to ensure transforms are applied correctly
     const timer = setTimeout(() => {
       setIsTransitioning(true);
     }, 50);
@@ -1071,7 +1071,7 @@ export default function Home() {
     if (!isMounted) return;
     
     const handleTransitionEnd = () => {
-      if (provideIdx === extendedProvides.length - 1) {
+      if (provideIdx === extendedProvidesLength - 1) {
         setIsTransitioning(false);
         // Use setTimeout to ensure smooth reset
         setTimeout(() => {
@@ -1081,7 +1081,7 @@ export default function Home() {
       } else if (provideIdx === 0) {
         setIsTransitioning(false);
         setTimeout(() => {
-          setProvideIdx(extendedProvides.length - 2);
+          setProvideIdx(extendedProvidesLength - 2);
           setIsTransitioning(true);
         }, 10);
       }
@@ -1093,7 +1093,7 @@ export default function Home() {
     container.addEventListener("transitionend", handleTransitionEnd);
     return () =>
       container.removeEventListener("transitionend", handleTransitionEnd);
-  }, [provideIdx, isMounted]);
+  }, [provideIdx, isMounted, extendedProvidesLength]);
 
   // Ensure transitions are always enabled after initial mount
   useEffect(() => {
@@ -1112,14 +1112,14 @@ export default function Home() {
     const interval = setInterval(() => {
       setProvideIdx((prev) => {
         // Prevent going beyond bounds
-        if (prev >= extendedProvides.length - 1) {
+        if (prev >= extendedProvidesLength - 1) {
           return 1; // Reset to first real item
         }
         return prev + 1;
       });
     }, 5000);
     return () => clearInterval(interval);
-  }, [isMounted]);
+  }, [isMounted, extendedProvidesLength]);
 
   useEffect(() => {
     if (HERO_IMAGES.length <= 1) return undefined;
@@ -1132,7 +1132,7 @@ export default function Home() {
 
   // Typing animation
   useEffect(() => {
-    const current = words[wordIndex];
+    const current = TYPING_WORDS[wordIndex];
     let delay = isDeleting ? 70 : 110;
     if (!isDeleting && charIndex === current.length) delay = 1200;
 
@@ -1150,7 +1150,7 @@ export default function Home() {
           setCharIndex(charIndex - 1);
         } else {
           setIsDeleting(false);
-          setWordIndex((wordIndex + 1) % words.length);
+          setWordIndex((wordIndex + 1) % TYPING_WORDS.length);
         }
       }
     }, delay);

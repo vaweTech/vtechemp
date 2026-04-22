@@ -20,7 +20,7 @@ export default function DigitalMarketing() {
           copy: "Boost your online visibility and attract high-intent traffic.",
           bullets: ["On Page SEO", "Off Page SEO", "Technical SEO", "SEO Audit", "Full Service SEO", "Website SEO", "Youtube SEO", "Keyword Research"],
           img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1600&auto=format&fit=crop",
-          headingImg: "/seo-heading.jpg", // Reference to SEO heading image
+          headingImg: "https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?q=80&w=1600&auto=format&fit=crop", // SEO heading image
           color: "#f56c53",
           reverse: true,
         },
@@ -36,7 +36,7 @@ export default function DigitalMarketing() {
           copy: "Build brand awareness and community engagement across all major platforms.",
           bullets: ["Business Page Creation", "Page setup & Optimization", "Accounts Management", "Creative Poster Designs", "Reels Designing", "Organic & Paid Advertising", "Integrated Social Campaigns", "Lead Generations", "Influencer Marketing", "Hashtag Generator", "Google Ads Run", "Youtube Video Making", "Youtube Page Services"],
           img: "/dsocialmarketing.jpg",
-          headingImg: "/social-media-heading.jpg", // Reference to Social Media Marketing heading image
+          headingImg: "https://images.unsplash.com/photo-1611262588019-db6cc2032da3?q=80&w=1600&auto=format&fit=crop", // Social Media Marketing heading image
           color: "#f56c53",
           reverse: true,
         },
@@ -67,7 +67,7 @@ export default function DigitalMarketing() {
           copy: "Create a memorable and consistent digital presence.",
           bullets: ["Logo Design", "Boucher Design", "Product Design", "Banner Design", "Poster Design", "Business Cards", "Menu Cards", "Certificates Design", "Invitations E - Cards", "Video Invitations", "Video Editing", "PPT Presentations"],
           img: "/dbrand.jfif",
-          headingImg: "/graphic-design-heading.jpg", // Reference to Graphic Designing heading image
+          headingImg: "https://images.unsplash.com/photo-1626785774625-ddcddc3445e9?q=80&w=1600&auto=format&fit=crop", // Graphic Designing heading image
           color: "#f56c53",
           reverse: true,
         },
@@ -76,7 +76,7 @@ export default function DigitalMarketing() {
           copy: "Build stunning, functional websites that drive results and engage your audience.",
           bullets: ["Wordpress & PHP Development", "Mobile Friendly Theme Design", "Website Redesign", "Website Maintenance", "Mobile App Maintenance", "1 year Domain /Hosting", "SEO Friendly", "E-Commerce Websites", "Dynamic / Static Web Designing"],
           img: "/websiteimg.png",
-          headingImg: "/web-design-heading.jpg", // Reference to Web Design & Development heading image
+          headingImg: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?q=80&w=1600&auto=format&fit=crop", // Web Design & Development heading image
           color: "#00448a",
         },
       ].map((s, i) => {
@@ -137,8 +137,9 @@ export default function DigitalMarketing() {
                               alt={s.title} 
                               className="w-full h-full object-cover max-h-64 rounded-lg" 
                               loading="lazy" 
-                              width={100}
-                              height={100}
+                              width={1600}
+                              height={900}
+                              sizes="(max-width: 768px) 100vw, 50vw"
                               referrerPolicy="no-referrer" 
                               onError={(e)=>{ e.currentTarget.onerror=null; e.currentTarget.src=s.img; }} 
                             />
@@ -146,8 +147,9 @@ export default function DigitalMarketing() {
                             <Image 
                                 src={s.img}
                                 alt={s.title}
-                                width={100}
-                                height={100}
+                                width={1600}
+                                height={900}
+                                sizes="(max-width: 768px) 100vw, 50vw"
                                 className="w-full h-full object-contain max-h-64"
                                 loading="lazy"
                                 referrerPolicy="no-referrer"

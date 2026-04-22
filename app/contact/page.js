@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { FileCheck2, Headset } from "lucide-react";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
@@ -24,54 +25,54 @@ export default function Contact() {
     },
   };
   return (
-    <div className="pt-24 sm:pt-28 w-full min-h-screen">
-      <section className="w-full px-4 sm:px-6 lg:px-8">
+    <div className="pt-24 sm:pt-28 w-full min-h-screen bg-white dark:bg-white">
+      <section className="w-full px-4 sm:px-6 lg:px-8 bg-white dark:bg-white">
         <div className="container mx-auto max-w-7xl">
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-(--font-orbitron)" style={{ color: '#00448a' }}>
             Let&apos;s Connect
           </motion.h1>
-          <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-neutral-700 max-w-3xl">Tell us about your goals. We&apos;ll reply within 1 business day.</p>
+          <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-neutral-700 max-w-3xl">Tell us about your goals. We&apos;ll reply within 24 hours.</p>
 
           <div className="mt-6 md:mt-10 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-            <div className="md:col-span-2 gradient-border rounded-2xl overflow-hidden">
-              <form className="glass p-4 md:p-6 space-y-3 md:space-y-4">
+            <div className="md:col-span-2 gradient-border rounded-2xl overflow-hidden bg-white dark:bg-white">
+              <form className="bg-white dark:bg-white p-4 md:p-6 space-y-3 md:space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
                   <div>
-                    <label className="block text-xs md:text-sm text-white/70 mb-1">Name</label>
+                    <label className="block text-xs md:text-sm text-neutral-900 mb-1">Name</label>
                     <input value={form.name} onChange={(e)=>setForm({...form,name:e.target.value})} placeholder="Your full name" className="w-full rounded-xl bg-white border border-black/10 focus:border-black/20 outline-none px-3 md:px-4 py-2 md:py-3 text-sm md:text-base text-neutral-900 shadow-inner transition" />
                   </div>
                   <div>
-                    <label className="block text-xs md:text-sm text-white/70 mb-1">Email</label>
+                    <label className="block text-xs md:text-sm text-neutral-900 mb-1">Email</label>
                     <input value={form.email} onChange={(e)=>setForm({...form,email:e.target.value})} type="email" placeholder="name@company.com" className="w-full rounded-xl bg-white border border-black/10 focus:border-black/20 outline-none px-3 md:px-4 py-2 md:py-3 text-sm md:text-base text-neutral-900 shadow-inner transition" />
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
                   <div>
-                    <label className="block text-xs md:text-sm text-white/70 mb-1">Phone</label>
-                    <input value={form.phone} onChange={(e)=>setForm({...form,phone:e.target.value})} placeholder="(+1) 555-0100" className="w-full rounded-xl bg-white border border-black/10 focus:border-black/20 outline-none px-3 md:px-4 py-2 md:py-3 text-sm md:text-base text-neutral-900 shadow-inner transition" />
+                    <label className="block text-xs md:text-sm text-neutral-900 mb-1">Phone</label>
+                    <input value={form.phone} onChange={(e)=>setForm({...form,phone:e.target.value})} placeholder="(+91) 8885103333" className="w-full rounded-xl bg-white border border-black/10 focus:border-black/20 outline-none px-3 md:px-4 py-2 md:py-3 text-sm md:text-base text-neutral-900 shadow-inner transition" />
                   </div>
                   <div className="sm:col-span-2">
-                    <label className="block text-xs md:text-sm text-white/70 mb-1">Message</label>
+                    <label className="block text-xs md:text-sm text-neutral-900 mb-1">Message</label>
                     <textarea value={form.message} onChange={(e)=>setForm({...form,message:e.target.value})} placeholder="Tell us a bit about your project" rows={4} className="w-full rounded-xl bg-white border border-black/10 focus:border-black/20 outline-none px-3 md:px-4 py-2 md:py-3 text-sm md:text-base text-neutral-900 shadow-inner transition resize-none" />
                   </div>
                 </div>
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 md:gap-3">
                   <button type="button" className="bg-accent-magenta px-4 md:px-6 py-2 md:py-3 rounded-full text-sm md:text-base font-semibold btn-ring hover:brightness-110 transition">Send Message</button>
-                  <a className="glass gradient-border px-3 md:px-4 py-2 md:py-3 rounded-full text-xs md:text-sm text-center" href="#terms">Terms & Conditions</a>
-                  <button type="button" onClick={()=>setShowReq(true)} className="glass gradient-border px-3 md:px-4 py-2 md:py-3 rounded-full text-xs md:text-sm">Requirements Form</button>
+                  <a className="bg-white border border-neutral-300 px-3 md:px-4 py-2 md:py-3 rounded-full text-xs md:text-sm text-center text-neutral-900" href="#terms">Terms & Conditions</a>
+                  <button type="button" onClick={()=>setShowReq(true)} className="bg-white border border-neutral-300 px-3 md:px-4 py-2 md:py-3 rounded-full text-xs md:text-sm text-neutral-900">Requirements Form</button>
                 </div>
                 <div className="mt-2">
                   <a href="#" className="bg-accent-cyan inline-flex px-3 md:px-4 py-2 rounded-full text-xs md:text-sm btn-ring hover:brightness-110 transition">Chat with Us</a>
                 </div>
               </form>
             </div>
-            <div className="gradient-border rounded-2xl overflow-hidden">
-              <div className="glass p-4 md:p-6 h-full">
+            <div className="gradient-border rounded-2xl overflow-hidden bg-white dark:bg-white">
+              <div className="bg-white dark:bg-white p-4 md:p-6 h-full">
                 <h3 className="text-lg md:text-xl font-semibold text-neutral-900">Contact Details</h3>
                 <p className="mt-2 text-xs md:text-sm text-neutral-700">We&apos;ll reach out soon. For urgent matters, email contact@vawe.global.</p>
                 <div className="mt-4 md:mt-6 rounded-xl overflow-hidden ring-1 ring-white/40">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.4949779602616!2d80.6462133!3d16.5010904!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35faba842a60c9%3A0x2d5a839dfcea2ef8!2sVAWE%20INSTITUTES!5e0!3m2!1sen!2sin!4v1761392560306!5m2!1sen!2sin"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3216.840831360617!2d80.6476333774857!3d16.501341852827636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35faba84395555%3A0xcb5cc029fc066234!2sVAWE%20Global%20Techonologies!5e0!3m2!1sen!2sin!4v1776858678943!5m2!1sen!2sin"
                     width="100%"
                     height="240"
                     className="md:h-[320px]"
@@ -91,7 +92,7 @@ export default function Contact() {
       {showReq && (
         <div className="fixed inset-0 z-50 grid place-items-center p-3 md:p-4 bg-black/50 overflow-y-auto" onClick={()=>setShowReq(false)}>
           <div className="max-w-2xl w-full rounded-2xl overflow-hidden gradient-border my-4" onClick={(e)=>e.stopPropagation()}>
-            <div className="glass p-4 md:p-6">
+            <div className="bg-white p-4 md:p-6">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                 <h2 className="text-lg md:text-2xl font-semibold text-neutral-900">Project Requirements</h2>
                 <button className="px-3 py-1.5 rounded-full text-xs md:text-sm bg-neutral-900/5 hover:bg-neutral-900/10 transition" onClick={()=>setShowReq(false)}>Close</button>
@@ -122,7 +123,7 @@ export default function Contact() {
               </div>
 
               <div className="mt-4 md:mt-5">
-                <label className="block text-xs md:text-sm text-white/70 mb-1">Additional notes</label>
+                <label className="block text-xs md:text-sm text-neutral-900 mb-1">Additional notes</label>
                 <textarea rows={3} className="w-full rounded-xl bg-white border border-black/10 focus:border-black/20 outline-none px-3 md:px-4 py-2 md:py-3 text-sm md:text-base text-neutral-900 shadow-inner transition resize-none" placeholder="Anything else we should know?" />
               </div>
 
@@ -137,17 +138,17 @@ export default function Contact() {
 
                            {/* Terms & Conditions */}
         <section id="terms" className="w-full px-4 sm:px-6 mt-8 md:mt-12 pb-4 md:pb-4 lg:pb-8 xl:pb-2 2xl:pb-2">
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-7xl mx-auto bg-white dark:bg-white">
             <div className="grid md:grid-cols-2 gap-4 md:gap-8">
                              {/* Left Side - Terms & Conditions */}
-               <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+               <div className="bg-white dark:bg-white rounded-3xl shadow-2xl overflow-hidden">
                  {/* Header */}
                  <div className="relative bg-gradient-to-r from-[#00448a] to-[#00448a]/90 p-4 md:p-5 lg:p-8">
                    <div className="flex flex-col md:flex-row items-center justify-between gap-3 md:gap-3 lg:gap-4">
                      <div className="flex items-center gap-2 md:gap-3">
-                       <div className="h-10 w-10 md:h-10 md:w-10 lg:h-12 lg:w-12 rounded-xl bg-white/20 backdrop-blur-sm border-2 border-white/30 flex items-center justify-center">
-                         <span className="text-lg md:text-lg lg:text-xl font-black text-white">T&C</span>
-                       </div>
+                      <div className="h-10 w-10 md:h-10 md:w-10 lg:h-12 lg:w-12 rounded-xl bg-white border-2 border-white/40 flex items-center justify-center">
+                        <FileCheck2 className="h-5 w-5 md:h-5 md:w-5 lg:h-6 lg:w-6 text-[#00448a]" strokeWidth={2.2} />
+                      </div>
                        <div>
                          <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-white">Terms & Conditions</h3>
                          <p className="text-white/90 text-xs md:text-xs lg:text-sm">Important information about our services</p>
@@ -155,11 +156,14 @@ export default function Contact() {
                      </div>
                      {/* Image */}
                      <div className="flex-shrink-0 md:block">
-                       <div className="relative w-24 h-24 md:w-28 md:h-28 lg:w-40 lg:h-40 rounded-xl overflow-hidden bg-white/10 backdrop-blur-sm border-2 border-white/20 shadow-lg">
+                      <div className="relative w-24 h-24 md:w-28 md:h-28 lg:w-40 lg:h-40 rounded-xl overflow-hidden bg-white border-2 border-white/40 shadow-lg">
                          <Image 
-                           src="Termsconditionsimg.webp" 
+                          src="/Termsconditionsimg.webp" 
                            alt="Terms & Conditions" 
                            className="w-full h-full object-contain p-2 md:p-2 lg:p-3"
+                          width={160}
+                          height={160}
+                          sizes="(max-width: 768px) 96px, (max-width: 1024px) 112px, 160px"
                            onError={(e) => {
                              e.currentTarget.onerror = null;
                              e.currentTarget.src = '/Termsconditionsimg.webp';
@@ -214,14 +218,12 @@ export default function Contact() {
               </div>
 
               {/* Right Side - Contact Options */}
-              <div className="bg-white rounded-3xl shadow-2xl overflow-hidden md:self-start">
+              <div className="bg-white dark:bg-white rounded-3xl shadow-2xl overflow-hidden md:self-start">
                 {/* Header */}
                 <div className="relative bg-gradient-to-r from-[#f56c53] to-[#f56c53]/90 p-4 md:p-4 lg:p-8">
                   <div className="flex items-center gap-2 md:gap-2 lg:gap-3">
-                    <div className="h-10 w-10 md:h-10 md:w-10 lg:h-12 lg:w-12 rounded-xl bg-white/20 backdrop-blur-sm border-2 border-white/30 flex items-center justify-center">
-                      <svg className="w-5 h-5 md:w-5 md:h-5 lg:w-6 lg:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                      </svg>
+                    <div className="h-10 w-10 md:h-10 md:w-10 lg:h-12 lg:w-12 rounded-xl bg-white border-2 border-white/40 flex items-center justify-center">
+                      <Headset className="w-5 h-5 md:w-5 md:h-5 lg:w-6 lg:h-6 text-[#f56c53]" strokeWidth={2.2} />
                     </div>
                     <div>
                       <h3 className="text-xl md:text-xl lg:text-3xl font-bold text-white">Contact Us</h3>

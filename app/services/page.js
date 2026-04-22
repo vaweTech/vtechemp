@@ -24,11 +24,11 @@ function ServiceBlock({ title, copy, bullets = [], image, reverse = false }) {
         >
           <h3 className="text-2xl md:text-3xl font-bold gradient-text font-(--font-orbitron)">{title}</h3>
           <div className="mt-3 h-1 w-24 rounded-full bg-linear-to-r from-violet-500 to-fuchsia-500" />
-          <p className="mt-3 text-neutral-700">{copy}</p>
+          <p className="mt-3 text-neutral-700 dark:text-neutral-300">{copy}</p>
           {!!bullets.length && (
-            <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 text-neutral-800 text-sm">
+            <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 text-neutral-800 dark:text-neutral-200 text-sm">
               {bullets.map((b) => (
-                <li key={b} className="relative glass gradient-border rounded-xl px-3 py-2 flex items-center gap-2">
+                <li key={b} className="relative glass gradient-border rounded-xl px-3 py-2 flex items-center gap-2 dark:bg-neutral-900/70">
                   <span className="text-violet-600">◆</span>
                   <span>{b}</span>
                 </li>
@@ -85,7 +85,7 @@ export default function Services() {
   const services = [
     {
       title: "E‑Commerce Development",
-      img: "/E-commerce.jfif",
+      img: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1600&auto=format&fit=crop",
       icon: ShoppingCart,
       content: "Build powerful online stores with seamless shopping experiences. We create custom e-commerce platforms with secure payment gateways, inventory management, and mobile-responsive designs that drive sales and customer satisfaction.",
       color: 'var(--vawe-coral)',
@@ -154,7 +154,7 @@ export default function Services() {
   }
 
   return (
-    <div className="pt-28">
+    <div className="pt-28 bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100">
       
 
       {/* Intro / Overview */}
@@ -164,7 +164,7 @@ export default function Services() {
             Our Services
           </motion.h1>
           <div className="mt-2 md:mt-3 h-1 w-24 rounded-full" style={{ background: 'var(--vawe-bg-gradient)' }} />
-          <p className="mt-3 md:mt-4 text-neutral-700 max-w-3xl">
+          <p className="mt-3 md:mt-4 text-neutral-700 dark:text-neutral-300 max-w-3xl">
             We&apos;re a full‑service digital agency helping businesses grow online — from website design and e‑commerce
             development to SEO, marketing, hosting, and branding. Whatever your digital need, we&apos;ve got you covered.
           </p>
@@ -197,7 +197,7 @@ export default function Services() {
                     y: 0,
                   }}
                   transition={{ duration: 0.35, ease: "easeOut" }}
-                  className={`relative rounded-2xl overflow-hidden bg-white/90 backdrop-blur-sm shadow-lg border-2 transition-all duration-300 ${isExpanded ? 'z-50 shadow-2xl' : 'z-1'}`}
+                  className={`relative rounded-2xl overflow-hidden bg-white/90 dark:bg-neutral-900/95 backdrop-blur-sm shadow-lg border-2 transition-all duration-300 ${isExpanded ? 'z-50 shadow-2xl' : 'z-1'}`}
                   style={{ 
                     borderColor: isExpanded ? s.color : 'rgba(0, 0, 0, 0.1)',
                     borderStyle: 'solid'
@@ -227,12 +227,12 @@ export default function Services() {
                         </div>
 
                         {/* Heading */}
-                        <h3 className="text-xl md:text-2xl font-bold font-[var(--font-orbitron)] mb-3" style={{ color: 'var(--vawe-navy)' }}>
+                        <h3 className="text-xl md:text-2xl font-bold font-[var(--font-orbitron)] mb-3 text-[var(--vawe-navy)] dark:text-white">
                           {s.title}
                         </h3>
 
                         {/* Image below icon and heading */}
-                        <div className="relative w-full h-40 md:h-48 rounded-xl overflow-hidden mb-4 bg-neutral-100">
+                        <div className="relative w-full h-40 md:h-48 rounded-xl overflow-hidden mb-4 bg-neutral-100 dark:bg-neutral-800">
                           <Image
                             src={s.img}
                             alt={s.title}
@@ -250,7 +250,7 @@ export default function Services() {
                         </div>
 
                         {/* Content */}
-                        <p className="text-sm md:text-base text-neutral-600 leading-relaxed mb-6 line-clamp-3">
+                        <p className="text-sm md:text-base text-neutral-600 dark:text-neutral-300 leading-relaxed mb-6 line-clamp-3">
                           {s.content}
                         </p>
 
@@ -293,7 +293,7 @@ export default function Services() {
                           {/* Close Button */}
                           <button
                             onClick={() => setActiveService(null)}
-                            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-neutral-700 hover:bg-white transition-colors duration-200 shadow-lg"
+                            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 dark:bg-neutral-900/90 backdrop-blur-sm flex items-center justify-center text-neutral-700 dark:text-neutral-200 hover:bg-white dark:hover:bg-neutral-800 transition-colors duration-200 shadow-lg"
                             aria-label="Close"
                           >
                             <span className="text-2xl">×</span>
@@ -352,7 +352,7 @@ export default function Services() {
           <div className="mt-4 md:mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {/* Left: player and heading */}
           <div className="md:col-span-2">
-            <h4 className="text-lg font-semibold text-neutral-900">{currentVideo.title}</h4>
+            <h4 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">{currentVideo.title}</h4>
             <div className="mt-3 aspect-video rounded-2xl overflow-hidden ring-1 ring-white/30 bg-black">
               {currentVideo.localSrc ? (
                 <video
@@ -376,19 +376,19 @@ export default function Services() {
               )}
             </div>
             <div className="mt-3 flex gap-2">
-              <button onClick={handlePlay} className="px-4 py-2 rounded-full text-sm border border-black text-neutral-900 hover:bg-black hover:text-white transition">Play</button>
-              <button onClick={handlePause} className="px-4 py-2 rounded-full text-sm border border-black text-neutral-900 hover:bg-black hover:text-white transition">Pause</button>
+              <button onClick={handlePlay} className="px-4 py-2 rounded-full text-sm border border-black dark:border-neutral-500 text-neutral-900 dark:text-neutral-100 hover:bg-black dark:hover:bg-neutral-800 hover:text-white transition">Play</button>
+              <button onClick={handlePause} className="px-4 py-2 rounded-full text-sm border border-black dark:border-neutral-500 text-neutral-900 dark:text-neutral-100 hover:bg-black dark:hover:bg-neutral-800 hover:text-white transition">Pause</button>
             </div>
           </div>
 
           {/* Right: list */}
           <div>
-            <div className="border border-black/10 rounded-lg overflow-hidden divide-y divide-black/10">
+            <div className="border border-black/10 dark:border-white/10 rounded-lg overflow-hidden divide-y divide-black/10 dark:divide-white/10 bg-white dark:bg-neutral-900">
               {videos.map((v, idx) => (
                 <button
                   key={v.title}
                   onClick={() => setCurrentIdx(idx)}
-                  className={`w-full flex items-center gap-3 p-3 text-left hover:bg-black/5 ${idx === currentIdx ? "bg-black/10" : ""}`}
+                  className={`w-full flex items-center gap-3 p-3 text-left hover:bg-black/5 dark:hover:bg-white/5 ${idx === currentIdx ? "bg-black/10 dark:bg-white/10" : ""}`}
                   aria-current={idx === currentIdx}
                 >
                   {v.localSrc ? (
@@ -409,7 +409,7 @@ export default function Services() {
                   )}
                   <div className="flex-1">
                     <div className={`text-sm ${idx === currentIdx ? "font-semibold" : ""}`}>{v.title}</div>
-                    <div className="text-xs text-neutral-600">{v.localSrc ? "Local • MP4" : "YouTube • Demo"}</div>
+                    <div className="text-xs text-neutral-600 dark:text-neutral-400">{v.localSrc ? "Local • MP4" : "YouTube • Demo"}</div>
                   </div>
                 </button>
               ))}
@@ -424,7 +424,7 @@ export default function Services() {
         <div className="w-full px-6">
           <div className="container mx-auto">
             <div className="rounded-2xl px-4 md:px-6 py-6 md:py-8 flex flex-col md:flex-row items-center justify-between gap-3 md:gap-4" style={{ backgroundColor: 'rgba(8,123,123,0.1)', border: '2px solid var(--vawe-teal)' }}>
-              <p className="text-neutral-800 font-semibold">Ready to grow your business online? Let&apos;s discuss your project today.</p>
+              <p className="text-neutral-800 dark:text-neutral-100 font-semibold">Ready to grow your business online? Let&apos;s discuss your project today.</p>
               <div className="flex gap-2">
                 <a href="/contact" className="px-5 py-2 rounded-full font-semibold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition" style={{ backgroundColor: 'var(--vawe-teal)' }}>Get Free Consultation</a>
                 <a href="/contact" className="px-5 py-2 rounded-full font-semibold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition" style={{ backgroundColor: 'var(--vawe-coral)' }}>Request a Quote</a>
@@ -466,10 +466,10 @@ export default function Services() {
             >
               Our Workflow
             </motion.span>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-extrabold font-[var(--font-orbitron)] mb-4 md:mb-6" style={{ color: 'var(--vawe-navy)' }}>
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-extrabold font-[var(--font-orbitron)] mb-4 md:mb-6 text-[var(--vawe-navy)] dark:text-white">
               Development Process
             </h2>
-            <p className="text-base md:text-xl lg:text-2xl text-neutral-600 max-w-3xl mx-auto leading-relaxed px-2">
+            <p className="text-base md:text-xl lg:text-2xl text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto leading-relaxed px-2">
               A streamlined journey from concept to deployment, ensuring excellence at every stage
             </p>
           </motion.div>
@@ -543,7 +543,7 @@ export default function Services() {
                   <motion.div
                     whileHover={{ y: -4 }}
                     transition={{ duration: 0.3 }}
-                    className="relative bg-white/90 backdrop-blur-md rounded-xl md:rounded-2xl lg:rounded-3xl p-3 md:p-6 lg:p-8 border-2 transition-all duration-300 group-hover:shadow-lg flex flex-col flex-1"
+                    className="relative bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md rounded-xl md:rounded-2xl lg:rounded-3xl p-3 md:p-6 lg:p-8 border-2 transition-all duration-300 group-hover:shadow-lg flex flex-col flex-1"
                     style={{ 
                       borderColor: `${item.color}30`,
                       minHeight: '240px'
@@ -569,22 +569,22 @@ export default function Services() {
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-sm md:text-base lg:text-lg xl:text-xl font-bold font-[var(--font-orbitron)] mb-2 md:mb-3" style={{ color: 'var(--vawe-navy)' }}>
+                    <h3 className="text-sm md:text-base lg:text-lg xl:text-xl font-bold font-[var(--font-orbitron)] mb-2 md:mb-3 text-[var(--vawe-navy)] dark:text-white">
                       {item.title}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-[10px] md:text-xs lg:text-sm xl:text-base text-neutral-600 leading-relaxed mb-3 md:mb-4 flex-grow">
+                    <p className="text-[10px] md:text-xs lg:text-sm xl:text-base text-neutral-600 dark:text-neutral-300 leading-relaxed mb-3 md:mb-4 flex-grow">
                       {item.desc}
                     </p>
 
                     {/* Progress Indicator */}
-                    <div className="mt-auto pt-3 md:pt-4 border-t border-neutral-200">
+                    <div className="mt-auto pt-3 md:pt-4 border-t border-neutral-200 dark:border-neutral-700">
                       <div className="flex items-center justify-between mb-1.5 md:mb-2">
-                        <span className="text-[9px] md:text-[10px] lg:text-xs font-semibold text-neutral-500 uppercase">Progress</span>
+                        <span className="text-[9px] md:text-[10px] lg:text-xs font-semibold text-neutral-500 dark:text-neutral-400 uppercase">Progress</span>
                         <span className="text-[10px] md:text-xs lg:text-sm font-bold" style={{ color: item.color }}>{item.progress}%</span>
                       </div>
-                      <div className="h-1.5 md:h-2 bg-neutral-200 rounded-full overflow-hidden">
+                      <div className="h-1.5 md:h-2 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
                         <div
                           className="h-full rounded-full transition-all duration-300"
                           style={{ 
