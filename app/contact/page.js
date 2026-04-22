@@ -69,7 +69,7 @@ export default function Contact() {
             <div className="gradient-border rounded-2xl overflow-hidden bg-white dark:bg-white">
               <div className="bg-white dark:bg-white p-4 md:p-6 h-full">
                 <h3 className="text-lg md:text-xl font-semibold text-neutral-900">Contact Details</h3>
-                <p className="mt-2 text-xs md:text-sm text-neutral-700">We&apos;ll reach out soon. For urgent matters, email contact@vawe.global.</p>
+                <p className="mt-2 text-xs md:text-sm text-neutral-700">We&apos;ll reach out soon. For urgent matters, email vawe.info@gmail.com.</p>
                 <div className="mt-4 md:mt-6 rounded-xl overflow-hidden ring-1 ring-white/40">
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3216.840831360617!2d80.6476333774857!3d16.501341852827636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35faba84395555%3A0xcb5cc029fc066234!2sVAWE%20Global%20Techonologies!5e0!3m2!1sen!2sin!4v1776858678943!5m2!1sen!2sin"
@@ -237,7 +237,7 @@ export default function Contact() {
                   <div className="space-y-2 md:space-y-2 lg:space-y-4">
                     {/* Call Us Button */}
                     <motion.a
-                      href="tel:+1234567890"
+                      href="tel:+918885103333"
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
@@ -268,7 +268,7 @@ export default function Contact() {
 
                     {/* WhatsApp Button */}
                     <motion.a
-                      href="https://wa.me/1234567890"
+                      href="https://wa.me/918885103333"
                       target="_blank"
                       rel="noopener noreferrer"
                       initial={{ opacity: 0, y: 20 }}
@@ -301,7 +301,7 @@ export default function Contact() {
 
                     {/* Email Contact */}
                     <motion.a
-                      href="mailto:contact@vawe.global"
+                      href="mailto:vawe.info@gmail.com"
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
@@ -321,7 +321,7 @@ export default function Contact() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <h4 className="text-sm md:text-sm lg:text-lg font-bold text-neutral-800 mb-0.5">Email Us</h4>
-                        <p className="text-xs md:text-xs lg:text-sm text-neutral-600">contact@vawe.global</p>
+                        <p className="text-xs md:text-xs lg:text-sm text-neutral-600">vawe.info@gmail.com</p>
                       </div>
                       <div className="flex-shrink-0">
                         <svg className="w-4 h-4 md:w-4 md:h-4 lg:w-6 lg:h-6 text-neutral-400 group-hover:text-[#f56c53] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
