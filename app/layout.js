@@ -2,6 +2,7 @@ import { Poppins, Orbitron, Raleway } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import RequirementChatbot from "./components/RequirementChatbot";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["300","400","500","600","700"], variable: "--font-poppins", display: "swap" });
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400","500","600","700","800","900"], variable: "--font-orbitron", display: "swap" });
@@ -145,6 +146,7 @@ export default function RootLayout({ children }) {
           {children}
         </main>
         <Footer />
+        <RequirementChatbot />
       </body>
     </html>
   );

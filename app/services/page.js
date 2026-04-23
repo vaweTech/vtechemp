@@ -5,6 +5,15 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ShoppingCart, Globe, Search, Megaphone, Server, Palette, ArrowRight } from "lucide-react";
 
+const SERVICE_VIDEOS = [
+  { title: "Static Website", localSrc: "/serviceVideo/staticwebsite.mp4" },
+  { title: "Semi Dynamic", localSrc: "/serviceVideo/semidynamic.mp4" },
+  { title: "Dynamic Website", localSrc: "/serviceVideo/dynamicwebsite.mp4" },
+  { title: "Customized Website", localSrc: "/serviceVideo/customised.mp4" },
+  { title: "E‑commerce Websites", localSrc: "/serviceVideo/Ecommerce.mp4" },
+  { title: "Domain based Websites", localSrc: "/serviceVideo/staticwebsite.mp4" },
+];
+
 function ServiceBlock({ title, copy, bullets = [], image, reverse = false }) {
   const [isMounted] = useState(true);
   
@@ -66,14 +75,6 @@ function ServiceBlock({ title, copy, bullets = [], image, reverse = false }) {
 }
 
 export default function Services() {
-  const videos = [
-    { title: "Static Website", localSrc: "/serviceVideo/staticwebsite.mp4" },
-    { title: "Semi Dynamic", localSrc: "/serviceVideo/semidynamic.mp4" },
-    { title: "Dynamic Website", localSrc: "/serviceVideo/dynamicwebsite.mp4" },
-    { title: "Customized Website", localSrc: "/serviceVideo/customised.mp4" },
-    { title: "E‑commerce Websites", localSrc: "/serviceVideo/Ecommerce.mp4" },
-    { title: "Domain based Websites", localSrc: "/serviceVideo/staticwebsite.mp4" },
-  ];
   const [currentIdx, setCurrentIdx] = useState(0);
   const [activeService, setActiveService] = useState(null);
   const [videoReady, setVideoReady] = useState(false);
@@ -82,12 +83,7 @@ export default function Services() {
   const html5VideoRef = useRef(null);
   const [isMounted] = useState(true);
 
-  const currentVideo = videos[currentIdx];
-
-  useEffect(() => {
-    setVideoReady(false);
-    setVideoError(false);
-  }, [currentIdx]);
+  const currentVideo = SERVICE_VIDEOS[currentIdx];
   
   const services = [
     {
@@ -144,7 +140,7 @@ export default function Services() {
   }
 
   function handlePlay() {
-    const v = videos[currentIdx];
+    const v = SERVICE_VIDEOS[currentIdx];
     if (v.localSrc && html5VideoRef.current) {
       html5VideoRef.current.play().catch(() => {});
       return;
@@ -152,7 +148,7 @@ export default function Services() {
     postToPlayer("playVideo");
   }
   function handlePause() {
-    const v = videos[currentIdx];
+    const v = SERVICE_VIDEOS[currentIdx];
     if (v.localSrc && html5VideoRef.current) {
       html5VideoRef.current.pause();
       return;
@@ -161,7 +157,7 @@ export default function Services() {
   }
 
   useEffect(() => {
-    const v = videos[currentIdx];
+    const v = SERVICE_VIDEOS[currentIdx];
     if (!v?.localSrc || !html5VideoRef.current) return;
     html5VideoRef.current.load();
     html5VideoRef.current.play().catch(() => {});
@@ -425,10 +421,14 @@ export default function Services() {
           {/* Right: list */}
           <div>
             <div className="border border-black/10 dark:border-white/10 rounded-lg overflow-hidden divide-y divide-black/10 dark:divide-white/10 bg-white dark:bg-neutral-900">
-              {videos.map((v, idx) => (
+              {SERVICE_VIDEOS.map((v, idx) => (
                 <button
                   key={v.title}
-                  onClick={() => setCurrentIdx(idx)}
+                  onClick={() => {
+                    setVideoReady(false);
+                    setVideoError(false);
+                    setCurrentIdx(idx);
+                  }}
                   className={`w-full flex items-center gap-3 p-3 text-left hover:bg-black/5 dark:hover:bg-white/5 ${idx === currentIdx ? "bg-black/10 dark:bg-white/10" : ""}`}
                   aria-current={idx === currentIdx}
                 >
