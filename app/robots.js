@@ -1,5 +1,5 @@
 export default function robots() {
-  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://vaweglobaltech.com";
+  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://vawetechnologies.com";
   return {
     rules: [
       {

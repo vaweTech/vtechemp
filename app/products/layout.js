@@ -39,17 +39,17 @@ export const metadata = {
     "Custom software development company in Vijayawada",
   ],
   alternates: {
-    canonical: "https://vaweglobaltech.com/products",
+    canonical: "https://vawetechnologies.com/products",
   },
   openGraph: {
     title: "Products | VAWE Global Tech",
     description:
       "Explore LMS, Smart Attendance, Vehicle Tracking, and E-commerce products.",
-    url: "https://vaweglobaltech.com/products",
+    url: "https://vawetechnologies.com/products",
     type: "website",
     images: [
       {
-        url: "https://vaweglobaltech.com/heroimg2.jpg",
+        url: "https://vawetechnologies.com/heroimg2.jpg",
         width: 1200,
         height: 630,
         alt: "VAWE Global Tech Products",
@@ -61,7 +61,7 @@ export const metadata = {
     title: "Products | VAWE Global Tech",
     description:
       "Explore LMS, Smart Attendance, Vehicle Tracking, and E-commerce products.",
-    images: ["https://vaweglobaltech.com/heroimg2.jpg"],
+    images: ["https://vawetechnologies.com/heroimg2.jpg"],
   },
 };
 

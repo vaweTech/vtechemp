@@ -5,7 +5,7 @@ export const metadata = {
   alternates: { canonical: "/site-map" },
 };
 
-const base = process.env.NEXT_PUBLIC_SITE_URL || "https://vaweglobaltech.com";
+const base = process.env.NEXT_PUBLIC_SITE_URL || "https://vawetechnologies.com";
 
 const staticPaths = [
   "/",

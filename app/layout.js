@@ -8,7 +8,7 @@ const orbitron = Orbitron({ subsets: ["latin"], weight: ["400","500","600","700"
 const raleway = Raleway({ subsets: ["latin"], weight: ["300","400","500","600","700","800"], variable: "--font-raleway", display: "swap" });
 
 export const metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://vaweglobaltech.com"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://vawetechnologies.com"),
   title: {
     default: "Software Company in Vijayawada | VAWE Global Tech",
     template: "%s | VAWE Global Tech Vijayawada",
@@ -126,10 +126,10 @@ export default function RootLayout({ children }) {
               "@context": "https://schema.org",
               "@type": "WebSite",
               name: "VAWE Global Tech",
-              url: (process.env.NEXT_PUBLIC_SITE_URL || "https://vaweglobaltech.com"),
+              url: (process.env.NEXT_PUBLIC_SITE_URL || "https://vawetechnologies.com"),
               potentialAction: {
                 "@type": "SearchAction",
-                target: `${process.env.NEXT_PUBLIC_SITE_URL || "https://vaweglobaltech.com"}/search?q={search_term_string}`,
+                target: `${process.env.NEXT_PUBLIC_SITE_URL || "https://vawetechnologies.com"}/search?q={search_term_string}`,
                 "query-input": "required name=search_term_string",
               },
             }),
