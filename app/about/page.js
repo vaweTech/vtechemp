@@ -83,6 +83,7 @@ const ValueCard3D = ({ title, desc, icon: Icon, image }) => {
   const currentRef = useRef({ tx: 0, ty: 0, px: 0, py: 0 });
   const hoveringRef = useRef(false);
   const rafRef = useRef(null);
+  const isVideoMedia = /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(image || "");
 
   function runFrame() {
     rafRef.current = null;
@@ -168,13 +169,26 @@ const ValueCard3D = ({ title, desc, icon: Icon, image }) => {
       onMouseLeave={handleMouseLeave}
     >
       <div ref={cardRef} className="cv-card">
-        <div
-          ref={bgRef}
-          className="cv-card-bg"
-          style={{
-            backgroundImage: `url(${image})`,
-          }}
-        />
+        {isVideoMedia ? (
+          <video
+            ref={bgRef}
+            className="cv-card-bg"
+            src={image}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+          />
+        ) : (
+          <div
+            ref={bgRef}
+            className="cv-card-bg"
+            style={{
+              backgroundImage: `url(${image})`,
+            }}
+          />
+        )}
         <div className="cv-card-bg-vignette" aria-hidden />
         <div className="cv-card-shine" aria-hidden />
         <div className="cv-card-info">
@@ -485,6 +499,8 @@ export default function About() {
             left: -28px;
             width: calc(100% + 56px);
             height: calc(100% + 56px);
+            display: block;
+            object-fit: cover;
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
