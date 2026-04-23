@@ -72,7 +72,7 @@ export default function Services() {
     { title: "Dynamic Website", localSrc: "/serviceVideo/dynamicwebsite.mp4" },
     { title: "Customized Website", localSrc: "/serviceVideo/customised.mp4" },
     { title: "E‑commerce Websites", localSrc: "/serviceVideo/Ecommerce.mp4" },
-    { title: "Domain based Websites", localSrc: "/serviceVideo/texttiles.mp4" },
+    { title: "Domain based Websites", localSrc: "/serviceVideo/staticwebsite.mp4" },
   ];
   const [currentIdx, setCurrentIdx] = useState(0);
   const [activeService, setActiveService] = useState(null);
@@ -139,7 +139,7 @@ export default function Services() {
   function handlePlay() {
     const v = videos[currentIdx];
     if (v.localSrc && html5VideoRef.current) {
-      html5VideoRef.current.play();
+      html5VideoRef.current.play().catch(() => {});
       return;
     }
     postToPlayer("playVideo");
@@ -152,6 +152,13 @@ export default function Services() {
     }
     postToPlayer("pauseVideo");
   }
+
+  useEffect(() => {
+    const v = videos[currentIdx];
+    if (!v?.localSrc || !html5VideoRef.current) return;
+    html5VideoRef.current.load();
+    html5VideoRef.current.play().catch(() => {});
+  }, [currentIdx]);
 
   return (
     <div className="pt-28 bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100">
@@ -361,8 +368,16 @@ export default function Services() {
                   ref={html5VideoRef}
                   className="w-full h-full"
                   src={currentVideo.localSrc}
-                  controls={false}
+                  muted
+                  autoPlay
+                  preload="metadata"
                   playsInline
+                  onLoadedData={() => {
+                    html5VideoRef.current?.play().catch(() => {});
+                  }}
+                  onCanPlay={() => {
+                    html5VideoRef.current?.play().catch(() => {});
+                  }}
                 />
               ) : (
                 <iframe
@@ -398,6 +413,7 @@ export default function Services() {
                       src={v.localSrc}
                       muted
                       loop
+                      autoPlay
                       playsInline
                     />
                   ) : (
