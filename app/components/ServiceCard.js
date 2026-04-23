@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function ServiceCard({ icon: Icon, title, description, color = "coral", variant = "solid", image }) {
   const [isMounted] = useState(true);
@@ -41,7 +41,16 @@ export default function ServiceCard({ icon: Icon, title, description, color = "c
         <h3 className="mt-5 text-lg font-semibold" style={{ color: 'var(--vawe-navy)' }}>{title}</h3>
         <p className="mt-2 text-neutral-700 text-sm leading-relaxed">{description}</p>
         <div className="mt-5">
-          <span className="text-xs font-semibold" style={{ color: bgColor }}>Learn more →</span>
+          <span
+            className="inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-sm"
+            style={{
+              color: bgColor,
+              borderColor: `${bgColor}55`,
+              backgroundColor: `${bgColor}12`,
+            }}
+          >
+            Learn more <span className="ml-1 transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+          </span>
         </div>
       </div>
     </motion.div>

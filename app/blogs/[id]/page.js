@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+
 const posts = {
   "low-budget-software-company-vijayawada": {
     title: "Top 5 Reasons to Choose a Low-Budget Software Company in Vijayawada",
@@ -584,7 +586,13 @@ const posts = {
 export async function generateMetadata({ params }) {
   const post = posts[params.id];
   if (!post) {
-    return { title: "Blog Not Found | VAWE Global Tech" };
+    return {
+      title: "Blog Not Found | VAWE Global Tech",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
   }
   return {
     title: post.title,
@@ -610,12 +618,7 @@ export async function generateMetadata({ params }) {
 export default function BlogDynamicPage({ params }) {
   const post = posts[params.id];
   if (!post) {
-    return (
-      <div className="container mx-auto px-6 py-10">
-        <h1 className="text-2xl md:text-3xl font-bold text-[var(--vawe-navy)]">Post not found</h1>
-        <p className="mt-2 text-neutral-700">The requested article does not exist.</p>
-      </div>
-    );
+    notFound();
   }
 
   const jsonLd = {

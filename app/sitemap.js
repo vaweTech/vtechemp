@@ -11,18 +11,21 @@ export default function sitemap() {
     "/institutes",
     "/contact",
     "/blogs",
-    "/blog",
+    "/site-map",
+    "/empro",
+    "/vawe",
+    "/wawe",
   ];
 
+  const productSlugs = ["lms", "smart-attendance", "vehicle-tracking-system", "e-commerce-website"];
+
   const blogSlugs = [
-    // Core
     "low-budget-software-company-vijayawada",
     "advanced-tech-stacks-affordable-software-vijayawada",
     "affordable-app-development-andhra-pradesh",
     "full-stack-development-company-vijayawada",
     "cloud-native-ai-software-solutions-ap",
     "custom-erp-software-vijayawada-guide",
-    // Expanded
     "software-company-in-vijayawada-guide",
     "software-development-company-andhra-pradesh",
     "affordable-software-developers-in-ap",
@@ -64,7 +67,14 @@ export default function sitemap() {
     priority: 0.6,
   }));
 
-  return [...staticEntries, ...blogEntries];
+  const productEntries = productSlugs.map((slug) => ({
+    url: `${base}/products/${slug}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.8,
+  }));
+
+  return [...staticEntries, ...productEntries, ...blogEntries];
 }
 
 

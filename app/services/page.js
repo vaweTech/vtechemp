@@ -67,12 +67,12 @@ function ServiceBlock({ title, copy, bullets = [], image, reverse = false }) {
 
 export default function Services() {
   const videos = [
-    { title: "Static Website", localSrc: "/staticwebsite.mp4" },
-    { title: "Semi Dynamic", localSrc: "/semidynamic.mp4" },
-    { title: "Dynamic Website", localSrc: "/dynamicwebsite.mp4" },
-    { title: "Customized Website", localSrc: "/customised.mp4" },
-    { title: "E‑commerce Websites", localSrc: "/Ecommerce.mp4" },
-    { title: "Domain based Websites", localSrc: "/texttiles.mp4" },
+    { title: "Static Website", localSrc: "/serviceVideo/staticwebsite.mp4" },
+    { title: "Semi Dynamic", localSrc: "/serviceVideo/semidynamic.mp4" },
+    { title: "Dynamic Website", localSrc: "/serviceVideo/dynamicwebsite.mp4" },
+    { title: "Customized Website", localSrc: "/serviceVideo/customised.mp4" },
+    { title: "E‑commerce Websites", localSrc: "/serviceVideo/Ecommerce.mp4" },
+    { title: "Domain based Websites", localSrc: "/serviceVideo/texttiles.mp4" },
   ];
   const [currentIdx, setCurrentIdx] = useState(0);
   const [activeService, setActiveService] = useState(null);
@@ -173,7 +173,7 @@ export default function Services() {
 
       {/* Services - Card Design */}
       <section className="w-full px-6 mt-4 md:mt-8 pb-4 md:pb-6">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl">
+        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl items-stretch">
           {services.map((s, idx) => {
             const isExpanded = activeService === idx;
             const IconComponent = s.icon;
@@ -186,7 +186,7 @@ export default function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0 }}
                 transition={{ delay: Math.min(idx * 0.05, 0.15), duration: 0.4 }}
-                className="group relative"
+                className="group relative flex h-full min-h-0 flex-col"
               >
                 <motion.div
                   animate={isExpanded ? { 
@@ -197,7 +197,7 @@ export default function Services() {
                     y: 0,
                   }}
                   transition={{ duration: 0.35, ease: "easeOut" }}
-                  className={`relative rounded-2xl overflow-hidden bg-white/90 dark:bg-neutral-900/95 backdrop-blur-sm shadow-lg border-2 transition-all duration-300 ${isExpanded ? 'z-50 shadow-2xl' : 'z-1'}`}
+                  className={`relative flex h-full min-h-0 flex-col rounded-2xl overflow-hidden bg-white/90 dark:bg-neutral-900/95 backdrop-blur-sm shadow-lg border-2 transition-all duration-300 ${isExpanded ? 'z-50 shadow-2xl' : 'z-1'}`}
                   style={{ 
                     borderColor: isExpanded ? s.color : 'rgba(0, 0, 0, 0.1)',
                     borderStyle: 'solid'
@@ -211,10 +211,10 @@ export default function Services() {
                         initial={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.25 }}
-                        className="p-6 md:p-8"
+                        className="flex h-full flex-col p-6 md:p-8"
                       >
                         {/* Icon */}
-                        <div className="mb-4">
+                        <div className="mb-4 shrink-0">
                           <div 
                             className="inline-flex items-center justify-center w-14 h-14 rounded-xl"
                             style={{ backgroundColor: `${s.color}15` }}
@@ -226,13 +226,13 @@ export default function Services() {
                           </div>
                         </div>
 
-                        {/* Heading */}
-                        <h3 className="text-xl md:text-2xl font-bold font-[var(--font-orbitron)] mb-3 text-[var(--vawe-navy)] dark:text-white">
+                        {/* Heading — fixed min height so one vs two lines doesn’t change card layout */}
+                        <h3 className="mb-3 min-h-[3.5rem] shrink-0 font-[var(--font-orbitron)] text-xl font-bold leading-snug text-[var(--vawe-navy)] dark:text-white md:min-h-[5rem] md:text-2xl">
                           {s.title}
                         </h3>
 
                         {/* Image below icon and heading */}
-                        <div className="relative w-full h-40 md:h-48 rounded-xl overflow-hidden mb-4 bg-neutral-100 dark:bg-neutral-800">
+                        <div className="relative mb-4 h-40 w-full shrink-0 overflow-hidden rounded-xl bg-neutral-100 dark:bg-neutral-800 md:h-48">
                           <Image
                             src={s.img}
                             alt={s.title}
@@ -249,15 +249,16 @@ export default function Services() {
                           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         </div>
 
-                        {/* Content */}
-                        <p className="text-sm md:text-base text-neutral-600 dark:text-neutral-300 leading-relaxed mb-6 line-clamp-3">
+                        {/* Content — grows so Read more sits on one row */}
+                        <p className="mb-0 min-h-0 flex-1 text-sm leading-relaxed text-neutral-600 line-clamp-3 dark:text-neutral-300 md:text-base">
                           {s.content}
                         </p>
 
                         {/* Read More Button */}
                         <button
+                          type="button"
                           onClick={() => setActiveService(idx)}
-                          className="flex items-center gap-2 text-sm font-semibold transition-all duration-300 hover:gap-3"
+                          className="mt-auto flex shrink-0 items-center gap-2 pt-6 text-left text-sm font-semibold transition-all duration-300 hover:gap-3"
                           style={{ color: s.color }}
                         >
                           Read more

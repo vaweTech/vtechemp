@@ -1161,7 +1161,7 @@ export default function Home() {
   return (
     <div className="relative">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-[#000b1d] text-white">
+      <section id="hero" className="relative overflow-hidden bg-[#000b1d] text-white">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(101,239,242,0.16),transparent_58%)]" />
           <div
@@ -1175,15 +1175,15 @@ export default function Home() {
           <div className="absolute bottom-[-220px] right-[-130px] h-[420px] w-[420px] rounded-full bg-[var(--vawe-teal)]/18 blur-[120px]" />
         </div>
 
-        <div className="relative container mx-auto px-4 sm:px-6 pt-16 pb-10 md:py-28">
-          <div className="grid items-center gap-10 lg:gap-16 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+        <div className="relative container mx-auto max-w-[var(--site-max)] px-[var(--site-px)] pt-16 pb-10 md:py-28 3xl:pt-20 3xl:pb-14 4xl:py-32">
+          <div className="grid items-center gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-16 3xl:gap-20 4xl:gap-24">
             <div className="space-y-6 sm:space-y-8">
               <motion.span
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.4 }}
-                className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-5 py-2 text-[12px] uppercase tracking-[0.32em] text-white/70 mt-3"
+                className="mt-3 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-5 py-2 text-[12px] uppercase tracking-[0.32em] text-white/70 sm:text-xs 3xl:text-sm 4xl:text-base"
               >
                 <span className="inline-block h-2 w-2 rounded-full bg-[var(--vawe-teal)] animate-ping" />
                 Vawe Global Tech
@@ -1194,7 +1194,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.45 }}
                 transition={{ delay: 0.02, duration: 0.5 }}
-                className="font-(--font-orbitron) text-[clamp(32px,6vw,48px)] md:text-[clamp(32px,4.5vw,48px)] lg:text-[clamp(36px,4vw,50px)] leading-[1.08] font-extrabold"
+                className="font-(--font-orbitron) text-[clamp(32px,6vw,48px)] leading-[1.08] font-extrabold md:text-[clamp(32px,4.5vw,52px)] lg:text-[clamp(36px,4vw,56px)] xl:text-[clamp(38px,3.6vw,60px)] 3xl:text-[clamp(40px,3.2vw,68px)] 4xl:text-[clamp(42px,2.8vw,76px)]"
               >
                 Building with digital Brilliance{" "}
                 <span className="text-[var(--vawe-teal)]">AI velocity</span>{" "}
@@ -1210,7 +1210,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.45 }}
                 transition={{ delay: 0.05, duration: 0.5 }}
-                className="max-w-xl text-sm sm:text-lg text-white/75 leading-relaxed"
+                className="max-w-xl text-sm leading-relaxed text-white/75 sm:text-lg 3xl:max-w-2xl 3xl:text-xl 4xl:text-2xl"
               >
                 We combine design systems, autonomous infrastructure, and product
                 telemetry to create experiences that learn and adapt. Launch faster,
@@ -1226,17 +1226,16 @@ export default function Home() {
               >
                 <a
                   href="/contact"
-                  className="group inline-flex items-center gap-3 rounded-full bg-[var(--vawe-teal)] px-6 py-3 text-sm sm:text-base font-semibold text-black shadow-[0_18px_48px_rgba(101,239,242,0.32)] transition duration-300 hover:shadow-[0_20px_56px_rgba(101,239,242,0.4)]"
+                  className="group inline-flex items-center gap-3 rounded-full bg-[var(--vawe-teal)] px-6 py-3 text-sm font-semibold text-black shadow-[0_18px_48px_rgba(101,239,242,0.32)] transition duration-300 hover:shadow-[0_20px_56px_rgba(101,239,242,0.4)] sm:text-base 3xl:px-8 3xl:py-3.5 3xl:text-lg 4xl:text-xl"
                 >
                   Launch a discovery sprint
                   <ArrowRight
-                    size={20}
-                    className="transition-transform duration-300 group-hover:translate-x-1"
+                    className="h-[var(--icon-ui)] w-[var(--icon-ui)] shrink-0 transition-transform duration-300 group-hover:translate-x-1"
                   />
                 </a>
                 <a
                   href="#services"
-                  className="inline-flex items-center gap-3 rounded-full border border-white/25 px-6 py-3 text-sm sm:text-base font-semibold text-white/80 transition duration-300 hover:bg-white/10 hover:text-white"
+                  className="inline-flex items-center gap-3 rounded-full border border-white/25 px-6 py-3 text-sm font-semibold text-white/80 transition duration-300 hover:bg-white/10 hover:text-white sm:text-base 3xl:px-8 3xl:py-3.5 3xl:text-lg 4xl:text-xl"
                 >
                   Explore services
                 </a>
@@ -1247,14 +1246,14 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.45 }}
                 transition={{ delay: 0.1, duration: 0.5 }}
-                className="hidden w-full grid-cols-3 gap-6 pt-4 sm:pt-6 md:grid"
+                className="hidden w-full grid-cols-3 gap-6 pt-4 sm:pt-6 md:grid 3xl:gap-8 4xl:gap-10"
               >
                 {heroStats.map(({ value, label }) => (
                   <div key={label}>
-                    <div className="text-3xl font-bold text-white sm:text-[36px]">
+                    <div className="text-3xl font-bold text-white sm:text-[36px] 3xl:text-4xl 4xl:text-5xl">
                       {value}
                     </div>
-                    <div className="mt-1 text-[11px] uppercase tracking-[0.32em] text-white/55">
+                    <div className="mt-1 text-[11px] uppercase tracking-[0.32em] text-white/55 3xl:text-xs 4xl:text-sm">
                       {label}
                     </div>
                   </div>
@@ -1265,9 +1264,9 @@ export default function Home() {
             <div className="relative mt-3 sm:mt-4 flex justify-center md:mt-0">
               <div className="absolute -inset-6 hidden rounded-[48px] bg-white/5 blur-3xl md:block" />
 
-              <div className="relative w-full max-w-lg sm:max-w-xl">
+              <div className="relative w-full max-w-lg sm:max-w-xl 3xl:max-w-2xl 4xl:max-w-3xl">
                 <div className="pointer-events-none absolute inset-0 rounded-[44px] border border-white/10 bg-white/5 backdrop-blur"></div>
-                <div className="relative h-[320px] sm:h-[380px] md:h-[460px] overflow-hidden rounded-[44px]">
+                <div className="relative h-[320px] overflow-hidden rounded-[44px] sm:h-[380px] md:h-[460px] 3xl:h-[520px] 4xl:h-[580px]">
                   <div className="absolute inset-x-6 top-6 h-[180px] rounded-[32px] border border-white/10 bg-white/10 opacity-35 blur-xl"></div>
                   <div className="absolute inset-x-10 bottom-6 h-[180px] rounded-[32px] border border-white/10 bg-white/10 opacity-25 blur-xl"></div>
 
@@ -1290,20 +1289,20 @@ export default function Home() {
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
-                      <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between gap-4 rounded-3xl border border-white/15 bg-white/12 px-6 py-4 backdrop-blur">
+                      <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between gap-4 rounded-3xl border border-white/15 bg-white/12 px-6 py-4 backdrop-blur 3xl:px-8 3xl:py-5 4xl:bottom-8 4xl:left-8 4xl:right-8">
                         <div>
-                          <div className="text-[11px] uppercase tracking-[0.28em] text-white/60">
+                          <div className="text-[11px] uppercase tracking-[0.28em] text-white/60 3xl:text-xs 4xl:text-sm">
                             Case study
                           </div>
-                          <div className="mt-1 text-lg font-semibold text-white">
+                          <div className="mt-1 text-lg font-semibold text-white 3xl:text-xl 4xl:text-2xl">
                             {currentHero.title}
                           </div>
-                          <div className="text-xs text-white/60">
+                          <div className="text-xs text-white/60 3xl:text-sm 4xl:text-base">
                             {currentHero.meta}
                           </div>
                         </div>
-                        <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/15 text-[var(--vawe-teal)]">
-                          <Sparkles size={20} />
+                        <div className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/15 text-[var(--vawe-teal)] 3xl:h-14 3xl:w-14 4xl:h-16 4xl:w-16">
+                          <Sparkles className="h-[var(--icon-ui)] w-[var(--icon-ui)]" />
                         </div>
                       </div>
                     </motion.div>
@@ -1337,14 +1336,14 @@ export default function Home() {
               <div className="flex items-center justify-center gap-3">
                 <a
                   href="/contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-[var(--vawe-teal)] px-4 py-2 text-xs font-semibold text-black shadow-[0_12px_30px_rgba(101,239,242,0.28)] transition duration-300 hover:shadow-[0_16px_36px_rgba(101,239,242,0.34)]"
+                  className="inline-flex items-center gap-2 rounded-full bg-[var(--vawe-teal)] px-4 py-2 text-xs font-semibold text-black shadow-[0_12px_30px_rgba(101,239,242,0.28)] transition duration-300 hover:shadow-[0_16px_36px_rgba(101,239,242,0.34)] sm:text-sm"
                 >
                   Launch a sprint
-                  <ArrowRight size={16} />
+                  <ArrowRight className="h-4 w-4 shrink-0 sm:h-[var(--icon-nav)] sm:w-[var(--icon-nav)]" />
                 </a>
                 <a
                   href="#services"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/30 px-4 py-2 text-xs font-semibold text-white/80 transition duration-300 hover:bg-white/10 hover:text-white"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/30 px-4 py-2 text-xs font-semibold text-white/80 transition duration-300 hover:bg-white/10 hover:text-white sm:text-sm"
                 >
                   Explore services
                 </a>
@@ -1353,8 +1352,8 @@ export default function Home() {
               <div className="grid grid-cols-3 items-start gap-3 text-center">
                 {heroStats.map(({ value, label }) => (
                   <div key={label}>
-                    <div className="text-lg font-bold text-white">{value}</div>
-                    <div className="mt-1 text-[9px] uppercase tracking-[0.26em] text-white/60">
+                    <div className="text-lg font-bold text-white sm:text-xl">{value}</div>
+                    <div className="mt-1 text-[9px] uppercase tracking-[0.26em] text-white/60 sm:text-[10px]">
                       {label}
                     </div>
                   </div>
@@ -1366,11 +1365,11 @@ export default function Home() {
       </section>
 
       {/* Services Slider */}
-      <section id="services" className="relative z-10 py-4 md:py-0 bg-[#fef9f5]">
+      <section id="services" className="relative z-10 bg-[#fef9f5] py-4 md:py-0 3xl:py-2 4xl:py-4">
         <div className="w-full">
           {/* Fixed Title */}
-          <div className="text-center py-4 md:py-6">
-            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold font-(--font-orbitron) text-[var(--vawe-navy)] mb-2 md:mb-3">
+          <div className="py-4 text-center md:py-6 3xl:py-8">
+            <h2 className="mb-2 font-(--font-orbitron) text-2xl font-bold text-[var(--vawe-navy)] sm:text-3xl md:mb-3 md:text-5xl 3xl:text-6xl 4xl:text-7xl">
               What We Do
             </h2>
           </div>
@@ -1378,7 +1377,7 @@ export default function Home() {
           {/* Sliding Content Container */}
           <div
             ref={containerRef}
-            className="relative w-full min-h-[550px] md:h-[55vh] overflow-hidden shadow-[0_-10px_30px_-10px_rgba(0,0,0,0.1)]"
+            className="relative min-h-[550px] w-full overflow-hidden shadow-[0_-10px_30px_-10px_rgba(0,0,0,0.1)] md:h-[55vh] 3xl:min-h-[620px] 4xl:min-h-[700px]"
           >
             {extendedProvides.map((s, i) => {
               const isVisible = i === provideIdx;
@@ -1398,12 +1397,12 @@ export default function Home() {
                   // marginBottom: '-200px',
                 }}
               >
-                <div className="absolute inset-0 flex flex-col items-center justify-center py-4 md:py-8">
-                  <div className="container mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-8 items-center flex-1">
+                <div className="absolute inset-0 flex flex-col items-center justify-center py-4 md:py-8 3xl:py-10">
+                  <div className="container mx-auto grid max-w-[var(--site-max)] flex-1 grid-cols-1 items-center gap-4 px-[var(--site-px)] md:grid-cols-5 md:gap-8 3xl:gap-12 4xl:gap-16">
                     {/* Image - shown first on mobile, right on desktop */}
-                    <div className="order-1 md:order-2 md:col-span-3 w-full">
+                    <div className="order-1 w-full md:order-2 md:col-span-3">
                       <div
-                        className="relative w-full h-[220px] sm:h-[280px] md:h-[45vh] rounded-xl overflow-hidden border border-black/10 shadow-2xl mx-auto max-w-md md:max-w-none"
+                        className="relative mx-auto h-[220px] w-full max-w-md overflow-hidden rounded-xl border border-black/10 shadow-2xl sm:h-[280px] md:h-[45vh] md:max-w-none 3xl:rounded-2xl"
                         style={{
                           boxShadow:
                             "0 20px 50px rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.1)",
@@ -1422,10 +1421,10 @@ export default function Home() {
                     </div>
 
                     {/* Left: content */}
-                    <div className="order-2 md:order-1 text-neutral-900 md:col-span-2">
+                    <div className="order-2 text-neutral-900 md:order-1 md:col-span-2">
                       <div className="mt-2 md:mt-4">
                         <span
-                          className="inline-block px-4 py-2 sm:px-6 sm:py-3 text-lg sm:text-xl md:text-2xl font-bold rounded-lg shadow-lg"
+                          className="inline-block rounded-lg px-4 py-2 text-lg font-bold shadow-lg sm:px-6 sm:py-3 sm:text-xl md:text-2xl 3xl:text-3xl 4xl:text-4xl"
                           style={{
                             background:
                               "linear-gradient(135deg, #f56c53, #ff8c6e)",
@@ -1436,7 +1435,7 @@ export default function Home() {
                         </span>
                       </div>
                       <p
-                        className="mt-2 md:mt-3 max-w-2xl text-base sm:text-lg md:text-xl leading-relaxed text-black"
+                        className="mt-2 max-w-2xl text-base leading-relaxed text-black sm:text-lg md:mt-3 md:text-xl 3xl:text-2xl 4xl:text-3xl"
                       >
                         {s.subtitle}
                       </p>
@@ -1499,23 +1498,23 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-8 md:py-10">
-        <div className="container mx-auto px-6">
+      <section className="relative py-8 md:py-10 3xl:py-14 4xl:py-16">
+        <div className="container mx-auto max-w-[var(--site-max)] px-[var(--site-px)]">
           <div
-            className="rounded-2xl px-6 py-6 md:px-8 md:py-8 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 text-white"
+            className="flex flex-col items-center justify-between gap-4 rounded-2xl px-6 py-6 text-white md:flex-row md:gap-6 md:px-8 md:py-8 3xl:gap-8 3xl:rounded-3xl 3xl:px-10 3xl:py-10 4xl:px-12 4xl:py-12"
             style={{ background: "var(--vawe-bg-gradient)" }}
           >
             <div>
-              <h3 className="text-2xl md:text-3xl font-bold font-(--font-orbitron)">
+              <h3 className="font-(--font-orbitron) text-2xl font-bold md:text-3xl 3xl:text-4xl 4xl:text-5xl">
                 Ready to launch?
               </h3>
-              <p className="text-white/90">
+              <p className="text-white/90 3xl:mt-2 3xl:text-lg 4xl:text-xl">
                 Partner with VAWE GlobalTech to accelerate your digital future.
               </p>
             </div>
             <a
               href="/contact"
-              className="px-6 py-3 rounded-full font-semibold border border-white text-white hover:bg-white hover:text-black transition"
+              className="rounded-full border border-white px-6 py-3 font-semibold text-white transition hover:bg-white hover:text-black 3xl:px-8 3xl:py-3.5 3xl:text-lg 4xl:text-xl"
             >
               Start a Project
             </a>
@@ -1527,12 +1526,12 @@ export default function Home() {
       <Showcase />
 
       {/* Why Choose Us */}
-      <section className="py-8 md:py-10">
-        <div className="w-full px-6">
-          <div className="container mx-auto">
-            <h3 className="text-2xl md:text-3xl font-bold font-(--font-orbitron)" style={{ background: 'var(--vawe-bg-gradient)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>Why Choose VAWE GlobalTech</h3>
-            <div className="mt-2 md:mt-3 h-1 w-24 rounded-full" style={{ background: 'var(--vawe-bg-gradient)' }} />
-            <div className="relative mt-4 md:mt-6 overflow-hidden py-2">
+      <section className="py-8 md:py-10 3xl:py-14 4xl:py-16">
+        <div className="w-full px-[var(--site-px)]">
+          <div className="container mx-auto max-w-[var(--site-max)]">
+            <h3 className="font-(--font-orbitron) text-2xl font-bold md:text-3xl 3xl:text-4xl 4xl:text-5xl" style={{ background: 'var(--vawe-bg-gradient)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>Why Choose VAWE GlobalTech</h3>
+            <div className="mt-2 h-1 w-24 rounded-full md:mt-3 3xl:mt-4 3xl:w-32" style={{ background: 'var(--vawe-bg-gradient)' }} />
+            <div className="relative mt-4 overflow-hidden py-2 md:mt-6 3xl:mt-8">
             {/* single track with duplicated items for seamless loop (no gap) */}
             <div className="vawe-marquee flex whitespace-nowrap will-change-transform">
               {[...[
@@ -1554,8 +1553,8 @@ export default function Home() {
                 const colors = ['var(--vawe-coral)', 'var(--vawe-teal)', 'var(--vawe-navy)', 'var(--vawe-beige)'];
                 const colorIndex = idx % 4;
                 return (
-                  <div key={point+idx} className="relative glass gradient-border rounded-xl px-4 py-3 pl-6 text-sm text-neutral-800 shrink-0 mr-4" style={{ borderColor: colors[colorIndex] }}>
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 h-2 w-2 rounded-full" style={{ backgroundColor: colors[colorIndex] }} />
+                  <div key={point+idx} className="relative mr-4 shrink-0 rounded-xl px-4 py-3 pl-6 text-sm text-neutral-800 glass gradient-border 3xl:mr-6 3xl:rounded-2xl 3xl:px-5 3xl:py-4 3xl:pl-8 3xl:text-base 4xl:text-lg" style={{ borderColor: colors[colorIndex] }}>
+                    <span className="absolute left-3 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full 3xl:left-4 3xl:h-2.5 3xl:w-2.5" style={{ backgroundColor: colors[colorIndex] }} />
                     {point}
                   </div>
                 );

@@ -11,11 +11,9 @@ export default function Contact() {
   const [showReq, setShowReq] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState("basic");
   const [req, setReq] = useState({ features: [], notes: "" });
+  const [requirementsTouched, setRequirementsTouched] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
-  const [isReqSubmitting, setIsReqSubmitting] = useState(false);
-  const [reqSubmitMessage, setReqSubmitMessage] = useState("");
-  const [savedRequirements, setSavedRequirements] = useState(null);
 
   const packages = {
     basic: {
@@ -48,12 +46,12 @@ export default function Contact() {
         email: form.email.trim(),
         phone: form.phone.trim(),
         message: form.message.trim(),
-        requirements: savedRequirements
+        requirements: requirementsTouched
           ? {
-              selectedPackage: savedRequirements.selectedPackage,
-              selectedPackageLabel: savedRequirements.selectedPackageLabel,
-              features: savedRequirements.features,
-              notes: savedRequirements.notes,
+              selectedPackage,
+              selectedPackageLabel: packages[selectedPackage].label,
+              features: req.features,
+              notes: req.notes.trim(),
             }
           : null,
         createdAt: serverTimestamp(),
@@ -61,6 +59,9 @@ export default function Contact() {
       });
 
       setForm({ name: "", email: "", phone: "", message: "" });
+      setRequirementsTouched(false);
+      setSelectedPackage("basic");
+      setReq({ features: [], notes: "" });
       setSubmitMessage("Your message was submitted successfully.");
     } catch (error) {
       console.error("Error storing contact form:", error);
@@ -70,38 +71,9 @@ export default function Contact() {
     }
   };
 
-  const handleSaveRequirements = async () => {
-    setReqSubmitMessage("");
-    try {
-      setIsReqSubmitting(true);
-      const requirementsPayload = {
-        selectedPackage,
-        selectedPackageLabel: packages[selectedPackage].label,
-        features: req.features,
-        notes: req.notes.trim(),
-        contactName: form.name.trim() || null,
-        contactEmail: form.email.trim() || null,
-        contactPhone: form.phone.trim() || null,
-      };
-
-      await addDoc(collection(db, "requirementsSubmissions"), {
-        ...requirementsPayload,
-        createdAt: serverTimestamp(),
-        source: "contact-page-requirements",
-      });
-
-      setSavedRequirements(requirementsPayload);
-      setReqSubmitMessage("Requirements saved successfully.");
-      setTimeout(() => {
-        setShowReq(false);
-        setReqSubmitMessage("");
-      }, 700);
-    } catch (error) {
-      console.error("Error storing requirements form:", error);
-      setReqSubmitMessage("Failed to save requirements. Please try again.");
-    } finally {
-      setIsReqSubmitting(false);
-    }
+  const handleSaveRequirements = () => {
+    setRequirementsTouched(true);
+    setShowReq(false);
   };
 
   return (
@@ -114,8 +86,11 @@ export default function Contact() {
           <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-neutral-700 max-w-3xl">Tell us about your goals. We&apos;ll reply within 24 hours.</p>
 
           <div className="mt-6 md:mt-10 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-            <div className="md:col-span-2 gradient-border rounded-2xl overflow-hidden bg-white dark:bg-white">
-              <form onSubmit={handleSubmit} className="bg-white dark:bg-white p-4 md:p-6 space-y-3 md:space-y-4">
+            <div className="md:col-span-2 gradient-border rounded-2xl overflow-hidden bg-white dark:bg-white shadow-[0_14px_32px_rgba(2,6,23,0.08)]">
+              <form onSubmit={handleSubmit} className="bg-white dark:bg-white p-4 md:p-6 space-y-4 md:space-y-5">
+                <div className="rounded-2xl border border-[var(--vawe-navy)]/10 bg-[var(--vawe-navy)]/[0.03] px-4 py-3">
+                  <p className="text-sm font-semibold text-[var(--vawe-navy)]">Project Contact Form</p>
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
                   <div>
                     <label className="block text-xs md:text-sm text-neutral-900 mb-1">Name</label>
@@ -140,7 +115,7 @@ export default function Contact() {
                   <motion.button
                     type="button"
                     onClick={() => setShowReq(true)}
-                    className="rounded-2xl border border-neutral-300 bg-white p-4 text-left transition hover:shadow-md"
+                    className="rounded-2xl border border-neutral-300 bg-white p-4 text-left transition hover:-translate-y-0.5 hover:shadow-md"
                     animate={{
                       boxShadow: [
                         "0 0 0 0 rgba(245,108,83,0.0)",
@@ -151,17 +126,17 @@ export default function Contact() {
                     }}
                     transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
                   >
-                    <p className="text-sm md:text-base font-semibold text-neutral-900">Requirements Form</p>
-                    <p className="mt-1 text-xs md:text-sm text-neutral-600">Select package, features, and project notes</p>
+                    <p className="text-sm md:text-base font-semibold text-neutral-900">Configure Requirements</p>
+                    <p className="mt-1 text-xs md:text-sm text-neutral-600">Pick package, features, and notes before submit</p>
                   </motion.button>
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="rounded-2xl border border-[#b83c9f] bg-accent-magenta p-4 text-left transition hover:brightness-110 disabled:opacity-60 disabled:cursor-not-allowed"
+                    className="rounded-2xl border border-[#b83c9f] bg-accent-magenta p-4 text-left transition hover:-translate-y-0.5 hover:brightness-110 disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    <p className="text-sm md:text-base font-semibold text-white">{isSubmitting ? "Sending..." : "Send Message"}</p>
-                    <p className="mt-1 text-xs md:text-sm text-white/90">Submit your details and we will contact you soon</p>
+                    <p className="text-sm md:text-base font-semibold text-white">{isSubmitting ? "Submitting..." : "Submit Request"}</p>
+                    <p className="mt-1 text-xs md:text-sm text-white/90">One click sends contact + requirement details</p>
                   </button>
                 </div>
 
@@ -170,15 +145,13 @@ export default function Contact() {
                     Terms & Conditions
                   </a>
                 </div>
-                {savedRequirements && (
+                {requirementsTouched && (
                   <div className="rounded-xl border border-green-200 bg-green-50 p-3 md:p-4">
                     <div className="flex items-center justify-between gap-3">
-                      <p className="text-xs md:text-sm font-semibold text-green-700">Saved Requirement</p>
+                      <p className="text-xs md:text-sm font-semibold text-green-700">Requirements Added</p>
                       <button
                         type="button"
                         onClick={() => {
-                          setSelectedPackage(savedRequirements.selectedPackage);
-                          setReq({ features: savedRequirements.features, notes: savedRequirements.notes });
                           setShowReq(true);
                         }}
                         className="text-xs font-semibold text-[var(--vawe-navy)] underline"
@@ -187,16 +160,16 @@ export default function Contact() {
                       </button>
                     </div>
                     <p className="mt-1 text-xs md:text-sm text-neutral-800">
-                      Package: <span className="font-semibold">{savedRequirements.selectedPackageLabel}</span>
+                      Package: <span className="font-semibold">{packages[selectedPackage].label}</span>
                     </p>
-                    {savedRequirements.features.length > 0 && (
+                    {req.features.length > 0 && (
                       <p className="mt-1 text-xs md:text-sm text-neutral-700">
-                        Features: {savedRequirements.features.join(", ")}
+                        Features: {req.features.join(", ")}
                       </p>
                     )}
-                    {savedRequirements.notes && (
+                    {req.notes && (
                       <p className="mt-1 text-xs md:text-sm text-neutral-700">
-                        Notes: {savedRequirements.notes}
+                        Notes: {req.notes}
                       </p>
                     )}
                   </div>
@@ -271,15 +244,10 @@ export default function Contact() {
 
               <div className="mt-4 md:mt-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                 <span className="text-xs text-neutral-600">Selected: {req.features.length} feature{req.features.length===1?"":"s"}</span>
-                <button type="button" disabled={isReqSubmitting} className="bg-accent-cyan px-4 md:px-5 py-2 rounded-full text-xs md:text-sm font-semibold btn-ring hover:brightness-110 transition w-full sm:w-auto disabled:opacity-60 disabled:cursor-not-allowed" onClick={handleSaveRequirements}>
-                  {isReqSubmitting ? "Saving..." : "Save & Close"}
+                <button type="button" className="bg-accent-cyan px-4 md:px-5 py-2 rounded-full text-xs md:text-sm font-semibold btn-ring hover:brightness-110 transition w-full sm:w-auto" onClick={handleSaveRequirements}>
+                  Save Requirements
                 </button>
               </div>
-              {reqSubmitMessage && (
-                <p className={`mt-2 text-xs md:text-sm font-medium ${reqSubmitMessage.includes("successfully") ? "text-green-600" : "text-red-600"}`}>
-                  {reqSubmitMessage}
-                </p>
-              )}
             </div>
           </div>
         </div>

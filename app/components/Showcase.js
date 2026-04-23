@@ -85,7 +85,7 @@
               className="inline-flex items-center gap-2 mb-6"
             >
               <div className="h-px w-8 bg-gradient-to-r from-transparent to-[var(--vawe-teal)]" />
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--vawe-teal)] px-4 py-1.5 rounded-full bg-[var(--vawe-teal)]/10 border border-[var(--vawe-teal)]/20">
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-black px-4 py-1.5 rounded-full bg-[var(--vawe-teal)]/10 border border-[var(--vawe-teal)]/20">
                 Digital Solutions
               </span>
               <div className="h-px w-8 bg-gradient-to-l from-transparent to-[var(--vawe-teal)]" />
@@ -231,9 +231,11 @@
                   </p>
                   
                   {/* Arrow indicator */}
-                  <div className="flex items-center gap-1 md:gap-2 mt-1 md:mt-2 text-[var(--vawe-teal)] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="text-[10px] md:text-xs lg:text-sm font-semibold">Learn more</span>
-                    <span className="text-sm md:text-base lg:text-lg transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  <div className="mt-1 md:mt-2">
+                    <span className="inline-flex items-center gap-1 md:gap-2 text-[10px] md:text-xs lg:text-sm font-semibold text-[var(--vawe-navy)] transition-colors duration-300 group-hover:text-[var(--vawe-coral)]">
+                      Learn more
+                      <span className="text-sm md:text-base lg:text-lg transition-transform duration-300 group-hover:translate-x-1">→</span>
+                    </span>
                   </div>
                 </div>
               </motion.article>

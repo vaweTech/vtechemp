@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import {
   Target,
   Eye,
@@ -41,100 +41,145 @@ const floatAnimation = {
 
 const team = [
   {
-    name: "Ava Nguyen",
-    role: "CEO & Strategy",
+    name: "Bala Balaji N",
+    role: "CEO & Managing Director",
     color: "grad-mc",
-    photo:
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&auto=format&fit=crop&crop=faces&w=400&h=400",
+    photo: "/team/Balaji.jpeg",
   },
   {
-    name: "Liam Patel",
-    role: "Engineering Lead",
-    color: "grad-co",
-    photo:
-      "https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&auto=format&fit=crop&crop=faces&w=400&h=400",
+    name: "Rupa Bhaskar Pydi",
+    role: "Software Engineer & Systems Designer",
+    roleTextColor: "var(--vawe-teal)",
+    color: "grad-mc",
+    photo: "/team/rupabhaskar.png",
   },
   {
-    name: "Maya Chen",
-    role: "Design Director",
+    name: "Swapna Uggam",
+    role: "Software Engineer & UI/UX Designer",
     color: "grad-mo",
-    photo:
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&auto=format&fit=crop&crop=faces&w=400&h=400",
+    photo: "/team/swapna.png",
   },
   {
-    name: "Ethan Silva",
-    role: "Marketing Lead",
+    name: "Surya Praneetha",
+    role: "HR & Soft Skills Trainer",
     color: "grad-mc",
     photo:
-      "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&auto=format&fit=crop&crop=faces&w=400&h=400",
+      "/team/spraneethi.png",
+  },
+  {
+    name: "K Vishnu Sai",
+    role: "Digital Marketer",
+    color: "grad-mc",
+    photo: "/team/vishnu.jpeg",
   },
 ];
 
 const ValueCard3D = ({ title, desc, icon: Icon, image }) => {
+  const wrapRef = useRef(null);
   const cardRef = useRef(null);
-  const [mouseX, setMouseX] = useState(0);
-  const [mouseY, setMouseY] = useState(0);
-  const [tX, setTX] = useState(0);
-  const [tY, setTY] = useState(0);
-  const [cardSize, setCardSize] = useState({ width: 1, height: 1 });
+  const bgRef = useRef(null);
+  const [hovered, setHovered] = useState(false);
+  const targetRef = useRef({ tx: 0, ty: 0, px: 0, py: 0 });
+  const currentRef = useRef({ tx: 0, ty: 0, px: 0, py: 0 });
+  const hoveringRef = useRef(false);
+  const rafRef = useRef(null);
+
+  function runFrame() {
+    rafRef.current = null;
+    const cur = currentRef.current;
+    const tgt = targetRef.current;
+    const h = hoveringRef.current;
+    const k = 0.42;
+    cur.tx += (tgt.tx - cur.tx) * k;
+    cur.ty += (tgt.ty - cur.ty) * k;
+    cur.px += (tgt.px - cur.px) * k;
+    cur.py += (tgt.py - cur.py) * k;
+
+    const lift = h ? -12 : 0;
+    const scale = h ? 1.035 : 1;
+    const bgScale = h ? 1.14 : 1;
+    if (cardRef.current) {
+      cardRef.current.style.transform =
+        `perspective(920px) rotateX(${cur.tx}deg) rotateY(${cur.ty}deg) translateZ(0) translateY(${lift}px) scale(${scale})`;
+    }
+    if (bgRef.current) {
+      bgRef.current.style.transform =
+        `translate3d(${cur.px}px, ${cur.py}px, 0) scale(${bgScale})`;
+    }
+
+    const eps = 0.02;
+    const settled =
+      Math.abs(tgt.tx - cur.tx) < eps &&
+      Math.abs(tgt.ty - cur.ty) < eps &&
+      Math.abs(tgt.px - cur.px) < eps &&
+      Math.abs(tgt.py - cur.py) < eps;
+
+    if (h || !settled) {
+      rafRef.current = requestAnimationFrame(runFrame);
+    }
+  }
+
+  const scheduleFrame = () => {
+    if (rafRef.current == null) {
+      rafRef.current = requestAnimationFrame(runFrame);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
 
   const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.pageX - rect.left - rect.width / 2;
-    const y = e.pageY - rect.top - rect.height / 2;
-    setMouseX(x);
-    setMouseY(y);
-    const px = x / (rect.width || 1);
-    const py = y / (rect.height || 1);
-    setTX(px * -40);
-    setTY(py * -40);
+    const el = wrapRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    const t = targetRef.current;
+    t.tx = py * -14;
+    t.ty = px * 16;
+    t.px = px * -32;
+    t.py = py * -32;
+    scheduleFrame();
+  };
+
+  const handleMouseEnter = () => {
+    hoveringRef.current = true;
+    setHovered(true);
+    scheduleFrame();
   };
 
   const handleMouseLeave = () => {
-    setTimeout(() => {
-      setMouseX(0);
-      setMouseY(0);
-      setTX(0);
-      setTY(0);
-    }, 1000);
+    hoveringRef.current = false;
+    setHovered(false);
+    const t = targetRef.current;
+    t.tx = t.ty = t.px = t.py = 0;
+    scheduleFrame();
   };
-
-  // Track card size without reading `ref.current` during render
-  useEffect(() => {
-    if (!cardRef.current) return;
-    const el = cardRef.current;
-    const setSize = () => setCardSize({ width: el.offsetWidth || 1, height: el.offsetHeight || 1 });
-    setSize();
-    let ro;
-    if (typeof ResizeObserver !== "undefined") {
-      ro = new ResizeObserver(() => setSize());
-      ro.observe(el);
-    }
-    return () => {
-      if (ro && ro.disconnect) ro.disconnect();
-    };
-  }, [cardRef]);
 
   return (
     <div
-      ref={cardRef}
-      className="card-wrap cursor-pointer"
+      ref={wrapRef}
+      className={`cv-card-wrap cursor-pointer${hovered ? " cv-card-wrap--hover" : ""}`}
       onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="card">
+      <div ref={cardRef} className="cv-card">
         <div
-          className="card-bg"
+          ref={bgRef}
+          className="cv-card-bg"
           style={{
-            transform: `translateX(${tX}px) translateY(${tY}px)`,
             backgroundImage: `url(${image})`,
-            transition: 'transform 0.3s ease-out',
           }}
         />
-        <div className="card-info">
+        <div className="cv-card-bg-vignette" aria-hidden />
+        <div className="cv-card-shine" aria-hidden />
+        <div className="cv-card-info">
           <div className="flex items-center gap-1.5 md:gap-3 mb-1 md:mb-2">
-            {Icon && <Icon className="w-3.5 h-3.5 md:w-6 md:h-6" />}
+            {Icon && <Icon className="w-3.5 h-3.5 md:w-6 md:h-6 cv-card-icon" />}
             <h3 className="text-sm md:text-2xl lg:text-3xl font-bold">{title}</h3>
           </div>
           <p>{desc}</p>
@@ -399,132 +444,209 @@ export default function About() {
           </div>
         </div>
         <style jsx global>{`
-          .card-wrap {
+          .cv-card-wrap {
             margin: 10px;
             transform-style: preserve-3d;
+            perspective: 980px;
           }
-          .card-wrap:hover .card-info {
-            transform: translateY(0);
-          }
-          .card-wrap:hover .card-info p {
-            opacity: 1;
-          }
-          .card-wrap:hover .card-info,
-          .card-wrap:hover .card-info p {
-            transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-          }
-          .card-wrap:hover .card-bg {
-            transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 5s cubic-bezier(0.23, 1, 0.32, 1);
-            opacity: 0.8;
-          }
-          .card-wrap:hover .card {
-            transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 2s cubic-bezier(0.23, 1, 0.32, 1);
-            box-shadow:
-              rgba(255, 255, 255, 0.2) 0 0 40px 5px,
-              rgba(255, 255, 255, 1) 0 0 0 1px,
-              rgba(0, 0, 0, 0.66) 0 30px 60px 0,
-              inset #333 0 0 0 5px,
-              inset rgba(255, 255, 255, 0.5) 0 0 0 6px;
-          }
-          .card {
+          .cv-card {
             position: relative;
             flex: 0 0 140px;
             width: 140px;
             height: 190px;
-            background-color: #333;
+            background-color: #1a1f2e;
             overflow: hidden;
-            border-radius: 10px;
+            border-radius: 14px;
+            transform-style: preserve-3d;
+            will-change: transform;
+            transition: box-shadow 0.45s cubic-bezier(0.23, 1, 0.32, 1);
             box-shadow:
-              rgba(0, 0, 0, 0.66) 0 30px 60px 0,
-              inset #333 0 0 0 5px,
-              inset rgba(255, 255, 255, 0.5) 0 0 0 6px;
-            transition: 1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+              0 18px 40px rgba(0, 20, 40, 0.35),
+              0 0 0 1px rgba(255, 255, 255, 0.08) inset;
           }
           @media (min-width: 768px) {
-            .card {
+            .cv-card {
               flex: 0 0 240px;
               width: 240px;
               height: 320px;
+              border-radius: 18px;
             }
           }
-          .card-bg {
-            opacity: 0.5;
+          .cv-card-wrap--hover .cv-card {
+            box-shadow:
+              0 28px 56px rgba(0, 30, 60, 0.45),
+              0 0 0 1px rgba(101, 239, 242, 0.45),
+              0 0 32px rgba(101, 239, 242, 0.2),
+              0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+          }
+          .cv-card-bg {
             position: absolute;
-            top: -20px;
-            left: -20px;
-            width: 100%;
-            height: 100%;
-            padding: 20px;
+            top: -28px;
+            left: -28px;
+            width: calc(100% + 56px);
+            height: calc(100% + 56px);
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
-            transition: 1s cubic-bezier(0.445, 0.05, 0.55, 0.95), opacity 5s 1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+            opacity: 0.55;
             pointer-events: none;
+            will-change: transform, opacity, filter;
+            transition:
+              opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+              filter 0.5s cubic-bezier(0.23, 1, 0.32, 1);
           }
-          .card-info {
+          .cv-card-wrap--hover .cv-card-bg {
+            opacity: 0.95;
+            filter: saturate(1.12) brightness(1.06) contrast(1.02);
+          }
+          .cv-card-bg-vignette {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: radial-gradient(
+              ellipse 85% 75% at 50% 45%,
+              transparent 30%,
+              rgba(0, 12, 32, 0.55) 100%
+            );
+            opacity: 0.85;
+            transition: opacity 0.45s ease;
+          }
+          .cv-card-wrap--hover .cv-card-bg-vignette {
+            opacity: 0.35;
+          }
+          .cv-card-shine {
+            position: absolute;
+            inset: -40% -60%;
+            pointer-events: none;
+            background: linear-gradient(
+              115deg,
+              transparent 35%,
+              rgba(255, 255, 255, 0.18) 48%,
+              rgba(255, 255, 255, 0.32) 50%,
+              rgba(255, 255, 255, 0.12) 52%,
+              transparent 65%
+            );
+            transform: translateX(-100%) skewX(-12deg);
+            opacity: 0;
+            z-index: 2;
+            animation: none;
+          }
+          .cv-card-wrap--hover .cv-card-shine {
+            opacity: 1;
+            animation: cv-shine-sweep 0.85s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+          }
+          @keyframes cv-shine-sweep {
+            from {
+              transform: translateX(-100%) skewX(-12deg);
+            }
+            to {
+              transform: translateX(120%) skewX(-12deg);
+            }
+          }
+          .cv-card-info {
             padding: 10px;
             position: absolute;
             bottom: 0;
+            left: 0;
+            right: 0;
             color: #fff;
-            transform: translateY(40%);
-            transition: 0.6s 1.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+            z-index: 3;
+            transform: translateY(38%);
+            transition: transform 0.55s cubic-bezier(0.23, 1, 0.32, 1);
           }
           @media (min-width: 768px) {
-            .card-info {
-              padding: 20px;
+            .cv-card-info {
+              padding: 18px 20px 20px;
             }
           }
-          .card-info p {
+          .cv-card-wrap--hover .cv-card-info {
+            transform: translateY(0);
+          }
+          .cv-card-info p {
             opacity: 0;
-            text-shadow: rgba(0, 0, 0, 1) 0 2px 3px;
-            transition: 0.6s 1.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+            max-height: 0;
+            margin: 0;
+            overflow: hidden;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
+            transition:
+              opacity 0.45s cubic-bezier(0.23, 1, 0.32, 1),
+              max-height 0.55s cubic-bezier(0.23, 1, 0.32, 1),
+              margin-top 0.45s ease;
             font-size: 10px;
-            line-height: 1.3;
+            line-height: 1.4;
           }
           @media (min-width: 768px) {
-            .card-info p {
+            .cv-card-info p {
               font-size: 14px;
+              line-height: 1.45;
             }
           }
-          .card-info * {
+          .cv-card-wrap--hover .cv-card-info p {
+            opacity: 1;
+            max-height: 120px;
+            margin-top: 6px;
+          }
+          @media (min-width: 768px) {
+            .cv-card-wrap--hover .cv-card-info p {
+              max-height: 160px;
+              margin-top: 8px;
+            }
+          }
+          .cv-card-info > div,
+          .cv-card-info p {
             position: relative;
             z-index: 1;
           }
-          .card-info::after {
-            content: '';
+          .cv-card-info::after {
+            content: "";
             position: absolute;
-            top: 0;
-            left: 0;
+            inset: 0;
             z-index: 0;
-            width: 100%;
-            height: 100%;
-            background-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.6) 100%);
-            background-blend-mode: overlay;
-            opacity: 0;
-            transform: translateY(100%);
-            transition: 5s 1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-          }
-          .card-info h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 14px;
-            font-weight: 700;
-            text-shadow: rgba(0, 0, 0, 0.5) 0 10px 10px;
-            color: white;
+            border-radius: 0 0 14px 14px;
+            background: linear-gradient(
+              to top,
+              rgba(0, 20, 45, 0.92) 0%,
+              rgba(0, 30, 55, 0.55) 55%,
+              transparent 100%
+            );
+            opacity: 0.65;
+            transform: translateY(12px);
+            transition:
+              opacity 0.45s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
           }
           @media (min-width: 768px) {
-            .card-info h3 {
+            .cv-card-info::after {
+              border-radius: 0 0 18px 18px;
+            }
+          }
+          .cv-card-wrap--hover .cv-card-info::after {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          .cv-card-info h3 {
+            font-family: "Playfair Display", serif;
+            font-size: 14px;
+            font-weight: 700;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.65);
+            color: #ffffff;
+            transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+          }
+          @media (min-width: 768px) {
+            .cv-card-info h3 {
               font-size: 24px;
             }
           }
-          .card-info svg {
-            width: 14px;
-            height: 14px;
+          .cv-card-wrap--hover .cv-card-info h3 {
+            transform: translateY(-2px);
           }
-          @media (min-width: 768px) {
-            .card-info svg {
-              width: 24px;
-              height: 24px;
-            }
+          .cv-card-icon {
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+            transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease;
+          }
+          .cv-card-wrap--hover .cv-card-icon {
+            transform: scale(1.08);
+            color: var(--vawe-teal, #65eff2);
           }
         `}</style>
       </section>
@@ -809,7 +931,7 @@ export default function About() {
                           }}
                         >
                           <span className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full" style={{ backgroundColor: color }} />
-                          {m.role}
+                          <span style={m.roleTextColor ? { color: m.roleTextColor } : undefined}>{m.role}</span>
                         </div>
                       </div>
                     </div>

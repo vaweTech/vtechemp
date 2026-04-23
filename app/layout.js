@@ -141,7 +141,7 @@ export default function RootLayout({ children }) {
           <div className="absolute -bottom-20 left-1/4 w-[640px] h-[640px] rounded-full grad-mo blur-3xl opacity-15"></div>
         </div>
         <Navbar />
-        <main className="relative">
+        <main className="relative w-full min-w-0">
           {children}
         </main>
         <Footer />

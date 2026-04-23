@@ -81,10 +81,17 @@ export async function generateMetadata({
   const { slug } = await params;
 
   const m =
-    META[slug] ?? {
-      title: "Product | VAWE Global Tech",
-      description: "Product by VAWE Global Tech",
+    META[slug] ?? null;
+
+  if (!m) {
+    return {
+      title: "Product Not Found | VAWE Global Tech",
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
+  }
 
   return {
     title: m.title,

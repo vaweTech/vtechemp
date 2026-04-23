@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 const PRODUCTS = {
   "lms": {
@@ -52,17 +53,7 @@ export default async function ProductDetail({ params }) {
   const { slug } = await params;
   const product = PRODUCTS[slug];
   if (!product) {
-    return (
-      <div className="pt-20 md:pt-28 w-full px-6 mt-4 md:mt-6">
-        <div className="container mx-auto">
-          <h1 className="text-xl lg:text-2xl xl:text-3xl font-semibold" style={{ color: 'var(--vawe-navy)' }}>Product not found</h1>
-          <p className="mt-3 md:mt-4 text-sm lg:text-base xl:text-lg text-neutral-700">The product you are looking for does not exist.</p>
-          <div className="mt-4 md:mt-6">
-            <Link href="/products" className="px-3 py-1.5 md:px-4 md:py-2 rounded-full text-xs lg:text-sm xl:text-base font-semibold text-white" style={{ backgroundColor: 'var(--vawe-teal)' }}>Back to Products</Link>
-          </div>
-        </div>
-      </div>
-    );
+    notFound();
   }
 
   return (
