@@ -76,11 +76,18 @@ export default function Services() {
   ];
   const [currentIdx, setCurrentIdx] = useState(0);
   const [activeService, setActiveService] = useState(null);
+  const [videoReady, setVideoReady] = useState(false);
+  const [videoError, setVideoError] = useState(false);
   const playerRef = useRef(null);
   const html5VideoRef = useRef(null);
   const [isMounted] = useState(true);
 
   const currentVideo = videos[currentIdx];
+
+  useEffect(() => {
+    setVideoReady(false);
+    setVideoError(false);
+  }, [currentIdx]);
   
   const services = [
     {
@@ -361,24 +368,42 @@ export default function Services() {
           {/* Left: player and heading */}
           <div className="md:col-span-2">
             <h4 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">{currentVideo.title}</h4>
-            <div className="mt-3 aspect-video rounded-2xl overflow-hidden ring-1 ring-white/30 bg-black">
+            <div className="relative mt-3 aspect-video rounded-2xl overflow-hidden ring-1 ring-white/30 bg-black">
               {currentVideo.localSrc ? (
-                <video
-                  key={currentVideo.localSrc}
-                  ref={html5VideoRef}
-                  className="w-full h-full"
-                  src={currentVideo.localSrc}
-                  muted
-                  autoPlay
-                  preload="metadata"
-                  playsInline
-                  onLoadedData={() => {
-                    html5VideoRef.current?.play().catch(() => {});
-                  }}
-                  onCanPlay={() => {
-                    html5VideoRef.current?.play().catch(() => {});
-                  }}
-                />
+                <>
+                  <video
+                    key={currentVideo.localSrc}
+                    ref={html5VideoRef}
+                    className="w-full h-full"
+                    src={currentVideo.localSrc}
+                    muted
+                    autoPlay
+                    loop
+                    preload="auto"
+                    playsInline
+                    onLoadedData={() => {
+                      setVideoReady(true);
+                      html5VideoRef.current?.play().catch(() => {});
+                    }}
+                    onCanPlay={() => {
+                      setVideoReady(true);
+                      html5VideoRef.current?.play().catch(() => {});
+                    }}
+                    onError={() => {
+                      setVideoError(true);
+                    }}
+                  />
+                  {!videoReady && !videoError && (
+                    <div className="absolute inset-0 grid place-items-center text-white/80 text-sm">
+                      Loading video...
+                    </div>
+                  )}
+                  {videoError && (
+                    <div className="absolute inset-0 grid place-items-center text-white/90 text-sm">
+                      Video could not be loaded.
+                    </div>
+                  )}
+                </>
               ) : (
                 <iframe
                   key={currentVideo.id}
