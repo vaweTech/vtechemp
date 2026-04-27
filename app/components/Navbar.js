@@ -33,7 +33,7 @@ export default function Navbar() {
     {
       href: "/digital-marketing",
       label: "Digital Marketing",
-      compactLabel: "Digi. Mktg",
+      compactLabel: "Digital Marketing",
       description: "Campaigns",
       Icon: Megaphone,
     },
@@ -47,7 +47,7 @@ export default function Navbar() {
       <Link
         href={href}
         title={compactLabel ? label : undefined}
-        className={`group relative inline-flex shrink-0 items-center gap-1 whitespace-nowrap px-1.5 py-1 text-[11px] font-semibold transition md:gap-1.5 md:px-2 md:py-1.5 md:text-xs xl:gap-2 xl:px-2.5 xl:py-2 xl:text-sm 2xl:text-base 3xl:text-lg 4xl:text-xl ${
+        className={`group relative inline-flex shrink-0 items-center gap-0.5 whitespace-nowrap px-1 py-1 text-[10px] font-semibold transition md:gap-1 md:px-1.5 md:py-1 md:text-[10px] lg:gap-1.5 lg:px-2 lg:py-1.5 lg:text-[11px] xl:gap-2 xl:px-2.5 xl:py-2 xl:text-sm 2xl:text-base 3xl:text-lg 4xl:text-xl ${
           light
             ? "text-[#ffffff]"
             : active
@@ -56,7 +56,7 @@ export default function Navbar() {
         }`}
       >
         <Icon
-          className={`h-3.5 w-3.5 shrink-0 transition md:h-4 md:w-4 xl:h-[var(--icon-nav)] xl:w-[var(--icon-nav)] ${
+          className={`h-3 w-3 shrink-0 transition md:h-3.5 md:w-3.5 lg:h-4 lg:w-4 xl:h-[var(--icon-nav)] xl:w-[var(--icon-nav)] ${
             light
               ? "text-[#ffffff]"
               : active
@@ -207,7 +207,7 @@ export default function Navbar() {
           </div>
         </Link>
 
-        <nav className="hidden min-w-0 flex-1 justify-center px-1 md:flex md:px-2 xl:px-3">
+        <nav className="hidden min-w-0 flex-1 justify-center px-1 ml-30 lg:ml-10 md:flex md:px-2 xl:px-3">
           <div className="flex max-w-full flex-nowrap items-center justify-center gap-x-0.5 sm:gap-x-1 md:gap-x-0.5 xl:gap-x-1 2xl:gap-x-2 3xl:gap-x-3">
             {links.map(({ href, label, compactLabel, Icon }) => (
               <NavLink key={href} href={href} label={label} compactLabel={compactLabel} Icon={Icon} light={navIsLight} />
@@ -219,7 +219,7 @@ export default function Navbar() {
           <a
             href="tel:+918885103333"
             aria-label="Call VAWE Global Tech"
-            className="hidden items-center gap-1.5 whitespace-nowrap rounded-full bg-slate-900 px-2.5 py-1.5 text-xs font-semibold text-white shadow-lg shadow-slate-900/20 transition hover:-translate-y-0.5 hover:shadow-xl md:flex xl:gap-2 xl:px-4 xl:py-2 xl:text-sm 2xl:text-base 3xl:px-5 3xl:py-2.5 3xl:text-lg 4xl:text-xl"
+            className="hidden items-center gap-1.5 whitespace-nowrap rounded-full bg-slate-900 px-2.5 py-1.5 text-xs font-semibold text-white shadow-lg shadow-slate-900/20 transition hover:-translate-y-0.5 hover:shadow-xl lg:flex xl:gap-2 xl:px-4 xl:py-2 xl:text-sm 2xl:text-base 3xl:px-5 3xl:py-2.5 3xl:text-lg 4xl:text-xl"
           >
             <Phone className="h-3.5 w-3.5 shrink-0 xl:h-[var(--icon-nav)] xl:w-[var(--icon-nav)]" />
             <span>Call Us</span>
@@ -228,7 +228,7 @@ export default function Navbar() {
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm font-semibold shadow transition-colors 3xl:px-4 3xl:py-2.5 3xl:text-base ${
+            className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm font-semibold shadow transition-colors md:hidden 3xl:px-4 3xl:py-2.5 3xl:text-base ${
               navIsLight
                 ? "border-2 border-[#ffffff] bg-transparent text-[#ffffff] hover:bg-[#ffffff] hover:text-slate-900"
                 : "border-slate-300 bg-white/70 text-slate-700"

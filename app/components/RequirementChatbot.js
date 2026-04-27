@@ -339,18 +339,6 @@ export default function RequirementChatbot() {
               >
                 {introLines[activeIntroIndex]}
               </p>
-              <div className="mt-1.5 flex items-center gap-1.5">
-                {introLines.map((line, index) => (
-                  <span
-                    key={line}
-                    className={`h-1.5 rounded-full transition-all duration-500 ${
-                      index === activeIntroIndex
-                        ? "w-5 bg-[#0a4a93]"
-                        : "w-1.5 bg-[#0a4a93]/30"
-                    }`}
-                  />
-                ))}
-              </div>
               <div className="mt-2 flex items-center gap-1.5">
                 <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#0a4a93] [animation-delay:0ms]" />
                 <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#0a4a93] [animation-delay:150ms]" />
