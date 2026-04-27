@@ -1,4 +1,4 @@
-export const metadata = {
+  export const metadata = {
   title: "Website Packages in Vijayawada | VAWE Global Tech",
   description:
     "Choose from basic, semi-dynamic, dynamic, and customized website packages tailored for AP businesses.",

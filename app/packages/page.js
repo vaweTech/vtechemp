@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";  
 import { useState } from "react";
+import { Globe, Monitor, FileText, Settings2 } from "lucide-react";
 
 const packages = [
   {
@@ -20,7 +21,7 @@ const packages = [
       "Basic security features",
     ],
     color: "var(--vawe-coral)",
-    icon: "globe.svg",
+    icon: Globe,
     variant: "cut",
   },
   {
@@ -41,7 +42,7 @@ const packages = [
       "Form submissions handling",
     ],
     color: "var(--vawe-teal)",
-    icon: "window.svg",
+    icon: Monitor,
     variant: "ring",
   },
   {
@@ -64,7 +65,7 @@ const packages = [
       "Data visualization tools",
     ],
     color: "var(--vawe-navy)",
-    icon: "file.svg",
+    icon: FileText,
     variant: "dots",
   },
   {
@@ -89,7 +90,7 @@ const packages = [
       "Ongoing support & maintenance",
     ],
     color: "var(--vawe-beige)",
-    icon: "next.svg",
+    icon: Settings2,
     variant: "diagonal",
   },
 ];
@@ -138,7 +139,7 @@ export default function Packages() {
                   <div className="pkg-top" style={{ backgroundColor: p.color }} />
                   <div className="flex items-center gap-2 md:gap-3 mt-2 min-h-[48px]">
                     <div className="icon-badge" style={{ backgroundColor: p.color }}>
-                      <Image src={`/${p.icon}`} alt="" className="w-[18px] h-[18px] md:w-[22px] md:h-[22px]" width={22} height={22} loading="lazy" />
+                      <p.icon className="w-[18px] h-[18px] md:w-[22px] md:h-[22px] text-white" aria-hidden="true" />
                     </div>
                     <h3 className="text-base md:text-lg font-semibold" style={{ color: 'var(--vawe-navy)' }}>{p.name}</h3>
                   </div>

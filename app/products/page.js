@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { Globe, FileText, Monitor } from "lucide-react";
 
 const products = [
   {
@@ -15,7 +16,7 @@ const products = [
       "Student progress tracking and certificates",
       "Instructor dashboards and analytics",
     ],
-    icon: "/window.svg",
+    icon: Monitor,
   },
   {
     title: "Smart Attendance",
@@ -28,7 +29,7 @@ const products = [
       "Leave management and approvals",
       "Monthly timesheets and payroll exports",
     ],
-    icon: "/file.svg",
+    icon: FileText,
   },
   {
     title: "Vehicle Tracking System",
@@ -41,7 +42,7 @@ const products = [
       "Geofencing alerts and notifications",
       "Route optimization and utilization",
     ],
-    icon: "/globe.svg",
+    icon: Globe,
   },
   {
     title: "E‑commerce Website",
@@ -54,7 +55,7 @@ const products = [
       "Cart, checkout, and payments",
       "Orders, refunds, and sales analytics",
     ],
-    icon: "/window.svg",
+    icon: Monitor,
   },
 ];
 
@@ -86,7 +87,6 @@ export default function Products() {
                       title={`${p.title} image`}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      quality={95}
                       className="object-cover"
                       priority={false}
                     />
@@ -94,9 +94,7 @@ export default function Products() {
                   </div>
                   <div className="p-6">
                     <h3 className="text-lg font-semibold flex items-center gap-2" style={{ color: 'var(--vawe-navy)' }}>
-                      {p.icon && (
-                        <Image src={p.icon} alt={`${p.title} icon`} width={20} height={20} className="w-5 h-5" priority={false} style={{ filter: 'invert(1)' }} />
-                      )}
+                      {p.icon && <p.icon className="h-5 w-5" aria-hidden="true" />}
                       {p.title}
                     </h3>
                     <p className="mt-2 text-neutral-700 text-sm">{p.desc}</p>

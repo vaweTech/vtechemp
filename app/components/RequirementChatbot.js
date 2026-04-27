@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { AnimatePresence, motion } from "framer-motion";
 import { Sparkles, X } from "lucide-react";
 import { db } from "../lib/firebase";
 
@@ -59,6 +60,9 @@ const introLines = [
   "Welcome to VAWE",
   "I am your virtual assistant",
   "Let us plan your project today",
+  "Tell me your idea, I will guide you",
+  "Get a quick consultation in minutes",
+  "Share your budget and timeline",
 ];
 
 export default function RequirementChatbot() {
@@ -161,7 +165,7 @@ export default function RequirementChatbot() {
     setActiveIntroIndex(0);
     const interval = setInterval(() => {
       setActiveIntroIndex((prev) => (prev + 1) % introLines.length);
-    }, 2200);
+    }, 2600);
     return () => {
       clearInterval(interval);
     };
@@ -222,51 +226,89 @@ export default function RequirementChatbot() {
   return (
     <div className="fixed bottom-4 right-3 z-50 sm:bottom-5 sm:right-5">
       {isOpen ? (
-        <div className="w-[min(92vw,360px)] overflow-hidden rounded-3xl border border-[#0b4b92]/20 bg-white/95 shadow-[0_20px_50px_rgba(3,35,74,0.24)] backdrop-blur">
-          <div className="flex items-center justify-between bg-gradient-to-r from-[#0a4a93] to-[#1866bd] px-4 py-3 text-white">
-            <div className="flex items-center gap-2">
-              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
-                <Sparkles className="h-4 w-4" />
-              </span>
-              <div>
-                <h3 className="text-sm font-semibold">VAWE Assistant</h3>
-                <p className="text-[11px] text-white/85">Online now · We typically reply in under 1 min</p>
-              </div>
+        <div className="flex h-[min(82vh,760px)] w-[min(94vw,390px)] flex-col overflow-hidden rounded-[1.75rem] border border-[#0b4b92]/20 bg-white/90 shadow-[0_28px_70px_rgba(3,35,74,0.28)] ring-1 ring-white/40 backdrop-blur-xl">
+          <div className="relative overflow-hidden border-b border-white/20 bg-gradient-to-r from-[#083a74] via-[#0f57a8] to-[#2580df] px-3.5 py-2.5 text-white">
+            <div className="pointer-events-none absolute inset-0 opacity-40">
+              <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-white/20 blur-xl" />
+              <div className="absolute -bottom-10 left-8 h-24 w-24 rounded-full bg-[#8dc7ff]/40 blur-2xl" />
             </div>
-            <button
-              type="button"
-              onClick={() => setIsOpen(false)}
-              className="rounded-full p-1.5 text-xs hover:bg-white/20"
-              aria-label="Close chatbot"
-            >
-              <X className="h-4 w-4" />
-            </button>
+            <div className="relative flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-white/15">
+                  <Sparkles className="h-4 w-4" />
+                </span>
+                <div>
+                  <h3 className="text-sm font-semibold tracking-wide">VAWE Assistant</h3>
+                  <p className="text-[11px] text-white/90">
+                    online now{" "}
+                    <span className="font-bold text-emerald-300">●</span>
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsOpen(false)}
+                className="rounded-full border border-white/25 bg-white/10 p-1.5 text-xs transition hover:bg-white/20"
+                aria-label="Close chatbot"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
           </div>
-          <div className="h-1 w-full bg-[#e7effb]">
+          <div className="h-1 w-full bg-[#dbe8fb]">
             <div
-              className="h-full bg-gradient-to-r from-[#0a4a93] to-[#3aa0ff] transition-all duration-500"
+              className="h-full bg-gradient-to-r from-[#0a4a93] via-[#1d69bf] to-[#5ab4ff] transition-all duration-500"
               style={{ width: `${progress}%` }}
             />
           </div>
 
           <div
             ref={chatBodyRef}
-            className="max-h-[52vh] space-y-2 overflow-y-auto bg-gradient-to-b from-[#f6f9ff] to-[#eef4ff] p-3 sm:max-h-[360px]"
+            className="min-h-0 flex-1 space-y-2.5 overflow-y-auto bg-gradient-to-b from-[#f8fbff] via-[#f2f7ff] to-[#ebf3ff] p-3"
           >
-            {messages.map((msg, index) => (
-              <div
-                key={`${msg.role}-${index}`}
-                className={`max-w-[85%] rounded-xl px-3 py-2 text-sm ${
-                  msg.role === "bot"
-                    ? "bg-white text-slate-800 shadow-sm ring-1 ring-slate-100"
-                    : "ml-auto bg-gradient-to-r from-[#0a4a93] to-[#1866bd] text-white"
-                }`}
-              >
-                {msg.text}
-              </div>
-            ))}
+            <AnimatePresence initial={false}>
+              {messages.map((msg, index) => (
+                <motion.div
+                  key={`${msg.role}-${index}`}
+                  layout
+                  initial={{
+                    opacity: 0,
+                    y: 12,
+                    x: msg.role === "bot" ? -20 : 20,
+                    scale: 0.96,
+                    filter: "blur(4px)",
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    x: 0,
+                    scale: 1,
+                    filter: "blur(0px)",
+                  }}
+                  exit={{ opacity: 0, y: -8, scale: 0.96 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 360,
+                    damping: 28,
+                    mass: 0.9,
+                  }}
+                  className={`relative max-w-[86%] rounded-2xl px-3 py-2 text-[13px] leading-5 sm:text-sm ${
+                    msg.role === "bot"
+                      ? "bg-white text-slate-800 shadow-sm ring-1 ring-[#dce9fb]"
+                      : "ml-auto bg-gradient-to-r from-[#0a4a93] to-[#1866bd] text-white shadow-[0_8px_20px_rgba(24,102,189,0.26)]"
+                  }`}
+                >
+                  {msg.text}
+                  {msg.role === "bot" ? (
+                    <span className="absolute -left-1 bottom-3 h-2.5 w-2.5 rotate-45 border-b border-l border-[#dce9fb] bg-white" />
+                  ) : (
+                    <span className="absolute -right-1 bottom-3 h-2.5 w-2.5 rotate-45 bg-[#1866bd]" />
+                  )}
+                </motion.div>
+              ))}
+            </AnimatePresence>
             {isSaving ? (
-              <div className="max-w-[85%] rounded-xl bg-white px-3 py-2 text-sm text-slate-700 shadow-sm">
+              <div className="max-w-[85%] rounded-2xl bg-white px-3 py-2 text-sm text-slate-700 shadow-sm ring-1 ring-[#dce9fb]">
                 <div className="flex items-center gap-1.5">
                   <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#0a4a93] [animation-delay:0ms]" />
                   <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#0a4a93] [animation-delay:150ms]" />
@@ -277,13 +319,17 @@ export default function RequirementChatbot() {
           </div>
 
           {!isDone && currentStep.quickReplies ? (
-            <div className="flex flex-wrap gap-2 border-t border-slate-100 bg-white px-3 py-2">
+            <div className="flex flex-wrap gap-1.5 border-t border-slate-100 bg-white/95 px-3 py-2">
               {currentStep.quickReplies.map((option) => (
                 <button
                   key={option}
                   type="button"
                   onClick={() => setInput(option)}
-                  className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs text-slate-700 transition hover:-translate-y-[1px] hover:border-[#0a4a93] hover:text-[#0a4a93]"
+                  className={`rounded-full border px-2.5 py-1 text-xs font-medium transition ${
+                    input === option
+                      ? "border-[#0a4a93] bg-[#0a4a93]/10 text-[#0a4a93]"
+                      : "border-slate-200 bg-slate-50 text-slate-700 hover:-translate-y-[1px] hover:border-[#0a4a93] hover:text-[#0a4a93]"
+                  }`}
                 >
                   {option}
                 </button>
@@ -291,7 +337,7 @@ export default function RequirementChatbot() {
             </div>
           ) : null}
 
-          <form onSubmit={handleSubmit} className="flex gap-2 border-t border-slate-200 bg-white p-3">
+          <form onSubmit={handleSubmit} className="flex gap-1.5 border-t border-slate-200 bg-white p-3">
             <input
               value={input}
               onChange={(event) => setInput(event.target.value)}
@@ -307,7 +353,7 @@ export default function RequirementChatbot() {
             <button
               type="submit"
               disabled={isSaving || !input.trim()}
-              className="rounded-xl bg-gradient-to-r from-[#0a4a93] to-[#1866bd] px-4 py-2 text-sm font-medium text-white transition hover:brightness-95 disabled:opacity-60"
+              className="rounded-xl bg-gradient-to-r from-[#0a4a93] to-[#1866bd] px-3.5 py-2 text-sm font-medium text-white transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {isSaving ? "Saving..." : "Send"}
             </button>
@@ -321,40 +367,18 @@ export default function RequirementChatbot() {
           <button
             type="button"
             onClick={resetConversation}
-            className="w-full border-t border-slate-100 bg-white py-2 text-xs text-slate-600 hover:bg-slate-50"
+            className="w-full border-t border-slate-100 bg-white py-2 text-xs font-medium text-slate-600 transition hover:bg-slate-50"
           >
             Reset chat
           </button>
         </div>
       ) : (
         <div className="relative flex items-end gap-2 sm:gap-3">
-          {showIntro ? (
-            <div className="relative max-w-[min(64vw,255px)] rounded-2xl border border-[#d9e6fb] bg-white px-3 py-2.5 text-slate-700 shadow-[0_14px_30px_rgba(10,74,147,0.15)] sm:px-4 sm:py-3">
-              <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0a4a93]/80">
-                VAWE Assistant
-              </p>
-              <p
-                key={activeIntroIndex}
-                className="min-h-[36px] pr-1 text-xs font-medium leading-5 text-slate-800 animate-[fadeUp_450ms_ease] sm:min-h-[40px] sm:text-sm"
-              >
-                {introLines[activeIntroIndex]}
-              </p>
-              <div className="mt-2 flex items-center gap-1.5">
-                <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#0a4a93] [animation-delay:0ms]" />
-                <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#0a4a93] [animation-delay:150ms]" />
-                <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#0a4a93] [animation-delay:300ms]" />
-              </div>
-              <p className="mt-2 text-[11px] text-slate-500">Tap the bot to get a quick consultation</p>
-
-              <span className="absolute -right-2 bottom-4 h-4 w-4 rotate-45 border-b border-r border-[#d9e6fb] bg-white" />
-            </div>
-          ) : null}
-
           <button
             type="button"
             onClick={() => setIsOpen(true)}
             aria-label="Open chatbot"
-            className="relative inline-flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-white shadow-[0_14px_30px_rgba(10,74,147,0.35)] ring-2 ring-white transition hover:scale-[1.04] animate-[floatBot_2.6s_ease-in-out_infinite] sm:h-14 sm:w-14"
+            className="relative inline-flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-white shadow-[0_14px_30px_rgba(10,74,147,0.35)] ring-2 ring-white transition hover:scale-[1.04] hover:shadow-[0_18px_36px_rgba(10,74,147,0.42)] animate-[floatBot_2.6s_ease-in-out_infinite] sm:h-14 sm:w-14"
           >
             <span className="absolute inset-0 rounded-full border-2 border-[#0a4a93]/30 animate-ping" />
             <Image
@@ -370,10 +394,6 @@ export default function RequirementChatbot() {
             @keyframes floatBot {
               0%, 100% { transform: translateY(0); }
               50% { transform: translateY(-5px); }
-            }
-            @keyframes fadeUp {
-              from { opacity: 0; transform: translateY(8px); }
-              to { opacity: 1; transform: translateY(0); }
             }
           `}</style>
         </div>

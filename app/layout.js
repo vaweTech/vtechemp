@@ -107,7 +107,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth">
       <body className={`${poppins.variable} ${orbitron.variable} ${raleway.variable} antialiased min-h-screen`}>
         <script
           type="application/ld+json"

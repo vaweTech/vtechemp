@@ -205,7 +205,7 @@ const ValueCard3D = ({ title, desc, icon: Icon, image }) => {
 
 export default function About() {
   return (
-    <div className="pt-28 bg-gradient-to-b from-white to-neutral-50">
+    <div className="pt-28 bg-gradient-to-b mt-[-35px] from-white to-neutral-50">
       {/* Hero */}
       <section className="relative w-full px-6 py-8 md:py-10 text-center" style={{ background: 'var(--vawe-bg-gradient)' }}>
         <motion.h1
@@ -431,7 +431,24 @@ export default function About() {
               >
                 <div className={`absolute -top-20 left-1/2 h-44 w-44 -translate-x-1/2 rounded-full bg-gradient-to-br ${card.ring} blur-3xl opacity-40`} />
                 <div className="relative mx-auto flex h-16 w-16 md:h-20 md:w-20 items-center justify-center rounded-full bg-white shadow-[0_12px_30px_rgba(7,23,56,0.14)]">
-                  {card.icon && <card.icon size={24} className="md:w-[30px] md:h-[30px] text-[var(--vawe-navy)]" />}
+                  {card.icon && (
+                    <motion.div
+                      animate={
+                        card.title === "Our Vision"
+                          ? { scaleY: [1, 1, 0.12, 1, 1] }
+                          : { y: [0, -2, 0], rotate: [0, 2, 0, -2, 0] }
+                      }
+                      transition={{
+                        duration: card.title === "Our Vision" ? 1.6 : 2.1,
+                        repeat: Infinity,
+                        repeatDelay: card.title === "Our Vision" ? 0.45 : 0.2,
+                        ease: "easeInOut",
+                      }}
+                      style={{ transformOrigin: "center center" }}
+                    >
+                      <card.icon size={24} className="md:w-[30px] md:h-[30px] text-[var(--vawe-navy)]" />
+                    </motion.div>
+                  )}
                 </div>
                 <h3 className="relative mt-4 md:mt-6 text-base md:text-xl font-semibold" style={{ color: "var(--vawe-navy)" }}>
                   {card.title}
@@ -722,7 +739,7 @@ export default function About() {
             ))}
           </div>
 
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -744,7 +761,7 @@ export default function About() {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </motion.div> */}
         </div>
       </section>
 
@@ -946,8 +963,7 @@ export default function About() {
                             color: color
                           }}
                         >
-                          <span className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full" style={{ backgroundColor: color }} />
-                          <span style={m.roleTextColor ? { color: m.roleTextColor } : undefined}>{m.role}</span>
+                          <span style={{ color: "black" }}>{m.role}</span>
                         </div>
                       </div>
                     </div>

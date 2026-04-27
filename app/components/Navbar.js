@@ -207,7 +207,7 @@ export default function Navbar() {
           </div>
         </Link>
 
-        <nav className="hidden min-w-0 flex-1 justify-center px-1 ml-30 lg:ml-10 md:flex md:px-2 xl:px-3">
+        <nav className="hidden min-w-0 flex-1 justify-center px-1 ml-30 lg:ml-10 lg:flex lg:px-2 xl:px-3">
           <div className="flex max-w-full flex-nowrap items-center justify-center gap-x-0.5 sm:gap-x-1 md:gap-x-0.5 xl:gap-x-1 2xl:gap-x-2 3xl:gap-x-3">
             {links.map(({ href, label, compactLabel, Icon }) => (
               <NavLink key={href} href={href} label={label} compactLabel={compactLabel} Icon={Icon} light={navIsLight} />
@@ -228,7 +228,7 @@ export default function Navbar() {
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm font-semibold shadow transition-colors md:hidden 3xl:px-4 3xl:py-2.5 3xl:text-base ${
+            className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm font-semibold shadow transition-colors lg:hidden 3xl:px-4 3xl:py-2.5 3xl:text-base ${
               navIsLight
                 ? "border-2 border-[#ffffff] bg-transparent text-[#ffffff] hover:bg-[#ffffff] hover:text-slate-900"
                 : "border-slate-300 bg-white/70 text-slate-700"
