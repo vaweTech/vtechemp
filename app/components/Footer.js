@@ -10,9 +10,9 @@ export default function Footer() {
 
   return (
     <footer className="mt-[var(--site-section-y)] w-full bg-[#7ea9ad] text-slate-900">
-      <div className="container-vawe flex w-full max-w-none flex-col items-start gap-[var(--site-block-gap)] py-10 sm:flex-row sm:flex-wrap sm:justify-between lg:flex-nowrap lg:items-center lg:gap-20 lg:py-14 3xl:py-16 4xl:py-20">
-        <div className="flex w-full flex-col items-center gap-5 sm:w-[45%] lg:w-1/3">
-          <Link href="/" className="flex flex-col items-center gap-4">
+      <div className="container-vawe flex w-full max-w-none flex-col gap-10 py-10 md:gap-12 md:py-12 lg:flex-row lg:items-start lg:justify-between lg:gap-14 lg:py-14 3xl:py-16 4xl:py-20">
+        <div className="flex w-full flex-col items-center gap-5 text-center lg:w-[32%] lg:items-start lg:text-left">
+          <Link href="/" className="flex flex-col items-center gap-4 lg:items-start">
             <Image
               src="/logo2.jpg"
               width={100}
@@ -30,16 +30,16 @@ export default function Footer() {
           </p>
         </div>
 
-        <div className="flex w-full flex-col gap-8 sm:w-[50%] lg:w-2/3">
-          <div className="flex flex-col gap-2">
+        <div className="flex w-full flex-col gap-8 lg:w-[68%]">
+          <div className="flex flex-col gap-2 text-center md:text-left">
             <p className="text-sm uppercase tracking-[0.35em] text-slate-800/70 3xl:text-base 4xl:text-lg">
               Crafted For Forward Thinkers
             </p>
             <h3 className="text-2xl font-semibold text-slate-900 sm:text-3xl 3xl:text-4xl 4xl:text-5xl">VAWE GlobalTech</h3>
           </div>
 
-          <div className="grid grid-cols-3 gap-4 sm:gap-6 3xl:gap-8">
-            <div className="col-span-1 space-y-3">
+          <div className="grid grid-cols-3 gap-6 sm:grid-cols-3 sm:gap-6 3xl:gap-8">
+            <div className="space-y-3 text-center sm:text-left">
               <h5 className="text-base font-semibold 3xl:text-lg 4xl:text-xl">Navigation</h5>
               <ul className="space-y-2 text-sm text-slate-800/80 3xl:text-base">
                 <li>
@@ -69,7 +69,7 @@ export default function Footer() {
               </ul>
             </div>
 
-            <div className="col-span-1 space-y-3">
+            <div className="space-y-3 text-center sm:text-left">
               <h5 className="text-base font-semibold 3xl:text-lg 4xl:text-xl">Support</h5>
               <ul className="space-y-2 text-sm text-slate-800/80 3xl:text-base">
                 <li>
@@ -99,7 +99,7 @@ export default function Footer() {
               </ul>
             </div>
 
-            <div className="col-span-1 space-y-3">
+            <div className="space-y-3 text-center sm:text-left">
               <h5 className="text-base font-semibold 3xl:text-lg 4xl:text-xl">Social</h5>
               <ul className="space-y-3 text-sm text-slate-800/80 3xl:text-base">
                 <li>
@@ -145,9 +145,9 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-slate-900/20 bg-[#779ea3]">
-        <div className="container-vawe flex w-full max-w-none flex-col gap-4 py-6 text-xs text-slate-800/80 sm:flex-row sm:items-center sm:justify-between 3xl:text-sm 4xl:text-base">
+        <div className="container-vawe flex w-full max-w-none flex-col items-center gap-3 py-5 text-center text-xs text-slate-800/80 sm:py-6 md:flex-row md:items-center md:justify-between md:text-left 3xl:text-sm 4xl:text-base">
           <p>Copyright © {year} VAWE GlobalTech</p>
-          <div className="flex flex-wrap items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:justify-end">
             <span>Terms &amp; Conditions</span>
             <span>Privacy Policy</span>
             <Link href="#top" className="group inline-flex items-center gap-1 rounded-full border border-transparent px-2 py-1 transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-900/25 hover:bg-white/35 hover:text-slate-900">
