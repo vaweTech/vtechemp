@@ -1161,201 +1161,98 @@ export default function Home() {
   return (
     <div className="relative">
       {/* Hero Section */}
-      <section id="hero" className="relative overflow-hidden bg-[#000b1d] text-white">
+      <section id="hero" className="relative overflow-hidden bg-[#110018] text-white">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(101,239,242,0.16),transparent_58%)]" />
-          <div
-            className="absolute inset-0 opacity-45"
-            style={{
-              backgroundImage:
-                "repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 120px)",
-            }}
-          />
-          <div className="absolute -top-36 -left-24 h-[360px] w-[360px] rounded-full bg-[var(--vawe-coral)]/18 blur-3xl" />
-          <div className="absolute bottom-[-220px] right-[-130px] h-[420px] w-[420px] rounded-full bg-[var(--vawe-teal)]/18 blur-[120px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(255,43,170,0.28),transparent_45%),radial-gradient(circle_at_80%_40%,rgba(255,122,66,0.22),transparent_42%),linear-gradient(115deg,#090013_0%,#160021_55%,#0d0018_100%)]" />
         </div>
 
-        <div className="relative container mx-auto max-w-[var(--site-max)] px-[var(--site-px)] pt-16 pb-10 md:py-28 3xl:pt-20 3xl:pb-14 4xl:py-32">
-          <div className="grid items-center gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-16 3xl:gap-20 4xl:gap-24">
-            <div className="space-y-6 sm:space-y-8">
-              <motion.span
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.4 }}
-                className="mt-3 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-5 py-2 text-[12px] uppercase tracking-[0.32em] text-white/70 sm:text-xs 3xl:text-sm 4xl:text-base"
-              >
-                <span className="inline-block h-2 w-2 rounded-full bg-[var(--vawe-teal)] animate-ping" />
-                Vawe Global Tech
-              </motion.span>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.45 }}
-                transition={{ delay: 0.02, duration: 0.5 }}
-                className="font-(--font-orbitron) text-[clamp(32px,6vw,48px)] leading-[1.08] font-extrabold md:text-[clamp(32px,4.5vw,52px)] lg:text-[clamp(36px,4vw,56px)] xl:text-[clamp(38px,3.6vw,60px)] 3xl:text-[clamp(40px,3.2vw,68px)] 4xl:text-[clamp(42px,2.8vw,76px)]"
-              >
-                Building with digital Brilliance{" "}
-                <span className="text-[var(--vawe-teal)]">AI velocity</span>{" "}
-                for{" "}<br />
-                <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-[var(--vawe-coral)]">
-                  {typed}
-                  <span className="inline-block h-[1.15em] w-[8px] translate-y-[4px] bg-white/80 align-middle animate-pulse" />
+        <div className="relative container mx-auto max-w-[var(--site-max)] px-[var(--site-px)] py-16 md:py-24">
+          <div className="grid items-center gap-10 md:grid-cols-2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45 }}
+              className="space-y-5"
+            >
+              <h1 className="font-(--font-orbitron) text-4xl font-bold leading-[1.08] md:text-6xl">
+                <span className="bg-[linear-gradient(90deg,#ff4dc3,#ff7a42)] bg-clip-text text-transparent">
+                  Building with digital Brilliance
                 </span>
-              </motion.h1>
+                <br />
+                AI velocity for
+                <br />
+                <span className="inline-block w-[16ch] text-left text-[var(--vawe-teal)]">
+                  {typed}
+                </span>
+                <span className="ml-1 inline-block h-[1.05em] w-[6px] bg-white align-middle animate-pulse" />
+              </h1>
 
-              <motion.p
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.45 }}
-                transition={{ delay: 0.05, duration: 0.5 }}
-                className="max-w-xl text-sm leading-relaxed text-white/75 sm:text-lg 3xl:max-w-2xl 3xl:text-xl 4xl:text-2xl"
-              >
+              <p className="max-w-lg text-sm text-white/75 md:text-lg">
                 We combine design systems, autonomous infrastructure, and product
                 telemetry to create experiences that learn and adapt. Launch faster,
                 stay secure, and keep customers coming back.
-              </motion.p>
+              </p>
 
-              <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.45 }}
-                transition={{ delay: 0.08, duration: 0.5 }}
-                className="hidden md:flex flex-wrap items-center gap-3 sm:gap-4"
-              >
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                 <a
                   href="/contact"
-                  className="group inline-flex items-center gap-3 rounded-full bg-[var(--vawe-teal)] px-6 py-3 text-sm font-semibold text-black shadow-[0_18px_48px_rgba(101,239,242,0.32)] transition duration-300 hover:shadow-[0_20px_56px_rgba(101,239,242,0.4)] sm:text-base 3xl:px-8 3xl:py-3.5 3xl:text-lg 4xl:text-xl"
+                  className="group inline-flex items-center gap-3 rounded-full bg-[var(--vawe-teal)] px-6 py-3 text-sm font-semibold text-black shadow-[0_18px_48px_rgba(101,239,242,0.32)] transition duration-300 hover:shadow-[0_20px_56px_rgba(101,239,242,0.4)] sm:text-base"
                 >
                   Launch a discovery sprint
-                  <ArrowRight
-                    className="h-[var(--icon-ui)] w-[var(--icon-ui)] shrink-0 transition-transform duration-300 group-hover:translate-x-1"
-                  />
+                  <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                 </a>
                 <a
                   href="#services"
-                  className="inline-flex items-center gap-3 rounded-full border border-white/25 px-6 py-3 text-sm font-semibold text-white/80 transition duration-300 hover:bg-white/10 hover:text-white sm:text-base 3xl:px-8 3xl:py-3.5 3xl:text-lg 4xl:text-xl"
+                  className="inline-flex items-center gap-3 rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white/80 transition duration-300 hover:bg-white/10 hover:text-white sm:text-base"
                 >
                   Explore services
                 </a>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.45 }}
-                transition={{ delay: 0.1, duration: 0.5 }}
-                className="hidden w-full grid-cols-3 gap-6 pt-4 sm:pt-6 md:grid 3xl:gap-8 4xl:gap-10"
-              >
+              <div className="grid w-full grid-cols-3 gap-4 pt-2">
                 {heroStats.map(({ value, label }) => (
                   <div key={label}>
-                    <div className="text-3xl font-bold text-white sm:text-[36px] 3xl:text-4xl 4xl:text-5xl">
+                    <div className="text-3xl font-bold text-white sm:text-[36px]">
                       {value}
                     </div>
-                    <div className="mt-1 text-[11px] uppercase tracking-[0.32em] text-white/55 3xl:text-xs 4xl:text-sm">
+                    <div className="mt-1 text-[11px] uppercase tracking-[0.32em] text-white/55">
                       {label}
                     </div>
                   </div>
                 ))}
-              </motion.div>
-            </div>
-
-            <div className="relative mt-3 sm:mt-4 flex justify-center md:mt-0">
-              <div className="absolute -inset-6 hidden rounded-[48px] bg-white/5 blur-3xl md:block" />
-
-              <div className="relative w-full max-w-lg sm:max-w-xl 3xl:max-w-2xl 4xl:max-w-3xl">
-                <div className="pointer-events-none absolute inset-0 rounded-[44px] border border-white/10 bg-white/5 backdrop-blur"></div>
-                <div className="relative h-[320px] overflow-hidden rounded-[44px] sm:h-[380px] md:h-[460px] 3xl:h-[520px] 4xl:h-[580px]">
-                  <div className="absolute inset-x-6 top-6 h-[180px] rounded-[32px] border border-white/10 bg-white/10 opacity-35 blur-xl"></div>
-                  <div className="absolute inset-x-10 bottom-6 h-[180px] rounded-[32px] border border-white/10 bg-white/10 opacity-25 blur-xl"></div>
-
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={currentHero.src}
-                      initial={{ y: 80, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: -80, opacity: 0 }}
-                      transition={{ duration: 0.5, ease: "easeInOut" }}
-                      className="relative h-full overflow-hidden rounded-[44px] border border-white/10 bg-black/40 shadow-[0_40px_90px_rgba(0,0,0,0.55)]"
-                    >
-                      <Image
-                        src={currentHero.src}
-                        alt={currentHero.title}
-                        fill
-                        className="object-cover"
-                        priority
-                        loading="eager"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
-                      <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between gap-4 rounded-3xl border border-white/15 bg-white/12 px-6 py-4 backdrop-blur 3xl:px-8 3xl:py-5 4xl:bottom-8 4xl:left-8 4xl:right-8">
-                        <div>
-                          <div className="text-[11px] uppercase tracking-[0.28em] text-white/60 3xl:text-xs 4xl:text-sm">
-                            Case study
-                          </div>
-                          <div className="mt-1 text-lg font-semibold text-white 3xl:text-xl 4xl:text-2xl">
-                            {currentHero.title}
-                          </div>
-                          <div className="text-xs text-white/60 3xl:text-sm 4xl:text-base">
-                            {currentHero.meta}
-                          </div>
-                        </div>
-                        <div className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/15 text-[var(--vawe-teal)] 3xl:h-14 3xl:w-14 4xl:h-16 4xl:w-16">
-                          <Sparkles className="h-[var(--icon-ui)] w-[var(--icon-ui)]" />
-                        </div>
-                      </div>
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-
-                <div className="absolute -bottom-10 sm:-bottom-12 left-1/2 flex -translate-x-1/2 gap-2">
-                  {HERO_IMAGES.map((item, idx) => (
-                    <button
-                      key={item.src}
-                      onClick={() => setHeroIdx(idx)}
-                      className={`h-2.5 rounded-full transition-all duration-300 ${
-                        heroIdx === idx
-                          ? "w-8 bg-[var(--vawe-teal)]"
-                          : "w-4 bg-white/25 hover:bg-white/45"
-                      }`}
-                      aria-label={`Show hero showcase ${idx + 1}`}
-                    />
-                  ))}
-                </div>
               </div>
-            </div>
+            </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.45 }}
-                transition={{ delay: 0.1, duration: 0.5 }}
-              className="mt-6 space-y-4 md:hidden"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="relative flex items-center justify-center"
             >
-              <div className="flex items-center justify-center gap-3">
-                <a
-                  href="/contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-[var(--vawe-teal)] px-4 py-2 text-xs font-semibold text-black shadow-[0_12px_30px_rgba(101,239,242,0.28)] transition duration-300 hover:shadow-[0_16px_36px_rgba(101,239,242,0.34)] sm:text-sm"
-                >
-                  Launch a sprint
-                  <ArrowRight className="h-4 w-4 shrink-0 sm:h-[var(--icon-nav)] sm:w-[var(--icon-nav)]" />
-                </a>
-                <a
-                  href="#services"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/30 px-4 py-2 text-xs font-semibold text-white/80 transition duration-300 hover:bg-white/10 hover:text-white sm:text-sm"
-                >
-                  Explore services
-                </a>
-              </div>
+              <div className="relative h-[340px] w-[340px] rounded-full border-2 border-[#ff4dc3]/80 md:h-[420px] md:w-[420px]">
+                <div className="absolute inset-[14%] overflow-hidden rounded-full border border-white/20">
+                  <Image
+                    src={currentHero.src}
+                    alt={currentHero.title}
+                    fill
+                    className="object-cover"
+                    priority
+                    sizes="(max-width: 768px) 90vw, 40vw"
+                  />
+                </div>
 
-              <div className="grid grid-cols-3 items-start gap-3 text-center">
-                {heroStats.map(({ value, label }) => (
-                  <div key={label}>
-                    <div className="text-lg font-bold text-white sm:text-xl">{value}</div>
-                    <div className="mt-1 text-[9px] uppercase tracking-[0.26em] text-white/60 sm:text-[10px]">
-                      {label}
-                    </div>
+                {[
+                  { flag: "🇮🇹", cls: "-left-3 top-[24%]" },
+                  { flag: "🇬🇷", cls: "-left-2 bottom-[22%]" },
+                  { flag: "🇪🇪", cls: "right-0 top-[12%]" },
+                  { flag: "🇵🇱", cls: "right-0 bottom-[36%]" },
+                  { flag: "🇧🇩", cls: "right-[6%] -bottom-3" },
+                ].map((item) => (
+                  <div
+                    key={`${item.flag}-${item.cls}`}
+                    className={`absolute ${item.cls} flex h-12 w-12 items-center justify-center rounded-full border-2 border-white bg-black/40 text-2xl shadow-lg`}
+                  >
+                    {item.flag}
                   </div>
                 ))}
               </div>

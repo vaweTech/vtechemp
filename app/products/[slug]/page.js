@@ -60,6 +60,21 @@ export default async function ProductDetail({ params }) {
     <div className="pt-20 md:pt-28">
       <section className="w-full px-6 mt-4 md:mt-6">
         <div className="container mx-auto">
+          <div className="mb-3 md:mb-4">
+            <Link
+              href="/products"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-black bg-white shadow-sm hover:bg-neutral-100"
+              aria-label="Back to products"
+            >
+              <span
+                aria-hidden="true"
+                className="text-2xl font-bold leading-none"
+                style={{ color: "#000000" }}
+              >
+                ←
+              </span>
+            </Link>
+          </div>
           <div className="rounded-2xl md:rounded-3xl overflow-hidden border-2 bg-white" style={{ borderColor: product.color }}>
             <div className="relative w-full h-48 md:h-96 bg-gray-50">
               <Image

@@ -113,10 +113,10 @@ export default function Packages() {
               VAWE
             </motion.div>
           </div>
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-3xl pt-2 md:text-5xl font-bold font-(--font-orbitron)" style={{ background: 'var(--vawe-bg-gradient)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-center text-4xl pt-6 pb-1 leading-[1.2] md:text-6xl font-bold font-(--font-orbitron)" style={{ background: 'var(--vawe-bg-gradient)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>
             Packages
           </motion.h1>
-          <p className="mt-3 md:mt-4 text-sm md:text-base text-neutral-700 max-w-3xl">Choose a package that fits your stage. Every option blends our glassy, futuristic look with strong foundations. No prices shown — we tailor scope to your needs.</p>
+          <p className="mx-auto mt-3 md:mt-4 text-center text-sm md:text-base text-neutral-700 max-w-3xl">Choose a package that fits your stage. Every option blends our glassy, futuristic look with strong foundations. No prices shown — we tailor scope to your needs.</p>
 
           <div className="mt-6 md:mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 sm:auto-rows-fr items-stretch">
             {packages.map((p, i) => (

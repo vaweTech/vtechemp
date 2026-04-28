@@ -180,82 +180,93 @@ export default function Services() {
           </p>
         </div>
       </section>
+      
+{/* Services - Card Design */}
+<section className="w-full px-6 mt-4 md:mt-8 pb-4 md:pb-6">
+  <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl items-start">
+    {services.map((s, idx) => {
+      const isExpanded = activeService === idx;
+      const IconComponent = s.icon;
 
-      {/* Services - Card Design */}
-      <section className="w-full px-6 mt-4 md:mt-8 pb-4 md:pb-6">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl items-start">
-          {services.map((s, idx) => {
-            const isExpanded = activeService === idx;
-            const IconComponent = s.icon;
-            
-            return (
-              <div key={s.title} className="relative flex min-h-0 flex-col self-start">
+      return (
+        <div key={s.title} className="relative flex min-h-0 flex-col self-start">
+          <div
+            className="relative flex min-h-0 flex-col rounded-2xl overflow-hidden bg-white/90 dark:bg-neutral-900/95 backdrop-blur-sm shadow-lg border-2"
+            style={{
+              borderColor: isExpanded ? s.color : "rgba(0, 0, 0, 0.1)",
+              borderStyle: "solid",
+            }}
+          >
+            <div className="flex flex-col p-6 md:p-8">
+              
+              {/* Icon + Title Same Line */}
+              <div className="flex items-center gap-4 mb-5 shrink-0">
                 <div
-                  className="relative flex min-h-0 flex-col rounded-2xl overflow-hidden bg-white/90 dark:bg-neutral-900/95 backdrop-blur-sm shadow-lg border-2"
-                  style={{
-                    borderColor: isExpanded ? s.color : 'rgba(0, 0, 0, 0.1)',
-                    borderStyle: 'solid'
-                  }}
+                  className="inline-flex items-center justify-center w-14 h-14 rounded-xl shrink-0"
+                  style={{ backgroundColor: `${s.color}15` }}
                 >
-                  <div className="flex flex-col p-6 md:p-8">
-                    <div className="mb-4 shrink-0">
-                      <div
-                        className="inline-flex items-center justify-center w-14 h-14 rounded-xl"
-                        style={{ backgroundColor: `${s.color}15` }}
-                      >
-                        <IconComponent size={28} style={{ color: s.color }} />
-                      </div>
-                    </div>
-
-                    <h3 className="mb-3 min-h-[3.5rem] shrink-0 font-[var(--font-orbitron)] text-xl font-bold leading-snug text-[var(--vawe-navy)] dark:text-white md:min-h-[5rem] md:text-2xl">
-                      {s.title}
-                    </h3>
-
-                    <div className="relative mb-4 h-40 w-full shrink-0 overflow-hidden rounded-xl bg-neutral-100 dark:bg-neutral-800 md:h-48">
-                      <Image
-                        src={s.img}
-                        alt={s.title}
-                        fill
-                        className="object-cover"
-                        loading={idx < 3 ? "eager" : "lazy"}
-                        priority={idx < 3}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        onError={(e) => {
-                          e.currentTarget.onerror = null;
-                          e.currentTarget.src = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1600&auto=format&fit=crop";
-                        }}
-                      />
-                    </div>
-
-                    <p className={`mb-0 min-h-0 flex-1 text-sm leading-relaxed text-neutral-600 dark:text-neutral-300 md:text-base ${isExpanded ? "line-clamp-none" : "line-clamp-3"}`}>
-                      {s.content}
-                    </p>
-
-                    <button
-                      type="button"
-                      onClick={() => setActiveService(isExpanded ? null : idx)}
-                      className="mt-auto flex shrink-0 items-center gap-2 pt-6 text-left text-sm font-semibold"
-                      style={{ color: s.color }}
-                    >
-                      {isExpanded ? "Read less" : "Read more"}
-                      <ArrowRight size={18} />
-                    </button>
-                  </div>
+                  <IconComponent size={28} style={{ color: s.color }} />
                 </div>
+
+                <h3 className="font-[var(--font-orbitron)] text-xl font-bold leading-snug text-[var(--vawe-navy)] dark:text-white md:text-2xl">
+                  {s.title}
+                </h3>
               </div>
-            );
-          })}
+
+              {/* Image */}
+              <div className="relative mb-4 h-40 w-full shrink-0 overflow-hidden rounded-xl bg-neutral-100 dark:bg-neutral-800 md:h-48">
+                <Image
+                  src={s.img}
+                  alt={s.title}
+                  fill
+                  className="object-cover"
+                  loading={idx < 3 ? "eager" : "lazy"}
+                  priority={idx < 3}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src =
+                      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1600&auto=format&fit=crop";
+                  }}
+                />
+              </div>
+
+              {/* Content */}
+              <p
+                className={`mb-0 min-h-0 flex-1 text-sm leading-relaxed text-neutral-600 dark:text-neutral-300 md:text-base ${
+                  isExpanded ? "line-clamp-none" : "line-clamp-3"
+                }`}
+              >
+                {s.content}
+              </p>
+
+              {/* Button */}
+              <button
+                type="button"
+                onClick={() => setActiveService(isExpanded ? null : idx)}
+                className="mt-auto flex shrink-0 items-center gap-2 pt-6 text-left text-sm font-semibold"
+                style={{ color: s.color }}
+              >
+                {isExpanded ? "Read less" : "Read more"}
+                <ArrowRight size={18} />
+              </button>
+            </div>
+          </div>
         </div>
-      </section>
+      );
+    })}
+  </div>
+</section>
+
 
       {/* Services Video Showcase */}
       <section className="w-full px-6 mt-6 md:mt-8 pb-4 md:pb-6">
         <div className="container mx-auto">
-          <h3 className="text-3xl md:text-5xl font-bold font-(--font-orbitron)" style={{ background: 'var(--vawe-bg-gradient)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>Service Demos</h3>
+          <h3 className="text-center text-3xl md:text-5xl font-bold font-(--font-orbitron)" style={{ background: 'var(--vawe-bg-gradient)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>Service Demos</h3>
           <div className="mt-4 md:mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {/* Left: player and heading */}
           <div className="md:col-span-2">
-            <h4 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">{currentVideo.title}</h4>
+            <h4 className="text-center text-lg font-semibold text-neutral-900 dark:text-neutral-100">{currentVideo.title}</h4>
             <div className="relative mt-3 aspect-video rounded-2xl overflow-hidden ring-1 ring-white/30 bg-black">
               {currentVideo.localSrc ? (
                 <>

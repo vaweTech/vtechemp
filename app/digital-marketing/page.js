@@ -7,7 +7,7 @@ export default function DigitalMarketing() {
     <div className="pt-28" style={{ backgroundColor: '#fef9f5' }}>
       <section className="w-full px-6">
         <div className="container mx-auto">
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-4xl md:text-5xl font-bold font-(--font-orbitron)" style={{ background: 'var(--vawe-bg-gradient)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-4xl md:text-5xl font-bold font-(--font-orbitron) leading-[1.2] pb-1" style={{ background: 'var(--vawe-bg-gradient)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>
             Digital Marketing
           </motion.h1>
           <p className="mt-4 text-neutral-700 max-w-3xl">We build acquisition engines across SEO, social, paid media, email, and analytics — designed for measurable growth and a premium, modern brand experience.</p>
@@ -34,9 +34,8 @@ export default function DigitalMarketing() {
         {
           title: "Social Media Marketing",
           copy: "Build brand awareness and community engagement across all major platforms.",
-          bullets: ["Business Page Creation", "Page setup & Optimization", "Accounts Management", "Creative Poster Designs", "Reels Designing", "Organic & Paid Advertising", "Integrated Social Campaigns", "Lead Generations", "Influencer Marketing", "Hashtag Generator", "Google Ads Run", "Youtube Video Making", "Youtube Page Services"],
-          img: "/dsocialmarketing.jpg",
-          headingImg: "https://images.unsplash.com/photo-1611262588019-db6cc2032da3?q=80&w=1600&auto=format&fit=crop", // Social Media Marketing heading image
+          bullets: ["Business Page Creation", "Page setup & Optimization", "Creative Poster Designs", "Reels Designing", "Organic & Paid Advertising", "Social Campaigns", "Lead Generations","Hashtag Generator", "Google Ads Run", "Youtube Page Services"],
+          img: "/dsocialmarketing.jpg", // Social Media Marketing heading image
           color: "#f56c53",
           reverse: true,
         },
@@ -65,7 +64,7 @@ export default function DigitalMarketing() {
         {
           title: "Brand Strategy & Design",
           copy: "Create a memorable and consistent digital presence.",
-          bullets: ["Logo Design", "Boucher Design", "Product Design", "Banner Design", "Poster Design", "Business Cards", "Menu Cards", "Certificates Design", "Invitations E - Cards", "Video Invitations", "Video Editing", "PPT Presentations"],
+          bullets: ["Logo Design", "Boucher Design", "Banner Design", "Poster Design", "Business Cards", "Menu Cards", "Certificates Design", "Video Editing", "PPT Presentations"],
           img: "/dbrand.jfif",
           headingImg: "https://images.unsplash.com/photo-1626785774625-ddcddc3445e9?q=80&w=1600&auto=format&fit=crop", // Graphic Designing heading image
           color: "#f56c53",
@@ -74,7 +73,7 @@ export default function DigitalMarketing() {
         {
           title: "Web Design & Development",
           copy: "Build stunning, functional websites that drive results and engage your audience.",
-          bullets: ["Wordpress & PHP Development", "Mobile Friendly Theme Design", "Website Redesign", "Website Maintenance", "Mobile App Maintenance", "1 year Domain /Hosting", "SEO Friendly", "E-Commerce Websites", "Dynamic / Static Web Designing"],
+          bullets: ["Wordpress Development", "Mobile Friendly Design", "Website Redesign", "Website Maintenance", "Mobile App Maintenance", "1 year Domain /Hosting", "SEO Friendly", "Dynamic / Static Web Designing"],
           img: "/websiteimg.png",
           headingImg: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?q=80&w=1600&auto=format&fit=crop", // Web Design & Development heading image
           color: "#00448a",
@@ -87,7 +86,7 @@ export default function DigitalMarketing() {
           <div className="w-full px-6">
             <div className="container mx-auto max-w-6xl">
               <div className={`relative grid md:grid-cols-2 gap-0 overflow-hidden rounded-2xl shadow-xl ${s.reverse ? 'md:grid-flow-dense' : ''}`} style={{ background: 'linear-gradient(135deg, #ffffff 0%, #fef9f5 100%)' }}>
-                <div className={`relative p-6 md:p-8 flex flex-col justify-center ${s.reverse ? 'md:order-2' : ''} z-10`}>
+                <div className={`relative p-6 md:p-6 lg:p-8 flex flex-col justify-center ${s.reverse ? 'md:order-2' : ''} z-10`}>
                   <div className="flex items-center gap-2 mb-3">
                     <div className="relative">
                       <div className="absolute inset-0 bg-gradient-to-br from-white to-transparent opacity-50 rounded-lg blur-sm"></div>
@@ -98,8 +97,8 @@ export default function DigitalMarketing() {
                     <div className="flex-1 h-px" style={{ background: `linear-gradient(90deg, ${s.color}, transparent)` }}></div>
                   </div>
                   
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3" style={{ color: headingColor }}>{s.title}</h3>
-                  <p className="text-base text-neutral-600 leading-relaxed mb-6">{s.copy}</p>
+                  <h3 className="text-2xl md:text-2xl lg:text-3xl font-bold mb-3" style={{ color: headingColor }}>{s.title}</h3>
+                  <p className="text-sm md:text-sm lg:text-base text-neutral-600 leading-relaxed mb-6">{s.copy}</p>
                   
                   <div className="grid grid-cols-2 gap-2">
                     {s.bullets.map((b, idx) => (
@@ -115,7 +114,7 @@ export default function DigitalMarketing() {
                           borderColor: `${s.color}30`,
                           background: `linear-gradient(135deg, ${s.color}05, transparent)` 
                         }}>
-                          <span className="text-neutral-800 font-medium text-sm">{b}</span>
+                          <span className="text-neutral-800 font-medium text-xs md:text-xs lg:text-sm">{b}</span>
                         </div>
                       </motion.div>
                     ))}

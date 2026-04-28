@@ -80,14 +80,14 @@ export default function Products() {
                 style={{ borderColor: p.color }}
               >
                 <div className="h-full flex flex-col overflow-hidden rounded-2xl bg-white dark:bg-white shadow-lg">
-                  <div className="relative w-full h-48 md:h-56 overflow-hidden">
+                  <div className="relative w-full h-48 md:h-56 [@media(min-width:2560px)]:h-72 overflow-hidden [@media(min-width:2560px)]:bg-neutral-50">
                     <Image
                       src={p.img}
                       alt={`${p.title} technology image`}
                       title={`${p.title} image`}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover"
+                      className="object-cover [@media(min-width:2560px)]:object-contain [@media(min-width:2560px)]:p-3"
                       priority={false}
                     />
                     <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
