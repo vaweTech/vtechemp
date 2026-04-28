@@ -64,10 +64,10 @@ export default async function ProductDetail({ params }) {
           <div className="mb-4 md:mb-6">
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 rounded-full border border-neutral-300 bg-white px-3 py-1.5 text-xs font-semibold text-neutral-800 transition hover:-translate-x-0.5 hover:border-neutral-400 hover:bg-neutral-50 md:px-4 md:py-2 md:text-sm"
+              aria-label="Back to products"
+              className="inline-flex size-10 items-center justify-center rounded-full border border-neutral-300 bg-white text-neutral-800 transition hover:-translate-x-0.5 hover:border-neutral-400 hover:bg-neutral-50 md:size-11"
             >
-              <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-              Back to Products
+              <ArrowLeft className="h-4 w-4 md:h-5 md:w-5" aria-hidden="true" />
             </Link>
           </div>
           <div className="rounded-2xl md:rounded-3xl overflow-hidden border-2 bg-white" style={{ borderColor: product.color }}>
