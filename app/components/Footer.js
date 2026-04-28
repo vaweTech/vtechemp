@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Facebook, Linkedin, Twitter, Instagram, MessageCircle } from "lucide-react";
+import { Facebook, Linkedin, Instagram, MessageCircle } from "lucide-react";
 export default function Footer() {
   const year = new Date().getFullYear();
   const navLinkClass =
@@ -10,8 +10,8 @@ export default function Footer() {
 
   return (
     <footer className="mt-[var(--site-section-y)] w-full bg-[#7ea9ad] text-slate-900">
-      <div className="container-vawe flex w-full max-w-none flex-col items-start gap-[var(--site-block-gap)] py-10 sm:flex-row sm:flex-wrap sm:justify-between lg:flex-nowrap lg:items-center lg:gap-20 lg:py-14 3xl:py-16 4xl:py-20">
-        <div className="flex w-full flex-col items-center gap-5 sm:w-[45%] lg:w-1/3">
+      <div className="container-vawe flex w-full max-w-none flex-col items-start gap-[var(--site-block-gap)] py-10 md:flex-row md:items-center md:justify-between md:gap-12 lg:gap-20 lg:py-14 3xl:py-16 4xl:py-20">
+        <div className="flex w-full flex-col items-center gap-5 md:w-[36%] lg:w-1/3">
           <Link href="/" className="flex flex-col items-center gap-4">
             <Image
               src="/logo2.jpg"
@@ -30,7 +30,7 @@ export default function Footer() {
           </p>
         </div>
 
-        <div className="flex w-full flex-col gap-8 sm:w-[50%] lg:w-2/3">
+        <div className="flex w-full flex-col gap-8 md:w-[60%] lg:w-2/3">
           <div className="flex flex-col gap-2">
             <p className="text-sm uppercase tracking-[0.35em] text-slate-800/70 3xl:text-base 4xl:text-lg">
               Crafted For Forward Thinkers
