@@ -1,6 +1,6 @@
 
 "use client";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ShoppingCart, Globe, Search, Megaphone, Server, Palette, ArrowRight } from "lucide-react";
@@ -169,12 +169,12 @@ export default function Services() {
 
       {/* Intro / Overview */}
       <section className="w-full px-6 mt-[-10px] md:mt-4 pb-4 md:pb-6">
-        <div className="container mx-auto">
+        <div className="container mx-auto text-center">
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-4xl md:text-5xl font-bold font-(--font-orbitron)" style={{ background: 'var(--vawe-bg-gradient)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>
             Our Services
           </motion.h1>
-          <div className="mt-2 md:mt-3 h-1 w-24 rounded-full" style={{ background: 'var(--vawe-bg-gradient)' }} />
-          <p className="mt-3 md:mt-4 text-neutral-700 dark:text-neutral-300 max-w-3xl">
+          <div className="mx-auto mt-2 md:mt-3 h-1 w-24 rounded-full" style={{ background: 'var(--vawe-bg-gradient)' }} />
+          <p className="mx-auto mt-3 md:mt-4 text-neutral-700 dark:text-neutral-300 max-w-3xl">
             We&apos;re a full‑service digital agency helping businesses grow online — from website design and e‑commerce
             development to SEO, marketing, hosting, and branding. Whatever your digital need, we&apos;ve got you covered.
           </p>
@@ -183,177 +183,69 @@ export default function Services() {
 
       {/* Services - Card Design */}
       <section className="w-full px-6 mt-4 md:mt-8 pb-4 md:pb-6">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl items-stretch">
+        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl items-start">
           {services.map((s, idx) => {
             const isExpanded = activeService === idx;
             const IconComponent = s.icon;
             
             return (
-              <motion.div
-                key={s.title}
-                initial={false}
-                animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0 }}
-                transition={{ delay: Math.min(idx * 0.05, 0.15), duration: 0.4 }}
-                className="group relative flex h-full min-h-0 flex-col"
-              >
-                <motion.div
-                  animate={isExpanded ? { 
-                    scale: 1.05,
-                    y: -20,
-                  } : { 
-                    scale: 1,
-                    y: 0,
-                  }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
-                  className={`relative flex h-full min-h-0 flex-col rounded-2xl overflow-hidden bg-white/90 dark:bg-neutral-900/95 backdrop-blur-sm shadow-lg border-2 transition-all duration-300 ${isExpanded ? 'z-50 shadow-2xl' : 'z-1'}`}
-                  style={{ 
+              <div key={s.title} className="relative flex min-h-0 flex-col self-start">
+                <div
+                  className="relative flex min-h-0 flex-col rounded-2xl overflow-hidden bg-white/90 dark:bg-neutral-900/95 backdrop-blur-sm shadow-lg border-2"
+                  style={{
                     borderColor: isExpanded ? s.color : 'rgba(0, 0, 0, 0.1)',
                     borderStyle: 'solid'
                   }}
                 >
-                  {/* Card Content */}
-                  <AnimatePresence mode="wait">
-                    {!isExpanded ? (
-                      <motion.div
-                        key="content"
-                        initial={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.25 }}
-                        className="flex h-full flex-col p-6 md:p-8"
+                  <div className="flex flex-col p-6 md:p-8">
+                    <div className="mb-4 shrink-0">
+                      <div
+                        className="inline-flex items-center justify-center w-14 h-14 rounded-xl"
+                        style={{ backgroundColor: `${s.color}15` }}
                       >
-                        {/* Icon */}
-                        <div className="mb-4 shrink-0">
-                          <div 
-                            className="inline-flex items-center justify-center w-14 h-14 rounded-xl"
-                            style={{ backgroundColor: `${s.color}15` }}
-                          >
-                            <IconComponent 
-                              size={28} 
-                              style={{ color: s.color }}
-                            />
-                          </div>
-                        </div>
+                        <IconComponent size={28} style={{ color: s.color }} />
+                      </div>
+                    </div>
 
-                        {/* Heading — fixed min height so one vs two lines doesn’t change card layout */}
-                        <h3 className="mb-3 min-h-[3.5rem] shrink-0 font-[var(--font-orbitron)] text-xl font-bold leading-snug text-[var(--vawe-navy)] dark:text-white md:min-h-[5rem] md:text-2xl">
-                          {s.title}
-                        </h3>
+                    <h3 className="mb-3 min-h-[3.5rem] shrink-0 font-[var(--font-orbitron)] text-xl font-bold leading-snug text-[var(--vawe-navy)] dark:text-white md:min-h-[5rem] md:text-2xl">
+                      {s.title}
+                    </h3>
 
-                        {/* Image below icon and heading */}
-                        <div className="relative mb-4 h-40 w-full shrink-0 overflow-hidden rounded-xl bg-neutral-100 dark:bg-neutral-800 md:h-48">
-                          <Image
-                            src={s.img}
-                            alt={s.title}
-                            fill
-                            className="object-cover transition-transform duration-300 group-hover:scale-105"
-                            loading={idx < 3 ? "eager" : "lazy"}
-                            priority={idx < 3}
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            onError={(e) => {
-                              e.currentTarget.onerror = null;
-                              e.currentTarget.src = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1600&auto=format&fit=crop";
-                            }}
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        </div>
+                    <div className="relative mb-4 h-40 w-full shrink-0 overflow-hidden rounded-xl bg-neutral-100 dark:bg-neutral-800 md:h-48">
+                      <Image
+                        src={s.img}
+                        alt={s.title}
+                        fill
+                        className="object-cover"
+                        loading={idx < 3 ? "eager" : "lazy"}
+                        priority={idx < 3}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        onError={(e) => {
+                          e.currentTarget.onerror = null;
+                          e.currentTarget.src = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1600&auto=format&fit=crop";
+                        }}
+                      />
+                    </div>
 
-                        {/* Content — grows so Read more sits on one row */}
-                        <p className="mb-0 min-h-0 flex-1 text-sm leading-relaxed text-neutral-600 line-clamp-3 dark:text-neutral-300 md:text-base">
-                          {s.content}
-                        </p>
+                    <p className={`mb-0 min-h-0 flex-1 text-sm leading-relaxed text-neutral-600 dark:text-neutral-300 md:text-base ${isExpanded ? "line-clamp-none" : "line-clamp-3"}`}>
+                      {s.content}
+                    </p>
 
-                        {/* Read More Button */}
-                        <button
-                          type="button"
-                          onClick={() => setActiveService(idx)}
-                          className="mt-auto flex shrink-0 items-center gap-2 pt-6 text-left text-sm font-semibold transition-all duration-300 hover:gap-3"
-                          style={{ color: s.color }}
-                        >
-                          Read more
-                          <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
-                        </button>
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="expanded"
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        transition={{ duration: 0.35, ease: "easeOut" }}
-                        className="relative"
-                      >
-                        {/* Expanded Image */}
-                        <div className="relative w-full h-80 md:h-96 overflow-hidden">
-                          <Image
-                            src={s.img}
-                            alt={s.title}
-                            fill
-                            className="object-cover"
-                            loading="eager"
-                            priority
-                            sizes="(max-width: 768px) 100vw, 66vw"
-                            onError={(e) => {
-                              e.currentTarget.onerror = null;
-                              e.currentTarget.src = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1600&auto=format&fit=crop";
-                            }}
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                          
-                          {/* Close Button */}
-                          <button
-                            onClick={() => setActiveService(null)}
-                            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 dark:bg-neutral-900/90 backdrop-blur-sm flex items-center justify-center text-neutral-700 dark:text-neutral-200 hover:bg-white dark:hover:bg-neutral-800 transition-colors duration-200 shadow-lg"
-                            aria-label="Close"
-                          >
-                            <span className="text-2xl">×</span>
-                          </button>
-
-                          {/* Title Overlay */}
-                          <div className="absolute bottom-0 left-0 right-0 p-6">
-                            <div className="flex items-center gap-3 mb-2">
-                              <div 
-                                className="inline-flex items-center justify-center w-10 h-10 rounded-lg"
-                                style={{ backgroundColor: `${s.color}20` }}
-                              >
-                                <IconComponent 
-                                  size={20} 
-                                  style={{ color: s.color }}
-                                />
-                              </div>
-                              <h3 className="text-xl md:text-2xl font-bold font-[var(--font-orbitron)] text-white">
-                                {s.title}
-                              </h3>
-                            </div>
-                            <p className="text-sm md:text-base text-white/90 leading-relaxed">
-                              {s.content}
-                            </p>
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-
-              </motion.div>
+                    <button
+                      type="button"
+                      onClick={() => setActiveService(isExpanded ? null : idx)}
+                      className="mt-auto flex shrink-0 items-center gap-2 pt-6 text-left text-sm font-semibold"
+                      style={{ color: s.color }}
+                    >
+                      {isExpanded ? "Read less" : "Read more"}
+                      <ArrowRight size={18} />
+                    </button>
+                  </div>
+                </div>
+              </div>
             );
           })}
         </div>
-
-        {/* Backdrop overlay when any card is expanded */}
-        <AnimatePresence>
-          {activeService !== null && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
-              onClick={() => setActiveService(null)}
-            />
-          )}
-        </AnimatePresence>
       </section>
 
       {/* Services Video Showcase */}

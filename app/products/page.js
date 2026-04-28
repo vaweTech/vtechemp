@@ -63,12 +63,12 @@ export default function Products() {
   return (
     <div className="pt-28 bg-white dark:bg-white">
       <section className="w-full px-6 mt-2 md:mt-4 bg-white dark:bg-white">
-        <div className="container mx-auto max-w-[1800px] bg-white dark:bg-white">
+        <div className="container mx-auto bg-white dark:bg-white">
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-4xl md:text-5xl font-bold font-(--font-orbitron)" style={{ background: 'var(--vawe-bg-gradient)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>
             Products
           </motion.h1>
           <p className="mt-3 md:mt-5 text-neutral-700 max-w-3xl">Carefully designed offerings to match your stage and goals. Mix gradients and glass to deliver modern, luxurious interfaces.</p>
-          <div className="mt-6 md:mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 4xl:grid-cols-4 gap-6 4xl:gap-8">
+          <div className="mt-6 md:mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {products.map((p, i) => (
               <motion.div
                 key={p.title}
@@ -80,26 +80,26 @@ export default function Products() {
                 style={{ borderColor: p.color }}
               >
                 <div className="h-full flex flex-col overflow-hidden rounded-2xl bg-white dark:bg-white shadow-lg">
-                  <div className="relative w-full h-48 md:h-56 4xl:h-72 overflow-hidden bg-neutral-50">
+                  <div className="relative w-full h-48 md:h-56 overflow-hidden">
                     <Image
                       src={p.img}
                       alt={`${p.title} technology image`}
                       title={`${p.title} image`}
                       fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, (max-width: 2200px) 33vw, 25vw"
-                      className="object-contain p-2 md:p-3 4xl:p-4"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover"
                       priority={false}
                     />
                     <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
                   </div>
-                  <div className="p-6 4xl:p-8">
-                    <h3 className="text-lg 4xl:text-xl font-semibold flex items-center gap-2" style={{ color: 'var(--vawe-navy)' }}>
-                      {p.icon && <p.icon className="h-5 w-5 4xl:h-6 4xl:w-6" aria-hidden="true" />}
+                  <div className="p-6">
+                    <h3 className="text-lg font-semibold flex items-center gap-2" style={{ color: 'var(--vawe-navy)' }}>
+                      {p.icon && <p.icon className="h-5 w-5" aria-hidden="true" />}
                       {p.title}
                     </h3>
-                    <p className="mt-2 text-neutral-700 text-sm 4xl:text-base leading-relaxed">{p.desc}</p>
+                    <p className="mt-2 text-neutral-700 text-sm">{p.desc}</p>
                     {p.features && (
-                      <ul className="mt-3 list-disc pl-5 text-neutral-700 text-sm 4xl:text-base space-y-1.5 4xl:space-y-2">
+                      <ul className="mt-3 list-disc pl-5 text-neutral-700 text-sm space-y-1">
                         {p.features.map((f) => (
                           <li key={f}>{f}</li>
                         ))}
@@ -107,7 +107,7 @@ export default function Products() {
                     )}
                     <div className="mt-5">
                       {p.slug && (
-                        <Link href={`/products/${p.slug}`} className="px-4 py-2 4xl:px-5 4xl:py-2.5 rounded-full text-sm 4xl:text-base hover:-translate-y-px transition text-white font-semibold inline-block" style={{ backgroundColor: p.color }}>
+                        <Link href={`/products/${p.slug}`} className="px-4 py-2 rounded-full text-sm hover:-translate-y-px transition text-white font-semibold inline-block" style={{ backgroundColor: p.color }}>
                           Learn More
                         </Link>
                       )}

@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
 
 const PRODUCTS = {
   "lms": {
@@ -61,15 +60,6 @@ export default async function ProductDetail({ params }) {
     <div className="pt-20 md:pt-28">
       <section className="w-full px-6 mt-4 md:mt-6">
         <div className="container mx-auto">
-          <div className="mb-4 md:mb-6">
-            <Link
-              href="/products"
-              aria-label="Back to products"
-              className="inline-flex size-10 items-center justify-center rounded-full border border-neutral-300 bg-white text-neutral-800 transition hover:-translate-x-0.5 hover:border-neutral-400 hover:bg-neutral-50 md:size-11"
-            >
-              <ArrowLeft className="h-4 w-4 md:h-5 md:w-5" aria-hidden="true" />
-            </Link>
-          </div>
           <div className="rounded-2xl md:rounded-3xl overflow-hidden border-2 bg-white" style={{ borderColor: product.color }}>
             <div className="relative w-full h-48 md:h-96 bg-gray-50">
               <Image
