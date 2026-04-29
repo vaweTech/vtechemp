@@ -158,10 +158,7 @@ export default function Navbar() {
       style={{ fontFamily: "var(--font-orbitron), system-ui, sans-serif" }}
     >
       <div className="w-full px-4 py-1" style={{ background: "var(--vawe-bg-gradient)" }}>
-        <p
-          className="text-center text-[11px] font-medium tracking-[0.08em] text-white sm:text-xs"
-          style={{ fontFamily: "Arial, Helvetica, sans-serif" }}
-        >
+        <p className="text-center text-[11px] font-semibold tracking-wide text-white sm:text-xs">
           VAWE Technologies, Vijayawada
         </p>
       </div>

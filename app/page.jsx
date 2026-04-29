@@ -965,6 +965,7 @@ import {
   Code2,
   Megaphone,
 } from "lucide-react";
+import Showcase from "./components/Showcase";
 
 const HERO_IMAGES = [
   {
@@ -1045,15 +1046,6 @@ export default function Home() {
   ];
 
   const [provideIdx, setProvideIdx] = useState(0);
-
-  // Auto-scroll "What We Do" slider continuously.
-  useEffect(() => {
-    if (provides.length <= 1) return undefined;
-    const interval = setInterval(() => {
-      setProvideIdx((prev) => (prev + 1) % provides.length);
-    }, 3500);
-    return () => clearInterval(interval);
-  }, [provides.length]);
 
   useEffect(() => {
     if (HERO_IMAGES.length <= 1) return undefined;
@@ -1332,66 +1324,80 @@ export default function Home() {
         </div>
       </section>
 
-      {/* What We Deliver + Why Choose (side-by-side) */}
-      <section className="py-8 md:py-12 3xl:py-14 4xl:py-16">
-        <div className="w-full px-[var(--site-px)]">
-          <div
-            className="container mx-auto max-w-[var(--site-max)] rounded-2xl border border-black/5 p-5 md:p-8"
-            style={{ background: "linear-gradient(90deg, rgba(0,56,122,0.05), rgba(254,203,157,0.2))" }}
-          >
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-10">
-              <div>
-                <h3 className="font-(--font-orbitron) text-4xl font-bold text-[var(--vawe-purple)] md:text-5xl">
-                  What We Deliver
-                </h3>
-                <div className="mt-5 space-y-3">
-                  {[
-                    "Strategy That Turns Ideas Into Roadmaps.",
-                    "UI/UX That Gives Life to Your Vision.",
-                    "Full-Stack Development That Powers Your Product.",
-                    "AI-Enabled Solutions to Accelerate Growth",
-                    "Branding & Digital Identity That Speaks for You",
-                    "Continuous Support & Evolution",
-                  ].map((item) => (
-                    <div key={item} className="flex items-start gap-3 text-lg leading-relaxed text-lime-700/80">
-                      <span className="text-[var(--vawe-purple)]">›</span>
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
-                <a
-                  href="/services"
-                  className="mt-6 inline-flex rounded-full bg-[var(--vawe-purple)] px-5 py-2 text-xs font-semibold uppercase tracking-wide text-white"
-                >
-                  More Services
-                </a>
-              </div>
+      {/* Showcase */}
+      <Showcase />
 
-              <div>
-                <h3 className="font-(--font-orbitron) text-4xl font-bold text-[var(--vawe-purple)] md:text-5xl">
-                  Why Choose VAWE GlobalTech
-                </h3>
-                <div className="mt-5 space-y-3">
-                  {[
+      {/* Why Choose Us */}
+      <section className="py-8 md:py-10 3xl:py-14 4xl:py-16">
+        <div className="w-full px-[var(--site-px)]">
+          <div className="container mx-auto max-w-[var(--site-max)]">
+            <div className="rounded-3xl border border-[rgba(0,56,122,0.10)] bg-[linear-gradient(180deg,rgba(255,255,255,0.92)_0%,rgba(101,239,242,0.10)_100%)] px-5 py-8 md:px-8 md:py-10">
+              <h3 className="font-(--font-orbitron) text-3xl font-bold md:text-5xl" style={{ color: "var(--vawe-navy)" }}>
+                Why Choose VAWE GlobalTech
+              </h3>
+              <div className="mt-3 h-1.5 w-28 rounded-full" style={{ background: "var(--vawe-bg-gradient)" }} />
+
+              <div className="relative mt-7 overflow-hidden rounded-2xl border border-black/5 bg-white/50 px-3 py-4 md:px-4">
+                {/* edge fades */}
+                <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[rgba(255,255,255,0.9)] to-transparent" />
+                <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[rgba(255,255,255,0.9)] to-transparent" />
+
+                <div className="vawe-why-marquee flex w-max items-center gap-3 md:gap-5">
+                  {[...[
                     "All‑in‑one digital solutions",
                     "Expert team with years of experience",
                     "Fast turnaround",
                     "Dedicated support",
-                    "Scalable delivery with long-term maintainability",
-                    "Business-focused execution from idea to launch",
-                  ].map((item) => (
-                    <div key={item} className="flex items-start gap-3 text-lg leading-relaxed text-lime-700/80">
-                      <span className="text-[var(--vawe-purple)]">›</span>
-                      <span>{item}</span>
-                    </div>
-                  ))}
+                  ], ...[
+                    "All‑in‑one digital solutions",
+                    "Expert team with years of experience",
+                    "Fast turnaround",
+                    "Dedicated support",
+                  ], ...[
+                    "All‑in‑one digital solutions",
+                    "Expert team with years of experience",
+                    "Fast turnaround",
+                    "Dedicated support",
+                  ]].map((point, idx) => {
+                    const colors = ["var(--vawe-coral)", "var(--vawe-teal)", "var(--vawe-navy)", "var(--vawe-beige)"];
+                    const colorIndex = idx % 4;
+                    return (
+                      <div
+                        key={`${point}-${idx}`}
+                        className="shrink-0 whitespace-nowrap rounded-full border border-[rgba(0,0,0,0.05)] bg-white/80 px-5 py-2.5 text-sm font-semibold text-[var(--vawe-navy)] shadow-sm"
+                      >
+                        <span
+                          className="inline-block h-2.5 w-2.5 rounded-full mr-3 -translate-y-[1px]"
+                          style={{ backgroundColor: colors[colorIndex] }}
+                        />
+                        {point}
+                      </div>
+                    );
+                  })}
                 </div>
-                <a
-                  href="/contact"
-                  className="mt-6 inline-flex rounded-full bg-[var(--vawe-purple)] px-5 py-2 text-xs font-semibold uppercase tracking-wide text-white"
-                >
-                  Contact Us
-                </a>
+
+                <style jsx global>{`
+                  @keyframes vawe-why-marquee {
+                    from {
+                      transform: translateX(0);
+                    }
+                    to {
+                      transform: translateX(-50%);
+                    }
+                  }
+                  .vawe-why-marquee {
+                    animation: vawe-why-marquee 22s linear infinite;
+                    will-change: transform;
+                  }
+                  .vawe-why-marquee:hover {
+                    animation-play-state: paused;
+                  }
+                  @media (prefers-reduced-motion: reduce) {
+                    .vawe-why-marquee {
+                      animation: none;
+                    }
+                  }
+                `}</style>
               </div>
             </div>
           </div>
