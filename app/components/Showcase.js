@@ -50,12 +50,6 @@
       "Continuous Support & Evolution",
     ];
 
-    const stats = [
-      { value: "120+", label: "Digital launches" },
-      { value: "35%", label: "Efficiency lift" },
-      { value: "6x", label: "Engagement gain" },
-    ];
-
     return (
       <section className="relative overflow-hidden bg-gradient-to-b from-neutral-50 via-white to-neutral-50 py-16 md:py-24 lg:py-32">
         {/* Tech-inspired background effects */}
@@ -116,26 +110,6 @@
             >
               Every idea has potential — we amplify it. Our team transforms your vision into powerful digital experiences through strategic thinking, user-focused design, and intelligent engineering.
             </motion.p>
-
-            {/* Stats Grid */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="grid grid-cols-3 gap-6 md:gap-8 max-w-2xl mx-auto mb-12"
-            >
-              {stats.map((stat, idx) => (
-                <div key={idx} className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold font-[var(--font-orbitron)] bg-gradient-to-br from-[var(--vawe-navy)] to-[var(--vawe-teal)] bg-clip-text text-transparent mb-1">
-                    {stat.value}
-                  </div>
-                  <div className="text-xs md:text-sm text-neutral-500 uppercase tracking-wider">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </motion.div>
 
             {/* CTA Buttons */}
             <motion.div

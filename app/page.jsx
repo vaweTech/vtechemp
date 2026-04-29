@@ -965,7 +965,6 @@ import {
   Code2,
   Megaphone,
 } from "lucide-react";
-import Showcase from "./components/Showcase";
 
 const HERO_IMAGES = [
   {
@@ -1045,81 +1044,16 @@ export default function Home() {
     },
   ];
 
-  // Clone last and first cards for seamless loop
-  const extendedProvides = [
-    provides[provides.length - 1],
-    ...provides,
-    provides[0],
-  ];
+  const [provideIdx, setProvideIdx] = useState(0);
 
-  const [provideIdx, setProvideIdx] = useState(1);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isMounted] = useState(true);
-  const containerRef = useRef(null);
-  const extendedProvidesLength = extendedProvides.length;
-
-  // Small delay to ensure transforms are applied correctly
+  // Auto-scroll "What We Do" slider continuously.
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsTransitioning(true);
-    }, 50);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Looping transition fix
-  useEffect(() => {
-    if (!isMounted) return;
-    
-    const handleTransitionEnd = () => {
-      if (provideIdx === extendedProvidesLength - 1) {
-        setIsTransitioning(false);
-        // Use setTimeout to ensure smooth reset
-        setTimeout(() => {
-          setProvideIdx(1);
-          setIsTransitioning(true);
-        }, 10);
-      } else if (provideIdx === 0) {
-        setIsTransitioning(false);
-        setTimeout(() => {
-          setProvideIdx(extendedProvidesLength - 2);
-          setIsTransitioning(true);
-        }, 10);
-      }
-    };
-
-    const container = containerRef.current;
-    if (!container) return;
-    
-    container.addEventListener("transitionend", handleTransitionEnd);
-    return () =>
-      container.removeEventListener("transitionend", handleTransitionEnd);
-  }, [provideIdx, isMounted, extendedProvidesLength]);
-
-  // Ensure transitions are always enabled after initial mount
-  useEffect(() => {
-    if (!isMounted) return;
-    if (!isTransitioning) {
-      const t = setTimeout(() => {
-        setIsTransitioning(true);
-      }, 50);
-      return () => clearTimeout(t);
-    }
-  }, [isTransitioning, isMounted]);
-
-  // Auto-play every 5s (only after mounted)
-  useEffect(() => {
-    if (!isMounted) return;
+    if (provides.length <= 1) return undefined;
     const interval = setInterval(() => {
-      setProvideIdx((prev) => {
-        // Prevent going beyond bounds
-        if (prev >= extendedProvidesLength - 1) {
-          return 1; // Reset to first real item
-        }
-        return prev + 1;
-      });
-    }, 5000);
+      setProvideIdx((prev) => (prev + 1) % provides.length);
+    }, 3500);
     return () => clearInterval(interval);
-  }, [isMounted, extendedProvidesLength]);
+  }, [provides.length]);
 
   useEffect(() => {
     if (HERO_IMAGES.length <= 1) return undefined;
@@ -1161,12 +1095,44 @@ export default function Home() {
   return (
     <div className="relative">
       {/* Hero Section */}
-      <section id="hero" className="relative overflow-hidden bg-[#110018] text-white">
+      <section id="hero" className="relative overflow-hidden bg-[var(--vawe-navy)] text-white">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(255,43,170,0.28),transparent_45%),radial-gradient(circle_at_80%_40%,rgba(255,122,66,0.22),transparent_42%),linear-gradient(115deg,#090013_0%,#160021_55%,#0d0018_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_32%,rgba(101,239,242,0.22),transparent_48%),linear-gradient(120deg,rgba(0,56,122,1)_0%,rgba(142,69,133,0.85)_55%,rgba(0,56,122,1)_100%)]" />
+
+          {/* Left grid panel */}
+          <div
+            className="absolute inset-y-0 left-0 w-[20%] opacity-80"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(142,69,133,0.28) 1px, transparent 1px), linear-gradient(90deg, rgba(142,69,133,0.28) 1px, transparent 1px), linear-gradient(180deg, rgba(254,203,157,0.15), rgba(101,239,242,0.12))",
+              backgroundSize: "64px 64px, 64px 64px, 100% 100%",
+              WebkitMaskImage:
+                "linear-gradient(to right, rgba(0,0,0,1) 72%, rgba(0,0,0,0))",
+              maskImage:
+                "linear-gradient(to right, rgba(0,0,0,1) 72%, rgba(0,0,0,0))",
+            }}
+          />
+
+          {/* Right grid panel */}
+          <div
+            className="absolute inset-y-0 right-0 w-[20%] opacity-80"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(101,239,242,0.26) 1px, transparent 1px), linear-gradient(90deg, rgba(101,239,242,0.26) 1px, transparent 1px), linear-gradient(180deg, rgba(142,69,133,0.15), rgba(0,56,122,0.16))",
+              backgroundSize: "64px 64px, 64px 64px, 100% 100%",
+              WebkitMaskImage:
+                "linear-gradient(to left, rgba(0,0,0,1) 72%, rgba(0,0,0,0))",
+              maskImage:
+                "linear-gradient(to left, rgba(0,0,0,1) 72%, rgba(0,0,0,0))",
+            }}
+          />
+
+          {/* Accent stars */}
+          <div className="absolute left-[9%] top-[26%] h-3 w-3 rotate-45 rounded-sm bg-[var(--vawe-purple)]/80" />
+          <div className="absolute right-[8%] top-[14%] h-4 w-4 rotate-45 rounded-sm bg-[var(--vawe-teal)]/80" />
         </div>
 
-        <div className="relative container mx-auto max-w-[var(--site-max)] px-[var(--site-px)] py-16 md:py-24">
+        <div className="relative container mx-auto max-w-[var(--site-max)] px-[var(--site-px)] pb-16 pt-24 md:pb-24 md:pt-28">
           <div className="grid items-center gap-10 md:grid-cols-2">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -1178,13 +1144,6 @@ export default function Home() {
                 <span className="bg-[linear-gradient(90deg,#ff4dc3,#ff7a42)] bg-clip-text text-transparent">
                   Building with digital Brilliance
                 </span>
-                <br />
-                AI velocity for
-                <br />
-                <span className="inline-block w-[16ch] text-left text-[var(--vawe-teal)]">
-                  {typed}
-                </span>
-                <span className="ml-1 inline-block h-[1.05em] w-[6px] bg-white align-middle animate-pulse" />
               </h1>
 
               <p className="max-w-lg text-sm text-white/75 md:text-lg">
@@ -1227,7 +1186,7 @@ export default function Home() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
-              className="relative flex items-center justify-center"
+              className="relative mt-6 flex items-center justify-center md:mt-10"
             >
               <div className="relative h-[340px] w-[340px] rounded-full border-2 border-[#ff4dc3]/80 md:h-[420px] md:w-[420px]">
                 <div className="absolute inset-[14%] overflow-hidden rounded-full border border-white/20">
@@ -1242,17 +1201,17 @@ export default function Home() {
                 </div>
 
                 {[
-                  { flag: "🇮🇹", cls: "-left-3 top-[24%]" },
-                  { flag: "🇬🇷", cls: "-left-2 bottom-[22%]" },
-                  { flag: "🇪🇪", cls: "right-0 top-[12%]" },
-                  { flag: "🇵🇱", cls: "right-0 bottom-[36%]" },
-                  { flag: "🇧🇩", cls: "right-[6%] -bottom-3" },
+                  { label: "AI", cls: "-left-3 top-[24%]" },
+                  { label: "IT", cls: "-left-2 bottom-[22%]" },
+                  { label: "API", cls: "right-0 top-[12%]" },
+                  { label: "Dev", cls: "right-0 bottom-[36%]" },
+                  { label: "Ops", cls: "right-[6%] -bottom-3" },
                 ].map((item) => (
                   <div
-                    key={`${item.flag}-${item.cls}`}
-                    className={`absolute ${item.cls} flex h-12 w-12 items-center justify-center rounded-full border-2 border-white bg-black/40 text-2xl shadow-lg`}
+                    key={`${item.label}-${item.cls}`}
+                    className={`absolute ${item.cls} flex h-12 w-12 items-center justify-center rounded-full border-2 border-white bg-black/40 font-(--font-orbitron) text-[11px] font-bold tracking-tight text-white shadow-lg sm:text-xs`}
                   >
-                    {item.flag}
+                    {item.label}
                   </div>
                 ))}
               </div>
@@ -1272,28 +1231,11 @@ export default function Home() {
           </div>
           
           {/* Sliding Content Container */}
-          <div
-            ref={containerRef}
-            className="relative min-h-[550px] w-full overflow-hidden shadow-[0_-10px_30px_-10px_rgba(0,0,0,0.1)] md:h-[55vh] 3xl:min-h-[620px] 4xl:min-h-[700px]"
-          >
-            {extendedProvides.map((s, i) => {
-              const isVisible = i === provideIdx;
-              const translateX = (i - provideIdx) * 100;
+          <div className="relative min-h-[550px] w-full overflow-hidden shadow-[0_-10px_30px_-10px_rgba(0,0,0,0.1)] md:h-[55vh] 3xl:min-h-[620px] 4xl:min-h-[700px]">
+            {provides.map((s, i) => {
+              if (i !== provideIdx) return null;
               return (
-              <div
-                key={`${s.title}-${i}`}
-                className={`absolute inset-0 ${
-                  isMounted && isTransitioning
-                    ? "transition-transform duration-500 ease-in-out  "
-                    : ""
-                }`}
-                style={{
-                  transform: `translateX(${translateX}%)`,
-                  // marginTop: '-250px',
-                  willChange: isMounted ? 'transform' : 'auto',
-                  // marginBottom: '-200px',
-                }}
-              >
+              <div key={`${s.title}-${i}`} className="absolute inset-0">
                 <div className="absolute inset-0 flex flex-col items-center justify-center py-4 md:py-8 3xl:py-10">
                   <div className="container mx-auto grid max-w-[var(--site-max)] flex-1 grid-cols-1 items-center gap-4 px-[var(--site-px)] md:grid-cols-5 md:gap-8 3xl:gap-12 4xl:gap-16">
                     {/* Image - shown first on mobile, right on desktop */}
@@ -1310,8 +1252,8 @@ export default function Home() {
                           alt={s.title}
                           fill
                           className="object-cover"
-                          loading={provideIdx === i ? "eager" : "lazy"}
-                          priority={provideIdx === i && i <= 2}
+                          loading="eager"
+                          priority
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 50vw"
                         />
                       </div>
@@ -1337,33 +1279,6 @@ export default function Home() {
                         {s.subtitle}
                       </p>
 
-                      <div className="mt-3 md:mt-4 mb-8 md:mb-12 flex gap-3">
-                        <button
-                          onClick={() => setProvideIdx((prev) => prev - 1)}
-                          className="px-4 py-2 rounded-full border transition"
-                          style={{
-                            borderColor: "var(--vawe-coral)",
-                            color: "var(--vawe-coral)",
-                          }}
-                          onMouseEnter={(e) => {
-                            e.target.style.backgroundColor = "var(--vawe-coral)";
-                            e.target.style.color = "white";
-                          }}
-                          onMouseLeave={(e) => {
-                            e.target.style.backgroundColor = "transparent";
-                            e.target.style.color = "var(--vawe-coral)";
-                          }}
-                        >
-                          Prev
-                        </button>
-
-                        <button
-                          onClick={() => setProvideIdx((prev) => prev + 1)}
-                          className="px-4 py-2 rounded-full border border-[var(--vawe-teal)] text-[var(--vawe-teal)] hover:bg-[var(--vawe-teal)] hover:text-white transition"
-                        >
-                          Next
-                        </button>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -1374,13 +1289,11 @@ export default function Home() {
             {/* Pagination dots */}
             <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-20">
               {provides.map((_, i) => {
-                const isActive =
-                  i + 1 === provideIdx ||
-                  (provideIdx === provides.length + 1 && i === 0);
+                const isActive = i === provideIdx;
                 return (
                   <button
                     key={i}
-                    onClick={() => setProvideIdx(i + 1)}
+                    onClick={() => setProvideIdx(i)}
                     className={`h-2.5 w-2.5 rounded-full transition-all ${
                       isActive
                         ? "bg-[var(--vawe-navy)]"
@@ -1419,58 +1332,68 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Showcase */}
-      <Showcase />
-
-      {/* Why Choose Us */}
-      <section className="py-8 md:py-10 3xl:py-14 4xl:py-16">
+      {/* What We Deliver + Why Choose (side-by-side) */}
+      <section className="py-8 md:py-12 3xl:py-14 4xl:py-16">
         <div className="w-full px-[var(--site-px)]">
-          <div className="container mx-auto max-w-[var(--site-max)]">
-            <h3 className="font-(--font-orbitron) text-2xl font-bold md:text-3xl 3xl:text-4xl 4xl:text-5xl" style={{ background: 'var(--vawe-bg-gradient)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>Why Choose VAWE GlobalTech</h3>
-            <div className="mt-2 h-1 w-24 rounded-full md:mt-3 3xl:mt-4 3xl:w-32" style={{ background: 'var(--vawe-bg-gradient)' }} />
-            <div className="relative mt-4 overflow-hidden py-2 md:mt-6 3xl:mt-8">
-            {/* single track with duplicated items for seamless loop (no gap) */}
-            <div className="vawe-marquee flex whitespace-nowrap will-change-transform">
-              {[...[
-                "All‑in‑one digital solutions",
-                "Expert team with years of experience",
-                "Fast turnaround",
-                "Dedicated support",
-              ], ...[
-                "All‑in‑one digital solutions",
-                "Expert team with years of experience",
-                "Fast turnaround",
-                "Dedicated support",
-              ], ...[
-                "All‑in‑one digital solutions",
-                "Expert team with years of experience",
-                "Fast turnaround",
-                "Dedicated support",
-              ]].map((point, idx) => {
-                const colors = ['var(--vawe-coral)', 'var(--vawe-teal)', 'var(--vawe-navy)', 'var(--vawe-beige)'];
-                const colorIndex = idx % 4;
-                return (
-                  <div key={point+idx} className="relative mr-4 shrink-0 rounded-xl px-4 py-3 pl-6 text-sm text-neutral-800 glass gradient-border 3xl:mr-6 3xl:rounded-2xl 3xl:px-5 3xl:py-4 3xl:pl-8 3xl:text-base 4xl:text-lg" style={{ borderColor: colors[colorIndex] }}>
-                    <span className="absolute left-3 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full 3xl:left-4 3xl:h-2.5 3xl:w-2.5" style={{ backgroundColor: colors[colorIndex] }} />
-                    {point}
-                  </div>
-                );
-              })}
+          <div
+            className="container mx-auto max-w-[var(--site-max)] rounded-2xl border border-black/5 p-5 md:p-8"
+            style={{ background: "linear-gradient(90deg, rgba(0,56,122,0.05), rgba(254,203,157,0.2))" }}
+          >
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-10">
+              <div>
+                <h3 className="font-(--font-orbitron) text-4xl font-bold text-[var(--vawe-purple)] md:text-5xl">
+                  What We Deliver
+                </h3>
+                <div className="mt-5 space-y-3">
+                  {[
+                    "Strategy That Turns Ideas Into Roadmaps.",
+                    "UI/UX That Gives Life to Your Vision.",
+                    "Full-Stack Development That Powers Your Product.",
+                    "AI-Enabled Solutions to Accelerate Growth",
+                    "Branding & Digital Identity That Speaks for You",
+                    "Continuous Support & Evolution",
+                  ].map((item) => (
+                    <div key={item} className="flex items-start gap-3 text-lg leading-relaxed text-lime-700/80">
+                      <span className="text-[var(--vawe-purple)]">›</span>
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+                <a
+                  href="/services"
+                  className="mt-6 inline-flex rounded-full bg-[var(--vawe-purple)] px-5 py-2 text-xs font-semibold uppercase tracking-wide text-white"
+                >
+                  More Services
+                </a>
+              </div>
+
+              <div>
+                <h3 className="font-(--font-orbitron) text-4xl font-bold text-[var(--vawe-purple)] md:text-5xl">
+                  Why Choose VAWE GlobalTech
+                </h3>
+                <div className="mt-5 space-y-3">
+                  {[
+                    "All‑in‑one digital solutions",
+                    "Expert team with years of experience",
+                    "Fast turnaround",
+                    "Dedicated support",
+                    "Scalable delivery with long-term maintainability",
+                    "Business-focused execution from idea to launch",
+                  ].map((item) => (
+                    <div key={item} className="flex items-start gap-3 text-lg leading-relaxed text-lime-700/80">
+                      <span className="text-[var(--vawe-purple)]">›</span>
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+                <a
+                  href="/contact"
+                  className="mt-6 inline-flex rounded-full bg-[var(--vawe-purple)] px-5 py-2 text-xs font-semibold uppercase tracking-wide text-white"
+                >
+                  Contact Us
+                </a>
+              </div>
             </div>
-          </div>
-          <style jsx global>{`
-            @keyframes vawe-marquee { 
-              from { transform: translateX(0); } 
-              to { transform: translateX(-50%); } 
-            }
-            .vawe-marquee { 
-              animation: vawe-marquee 20s linear infinite;
-              will-change: transform;
-            }
-            .vawe-marquee:hover {
-              animation-play-state: paused;
-            }
-          `}</style>
           </div>
         </div>
       </section>

@@ -21,7 +21,6 @@ import Image from "next/image";
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [heroNavLight, setHeroNavLight] = useState(() => pathname === "/");
   const menuRef = useRef(null);
 
   const links = [
@@ -92,7 +91,7 @@ export default function Navbar() {
   const MenuButton = ({ href, label, Icon }) => {
     const active = pathname === href || (href === "/#services" && pathname === "/");
     return (
-      <Link href={href} className="block" style={{ fontFamily: "Times New Roman, serif" }}>
+      <Link href={href} className="block">
         <button
           type="button"
           className={`relative flex w-full items-center justify-between gap-3 rounded-xl px-1 py-3 text-left text-base font-semibold transition 3xl:text-lg 4xl:text-xl ${
@@ -150,42 +149,22 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [open]);
 
-  // White nav text while the home hero (#hero) is behind the header
-  useEffect(() => {
-    if (pathname !== "/") return;
-
-    const headerOffset = 72;
-    function syncHeroNav() {
-      const el = document.getElementById("hero");
-      if (!el) {
-        setHeroNavLight(false);
-        return;
-      }
-      const { bottom } = el.getBoundingClientRect();
-      setHeroNavLight(bottom > headerOffset);
-    }
-
-    const frameId = window.requestAnimationFrame(syncHeroNav);
-    window.addEventListener("scroll", syncHeroNav, { passive: true });
-    window.addEventListener("resize", syncHeroNav);
-    return () => {
-      window.cancelAnimationFrame(frameId);
-      window.removeEventListener("scroll", syncHeroNav);
-      window.removeEventListener("resize", syncHeroNav);
-    };
-  }, [pathname]);
-
-  const navIsLight = pathname === "/" && heroNavLight;
+  // Keep navbar in a fixed white style on all pages.
+  const navIsLight = false;
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 backdrop-blur transition-colors duration-300 ${
-        navIsLight
-          ? "border-b border-neutral-500/55 bg-gradient-to-b from-[#000b1d]/92 via-[#000b1d]/55 to-transparent"
-          : "bg-gradient-to-b from-white/80 via-white/60 to-transparent"
-      }`}
-      style={{ fontFamily: "Times New Roman, serif" }}
+      className="fixed top-0 left-0 right-0 z-50 border-b border-white bg-white transition-colors duration-300"
+      style={{ fontFamily: "var(--font-orbitron), system-ui, sans-serif" }}
     >
+      <div className="w-full px-4 py-1" style={{ background: "var(--vawe-bg-gradient)" }}>
+        <p
+          className="text-center text-[11px] font-medium tracking-[0.08em] text-white sm:text-xs"
+          style={{ fontFamily: "Arial, Helvetica, sans-serif" }}
+        >
+          VAWE Technologies, Vijayawada
+        </p>
+      </div>
       <div className="container-vawe flex w-full max-w-none items-center justify-between gap-2 py-2.5 md:gap-3 md:py-3 xl:gap-4">
         <Link href="/" className="flex shrink-0 items-center gap-2 sm:gap-3 3xl:gap-4">
           <div
@@ -216,14 +195,7 @@ export default function Navbar() {
         </nav>
 
         <div className="flex shrink-0 items-center gap-1.5 md:gap-2">
-          <a
-            href="tel:+918885103333"
-            aria-label="Call VAWE Global Tech"
-            className="hidden items-center gap-1.5 whitespace-nowrap rounded-full bg-slate-900 px-2.5 py-1.5 text-xs font-semibold text-white shadow-lg shadow-slate-900/20 transition hover:-translate-y-0.5 hover:shadow-xl lg:flex xl:gap-2 xl:px-4 xl:py-2 xl:text-sm 2xl:text-base 3xl:px-5 3xl:py-2.5 3xl:text-lg 4xl:text-xl"
-          >
-            <Phone className="h-3.5 w-3.5 shrink-0 xl:h-[var(--icon-nav)] xl:w-[var(--icon-nav)]" />
-            <span>Call Us</span>
-          </a>
+
           <button
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
@@ -243,7 +215,7 @@ export default function Navbar() {
       {open && (
         <div className="fixed inset-0 z-40" role="dialog" aria-modal="true">
           <div className="absolute inset-0 bg-slate-900/70 backdrop-blur-sm" />
-          <div className="absolute top-[80px] right-0 w-full max-w-md px-6" ref={menuRef}>
+          <div className="absolute top-[104px] right-0 w-full max-w-md px-6" ref={menuRef}>
             <div className="max-h-[calc(100vh-120px)] overflow-y-auto rounded-3xl border border-white/10 bg-white/95 p-6 shadow-2xl">
               <div className="mb-4 flex items-center justify-between border-b border-slate-200 pb-3">
                 <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>

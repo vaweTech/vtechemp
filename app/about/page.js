@@ -703,40 +703,85 @@ export default function About() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-9 gap-3 md:gap-4 lg:gap-6 mb-12">
-            {[
-              { icon: Award, label: "ISO Certified", accent: "var(--vawe-teal)", desc: "Quality Management" },
-              { icon: BadgeCheck, label: "MSME Registered", accent: "var(--vawe-navy)", desc: "Small Business" },
-              { icon: ShieldCheck, label: "APSCHE", accent: "var(--vawe-coral)", desc: "Education Approved" },
-              { icon: Medal, label: "AICTE", accent: "var(--vawe-beige)", desc: "Technical Excellence" },
-              { icon: Monitor, label: "Microsoft", accent: "var(--vawe-teal)", desc: "Technology Partner" },
-              { icon: Network, label: "Cisco", accent: "var(--vawe-navy)", desc: "Network Solutions" },
-              { icon: Settings, label: "Bosch", accent: "var(--vawe-coral)", desc: "Innovation Partner" },
-              { icon: Server, label: "IBM", accent: "var(--vawe-beige)", desc: "Enterprise Solutions" },
-              { icon: Mail, label: "Postal Department", accent: "var(--vawe-teal)", desc: "Government Partner" },
-            ].map((item, index) => (
-              <motion.div
-                key={item.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="flex flex-col items-center text-center"
-              >
-                <div
-                  className="grid h-8 w-8 md:h-10 md:w-10 lg:h-14 lg:w-14 place-items-center rounded-lg md:rounded-xl lg:rounded-2xl text-white mb-2 md:mb-3 lg:mb-4"
-                  style={{ backgroundColor: item.accent }}
-                >
-                  <item.icon size={16} className="md:w-5 md:h-5 lg:w-8 lg:h-8" />
+          <div className="relative mb-12 overflow-hidden">
+            <div className="vawe-awards-marquee flex items-stretch gap-5 md:gap-8">
+              {[
+                { icon: Award, label: "ISO Certified", accent: "var(--vawe-teal)", desc: "Quality Management" },
+                { icon: BadgeCheck, label: "MSME Registered", accent: "var(--vawe-navy)", desc: "Small Business" },
+                { icon: ShieldCheck, label: "APSCHE", accent: "var(--vawe-coral)", desc: "Education Approved" },
+                { icon: Medal, label: "AICTE", accent: "var(--vawe-beige)", desc: "Technical Excellence" },
+                { icon: Monitor, label: "Microsoft", accent: "var(--vawe-teal)", desc: "Technology Partner" },
+                { icon: Network, label: "Cisco", accent: "var(--vawe-navy)", desc: "Network Solutions" },
+                { icon: Settings, label: "Bosch", accent: "var(--vawe-coral)", desc: "Innovation Partner" },
+                { icon: Server, label: "IBM", accent: "var(--vawe-beige)", desc: "Enterprise Solutions" },
+                { icon: Mail, label: "Postal Department", accent: "var(--vawe-teal)", desc: "Government Partner" },
+              ].map((item, index) => (
+                <div key={`${item.label}-${index}`} className="flex w-[120px] shrink-0 flex-col items-center text-center md:w-[140px]">
+                  <div
+                    className="grid h-8 w-8 md:h-10 md:w-10 lg:h-14 lg:w-14 place-items-center rounded-lg md:rounded-xl lg:rounded-2xl text-white mb-2 md:mb-3 lg:mb-4"
+                    style={{ backgroundColor: item.accent }}
+                  >
+                    <item.icon size={16} className="md:w-5 md:h-5 lg:w-8 lg:h-8" />
+                  </div>
+                  <h3 className="text-[10px] md:text-xs lg:text-sm font-bold mb-0.5 md:mb-1" style={{ color: "var(--vawe-navy)" }}>
+                    {item.label}
+                  </h3>
+                  <p className="text-[8px] md:text-[9px] lg:text-[10px] text-neutral-600 leading-tight">
+                    {item.desc}
+                  </p>
                 </div>
-                <h3 className="text-[10px] md:text-xs lg:text-sm font-bold mb-0.5 md:mb-1" style={{ color: "var(--vawe-navy)" }}>
-                  {item.label}
-                </h3>
-                <p className="text-[8px] md:text-[9px] lg:text-[10px] text-neutral-600 leading-tight">
-                  {item.desc}
-                </p>
-              </motion.div>
-            ))}
+              ))}
+
+              {[
+                { icon: Award, label: "ISO Certified", accent: "var(--vawe-teal)", desc: "Quality Management" },
+                { icon: BadgeCheck, label: "MSME Registered", accent: "var(--vawe-navy)", desc: "Small Business" },
+                { icon: ShieldCheck, label: "APSCHE", accent: "var(--vawe-coral)", desc: "Education Approved" },
+                { icon: Medal, label: "AICTE", accent: "var(--vawe-beige)", desc: "Technical Excellence" },
+                { icon: Monitor, label: "Microsoft", accent: "var(--vawe-teal)", desc: "Technology Partner" },
+                { icon: Network, label: "Cisco", accent: "var(--vawe-navy)", desc: "Network Solutions" },
+                { icon: Settings, label: "Bosch", accent: "var(--vawe-coral)", desc: "Innovation Partner" },
+                { icon: Server, label: "IBM", accent: "var(--vawe-beige)", desc: "Enterprise Solutions" },
+                { icon: Mail, label: "Postal Department", accent: "var(--vawe-teal)", desc: "Government Partner" },
+              ].map((item, index) => (
+                <div key={`${item.label}-${index}-dup`} className="flex w-[120px] shrink-0 flex-col items-center text-center md:w-[140px]">
+                  <div
+                    className="grid h-8 w-8 md:h-10 md:w-10 lg:h-14 lg:w-14 place-items-center rounded-lg md:rounded-xl lg:rounded-2xl text-white mb-2 md:mb-3 lg:mb-4"
+                    style={{ backgroundColor: item.accent }}
+                  >
+                    <item.icon size={16} className="md:w-5 md:h-5 lg:w-8 lg:h-8" />
+                  </div>
+                  <h3 className="text-[10px] md:text-xs lg:text-sm font-bold mb-0.5 md:mb-1" style={{ color: "var(--vawe-navy)" }}>
+                    {item.label}
+                  </h3>
+                  <p className="text-[8px] md:text-[9px] lg:text-[10px] text-neutral-600 leading-tight">
+                    {item.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <style jsx global>{`
+              @keyframes vawe-awards-marquee {
+                from {
+                  transform: translateX(0);
+                }
+                to {
+                  transform: translateX(-50%);
+                }
+              }
+              .vawe-awards-marquee {
+                width: max-content;
+                animation: vawe-awards-marquee 22s linear infinite;
+              }
+              .vawe-awards-marquee:hover {
+                animation-play-state: paused;
+              }
+              @media (prefers-reduced-motion: reduce) {
+                .vawe-awards-marquee {
+                  animation: none;
+                }
+              }
+            `}</style>
           </div>
 
           {/* <motion.div
