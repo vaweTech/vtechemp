@@ -1218,7 +1218,7 @@ export default function Home() {
           {/* Fixed Title */}
           <div className="py-4 text-center md:py-6 3xl:py-8">
             <h2 className="mb-2 font-(--font-orbitron) text-2xl font-bold text-[var(--vawe-navy)] sm:text-3xl md:mb-3 md:text-5xl 3xl:text-6xl 4xl:text-7xl">
-              What We Do
+              What We Do <span className="text-yellow-600">!</span> 
             </h2>
           </div>
           

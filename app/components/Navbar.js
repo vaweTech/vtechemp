@@ -153,13 +153,10 @@ export default function Navbar() {
   const navIsLight = false;
 
   return (
-    <header
-      className="fixed top-0 left-0 right-0 z-50 border-b border-white bg-white transition-colors duration-300"
-      style={{ fontFamily: "var(--font-orbitron), system-ui, sans-serif" }}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-white bg-white font-sans transition-colors duration-300">
       <div className="w-full px-4 py-1" style={{ background: "var(--vawe-bg-gradient)" }}>
         <p className="text-center text-[11px] font-semibold tracking-wide text-white sm:text-xs">
-          VAWE Technologies, Vijayawada
+          VAWE Technologies
         </p>
       </div>
       <div className="container-vawe flex w-full max-w-none items-center justify-between gap-2 py-2.5 md:gap-3 md:py-3 xl:gap-4">
